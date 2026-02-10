@@ -182,6 +182,7 @@
     <ClCompile Include="Ffield.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="LightObject.cpp" />
@@ -202,6 +203,9 @@
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerObject.cpp" />
+    <ClCompile Include="PlayerStateIdle.cpp" />
+    <ClCompile Include="PlayerStateJump.cpp" />
+    <ClCompile Include="PlayerStateMove.cpp" />
     <ClCompile Include="PlayroomScene.cpp" />
     <ClCompile Include="polygon.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -257,6 +261,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="HingeJointComponent.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="InputSystem.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="KomaComponent.h" />
     <ClInclude Include="LightComponent.h" />
@@ -285,6 +290,11 @@
     <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerObject.h" />
+    <ClInclude Include="PlayerStateIdle.h" />
+    <ClInclude Include="PlayerStateInterface.h" />
+    <ClInclude Include="PlayerStateJump.h" />
+    <ClInclude Include="PlayerStateManagerComponent.h" />
+    <ClInclude Include="PlayerStateMove.h" />
     <ClInclude Include="PlayroomScene.h" />
     <ClInclude Include="polygon.h" />
     <ClInclude Include="Quaternion.h" />

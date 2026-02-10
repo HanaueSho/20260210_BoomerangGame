@@ -1,0 +1,139 @@
+/*
+	PlayerStateManagerComponent.h
+	20260210  hanaue sho
+	プレイヤーキャラクターのステートパターン
+*/
+#ifndef PLAYERSTATEMANAGERCOMPONENT_H_
+#define PLAYERSTATEMANAGERCOMPONENT_H_
+#include <cassert>
+#include "Component.h"
+#include "GameObject.h"
+#include "CharacterControllerComponent.h"
+#include "PlayerStateInterface.h"
+#include "PlayerStateIdle.h"
+#include "PlayerStateMove.h"
+#include "PlayerStateJump.h"
+
+
+enum class PlayerStateId
+{
+	Idle, // 待機
+	Move, // 移動
+	Jump, // ジャンプ
+	Aim,  // 狙う
+};
+
+class PlayerStateManagerComponent : public Component
+{
+private:
+	// 現在のステート
+	PlayerStateInterface* m_CurrentState = nullptr;
+	PlayerStateId m_CurrentId = PlayerStateId::Idle;
+	// State実体
+	PlayerStateIdle m_StateIdle;
+	PlayerStateMove m_StateMove;
+	PlayerStateJump m_StateJump;
+
+	// コンポーネントポインタ
+	CharacterControllerComponent* m_pController = nullptr;
+public:
+	// ----- ライフライクル -----
+	void Init() override
+	{
+		m_pController = Owner()->GetComponent<CharacterControllerComponent>();
+	}
+	void Update(float dt) override
+	{
+		assert(m_CurrentState && "PlayerStateManagerComponent: m_CurrentState is null. Call SetStateInitial() before Update().");
+		if (!m_CurrentState) return;
+		m_CurrentState->Update(*this, dt);
+		DebugPrintfState();
+	}
+	void FixedUpdate(float fixedDt) override
+	{
+		assert(m_CurrentState && "PlayerStateManagerComponent: m_CurrentState is null. Call SetStateInitial() before FixedUpdate().");
+		if (!m_CurrentState) return;
+		m_CurrentState->FixedUpdate(*this, fixedDt);
+	}
+
+	// ステートの初期化
+	void SetStateInitial(PlayerStateId id)
+	{
+		if (m_CurrentState) return; // ２重初期化防止
+		PlayerStateInterface* newState = ResolveStateId(id);
+		SetStateInitial(newState);
+	}
+	// ステートの切り替え
+	void ChangeState(PlayerStateId id)
+	{
+		PlayerStateInterface* newState = ResolveStateId(id);
+		bool success = ChangeState(newState);
+		if (success) SetStateId(id);
+	}
+
+	// ゲッター
+	CharacterControllerComponent* GetCC() { return m_pController; }
+
+private:	
+	PlayerStateInterface* ResolveStateId(PlayerStateId id)
+	{
+		switch (id)
+		{
+		case PlayerStateId::Idle:
+			return &m_StateIdle;
+		case PlayerStateId::Move:
+			return &m_StateMove;
+		case PlayerStateId::Jump:
+			return &m_StateJump;
+		case PlayerStateId::Aim:
+			// return &m_StateAim;
+		default:
+			assert(false && "Unknown PlayerStateId");
+			return nullptr;
+		}
+	}
+	void SetStateInitial(PlayerStateInterface* state)
+	{
+		assert(state && "PlayerStateManagerComponent: initial state is null.");
+		m_CurrentState = state;
+		m_CurrentState->Enter(*this);
+	}
+	bool ChangeState(PlayerStateInterface* newState)
+	{
+		if (!newState) return false;
+		if (m_CurrentState == newState) return false;
+
+		if (m_CurrentState)
+			m_CurrentState->Exit(*this); // 終了処理
+		m_CurrentState = newState;
+		m_CurrentState->Enter(*this); // 開始処理
+		return true;
+	}
+	void SetStateId(PlayerStateId id)
+	{
+		m_CurrentId = id;
+	}
+	void DebugPrintfState()
+	{
+		switch (m_CurrentId)
+		{
+		case PlayerStateId::Idle:
+			printf("[PlayerState]: Idle\n");
+			break;
+		case PlayerStateId::Move:
+			printf("[PlayerState]: Move\n");
+			break;
+		case PlayerStateId::Jump:
+			printf("[PlayerState]: Jump\n");
+			break;
+		case PlayerStateId::Aim:
+			printf("[PlayerState]: Aim\n");
+			break;
+		default:
+			printf("[PlayerState]: NoState\n");
+			return;
+		}
+	}
+};
+
+#endif

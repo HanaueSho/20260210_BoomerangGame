@@ -97,7 +97,7 @@ void CharacterControllerComponent::FixedUpdate(float fixedDt)
 	if (m_Grounded) // 着地中
 	{
 		m_CoyoteTimer = m_Settings.coyoteTime;
-		m_AirJumpsUsed = 0;
+ 		m_AirJumpsUsed = 0;
 	}
 	else // 落下中（コヨーテタイマー消費）
 	{

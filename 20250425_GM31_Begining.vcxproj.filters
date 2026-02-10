@@ -106,6 +106,18 @@
     <Filter Include="ソース ファイル\1.フレームワーク\Component\Sprite">
       <UniqueIdentifier>{80b69607-63d3-4731-beba-a868cfe47c70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\6.ゲームコンポーネント">
+      <UniqueIdentifier>{f182086a-df87-4965-a06e-91f1099fdd3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\6.ゲームコンポーネント\PlayerObject">
+      <UniqueIdentifier>{d7009f93-c1fb-482b-beb9-678ef07a5d3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern">
+      <UniqueIdentifier>{5b077db5-cd19-44df-afd2-42a937159623}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes">
+      <UniqueIdentifier>{c9826197-6f5c-4d99-adbf-c4e0053e71df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioSource.cpp">
@@ -240,9 +252,6 @@
     <ClCompile Include="CubeObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\PrimitiveObject</Filter>
     </ClCompile>
-    <ClCompile Include="AppleGenerator.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="CharacterControllerComponent.cpp">
       <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem</Filter>
     </ClCompile>
@@ -251,6 +260,21 @@
     </ClCompile>
     <ClCompile Include="ModelAnimeObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\PrimitiveObject</Filter>
+    </ClCompile>
+    <ClCompile Include="AppleGenerator.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateIdle.cpp">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateJump.cpp">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateMove.cpp">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
+    </ClCompile>
+    <ClCompile Include="InputSystem.cpp">
+      <Filter>ソース ファイル\3.汎用ヘルパ</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -499,6 +523,24 @@
     </ClInclude>
     <ClInclude Include="SpriteAnimationComponent.h">
       <Filter>ソース ファイル\1.フレームワーク\Component\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateManagerComponent.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateInterface.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateMove.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateIdle.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateJump.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSystem.h">
+      <Filter>ソース ファイル\3.汎用ヘルパ</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

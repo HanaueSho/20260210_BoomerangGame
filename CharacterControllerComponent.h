@@ -4,6 +4,8 @@
 	キャラクター制御用コンポーネント
 	PhysicsSystem と連携して移動を担う
 */
+#ifndef CHARACTERCONTROLLERCOMPONENT_H_
+#define CHARACTERCONTROLLERCOMPONENT_H_
 #include "Component.h"
 #include "Vector3.h"
 
@@ -90,7 +92,7 @@ private:
 
 	Vector3 m_DesiredVelocity{}; // 入力由来の目標速度( m_MoveInputWorld * maxSpeed )
 	Vector3 m_CurrentVelocity{}; // 慣性後の水平速度
-	float   m_VerticalVelocity;  // 垂直速度
+	float   m_VerticalVelocity = 0.0f;  // 垂直速度
 	Vector3 m_ActualVelocity{};  // 実移動速度
 	Vector3 m_PrevPosition{};	 // actualVelocity 計算用
 
@@ -186,6 +188,8 @@ private:
 	// ==================================================
 	void UpdateFacing(float fixedDt);
 };
+
+#endif
 
 /*
 【備忘録】
