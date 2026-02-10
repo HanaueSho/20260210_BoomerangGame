@@ -1,0 +1,551 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{2cc5220f-36a2-488b-ab9e-9a4a537d428f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Polygone">
+      <UniqueIdentifier>{2edb1315-6924-445f-afee-e4b2ba73be53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\0.メイン">
+      <UniqueIdentifier>{07db0d29-8168-472a-a8ab-f15a78631e34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\4.デバッグ">
+      <UniqueIdentifier>{cf8e8413-c956-43e9-b9a7-eb049e801aa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト">
+      <UniqueIdentifier>{24a0c6a2-396c-4336-ae34-f439af76c23d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object">
+      <UniqueIdentifier>{99863da6-5361-4be0-a4be-a01597025bf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Component">
+      <UniqueIdentifier>{02e819a7-90e9-470f-b17a-c2c398bdfd19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク">
+      <UniqueIdentifier>{ee84dad4-79c7-470a-a8b6-f92c46fbd89f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\Audio">
+      <UniqueIdentifier>{56274135-c464-4b8d-8f38-5ec8230c8119}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\Input">
+      <UniqueIdentifier>{5d48a757-495f-4f18-ad70-ace8b589564e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\PhysicsSystem">
+      <UniqueIdentifier>{a679b3d2-e59b-4d2a-b530-0358f6afd6d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\Renderer">
+      <UniqueIdentifier>{d7729a3b-fa18-4eee-9da0-44921ef1f6b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\VecMatQua">
+      <UniqueIdentifier>{6bca3e98-1a8e-4de6-bb65-d6336984dfb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\Manager">
+      <UniqueIdentifier>{b311934b-874d-445c-ab43-974894530475}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\Manager\Scene">
+      <UniqueIdentifier>{c77984f1-e051-4d14-a2f8-50ecc238a235}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\Camera">
+      <UniqueIdentifier>{6dfa67aa-a3fc-4949-b51e-8b30eac3e7ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\2.汎用コンポーネント">
+      <UniqueIdentifier>{2f44c924-6e94-4d9f-a92b-04575700791e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\3.汎用ヘルパ">
+      <UniqueIdentifier>{480bcd5c-1a21-4612-8979-c0290cbbae8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\Component">
+      <UniqueIdentifier>{9df48178-da70-4748-86f1-12ba5ade17e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\Component\Mesh">
+      <UniqueIdentifier>{12447d49-4c5c-4e03-a7a7-5a281c9bf430}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\Component\Material">
+      <UniqueIdentifier>{dca6783c-5e25-41fb-93a0-d224e3f4468a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\Component\Camera">
+      <UniqueIdentifier>{bc3461f3-670b-4371-9204-32efe1ba0985}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\Component\Transform">
+      <UniqueIdentifier>{0adab294-4432-428c-8041-7e3eaa317cc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\GameObject">
+      <UniqueIdentifier>{89973c83-a6a9-42ff-9cb7-c581570fec19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\Texture">
+      <UniqueIdentifier>{7d3f6a84-c005-4488-97d4-4eb616e4520e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\Component\Light">
+      <UniqueIdentifier>{396469b6-489b-4814-95ac-f6ac2d8d6cb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\Component\Debug">
+      <UniqueIdentifier>{10dfd000-3196-4127-a2f7-366fbe7bfaa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\PhysicsSystem\Joint">
+      <UniqueIdentifier>{535492b2-ae4d-47f8-8b1c-e3589fd987cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\Model">
+      <UniqueIdentifier>{b3f68668-b3dc-460e-a368-2d9dfd1b6e50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\PrimitiveObject">
+      <UniqueIdentifier>{1f719945-0cb4-4844-9048-aa087ececd50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\1.フレームワーク\Component\Sprite">
+      <UniqueIdentifier>{80b69607-63d3-4731-beba-a868cfe47c70}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AudioSource.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>ソース ファイル\0.メイン</Filter>
+    </ClCompile>
+    <ClCompile Include="modelRenderer.cpp">
+      <Filter>ソース ファイル\Polygone</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="polygon.cpp">
+      <Filter>ソース ファイル\Polygone</Filter>
+    </ClCompile>
+    <ClCompile Include="Result.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Title.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioSystem.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioClip.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioBank.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsSystem.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Mnager.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraMove.cpp">
+      <Filter>ソース ファイル\2.汎用コンポーネント</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshFactory.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SwapChainManager.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="DxDevice.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugCount.cpp">
+      <Filter>ソース ファイル\4.デバッグ</Filter>
+    </ClCompile>
+    <ClCompile Include="LightManager.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Component\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="LightObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Ffield.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugRenderer.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelLoader.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatorComponent.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneManager.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="SkinMatrixProviderComponent.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SandbagObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="AppleObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\PrimitiveObject</Filter>
+    </ClCompile>
+    <ClCompile Include="NorenObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\PrimitiveObject</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayroomScene.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\PrimitiveObject</Filter>
+    </ClCompile>
+    <ClCompile Include="AppleGenerator.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterControllerComponent.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\PrimitiveObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelAnimeObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\PrimitiveObject</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Vector3.h">
+      <Filter>ソース ファイル\1.フレームワーク\VecMatQua</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4x4.h">
+      <Filter>ソース ファイル\1.フレームワーク\VecMatQua</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>ソース ファイル\1.フレームワーク\VecMatQua</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioClip.h">
+      <Filter>ソース ファイル\1.フレームワーク\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioSource.h">
+      <Filter>ソース ファイル\1.フレームワーク\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioSystem.h">
+      <Filter>ソース ファイル\1.フレームワーク\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>ソース ファイル\1.フレームワーク\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderComponent.h">
+      <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ContactManifold.h">
+      <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsSystem.h">
+      <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidbodyComponent.h">
+      <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioBank.h">
+      <Filter>ソース ファイル\1.フレームワーク\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>ソース ファイル\1.フレームワーク\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>ソース ファイル\1.フレームワーク\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>ソース ファイル\1.フレームワーク\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="BillboardComponent.h">
+      <Filter>ソース ファイル\2.汎用コンポーネント</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugRotateComponent.h">
+      <Filter>ソース ファイル\4.デバッグ</Filter>
+    </ClInclude>
+    <ClInclude Include="Bezier.h">
+      <Filter>ソース ファイル\3.汎用ヘルパ</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraMove.h">
+      <Filter>ソース ファイル\2.汎用コンポーネント</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>ソース ファイル\1.フレームワーク\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>ソース ファイル\0.メイン</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager.h">
+      <Filter>ソース ファイル\1.フレームワーク\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Result.h">
+      <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="modelRenderer.h">
+      <Filter>ソース ファイル\Polygone</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>ソース ファイル\3.汎用ヘルパ</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>ソース ファイル\1.フレームワーク\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MathCommon.h">
+      <Filter>ソース ファイル\3.汎用ヘルパ</Filter>
+    </ClInclude>
+    <ClInclude Include="MathConversion.h">
+      <Filter>ソース ファイル\3.汎用ヘルパ</Filter>
+    </ClInclude>
+    <ClInclude Include="polygon.h">
+      <Filter>ソース ファイル\Polygone</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraComponent.h">
+      <Filter>ソース ファイル\1.フレームワーク\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialComponent.h">
+      <Filter>ソース ファイル\1.フレームワーク\Component\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshFactory.h">
+      <Filter>ソース ファイル\1.フレームワーク\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshFilterComponent.h">
+      <Filter>ソース ファイル\1.フレームワーク\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRendererComponent.h">
+      <Filter>ソース ファイル\1.フレームワーク\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>ソース ファイル\1.フレームワーク\Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>ソース ファイル\1.フレームワーク\Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>ソース ファイル\1.フレームワーク\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>ソース ファイル\1.フレームワーク\VecMatQua</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector4.h">
+      <Filter>ソース ファイル\1.フレームワーク\VecMatQua</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>ソース ファイル\1.フレームワーク\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="DxDevice.h">
+      <Filter>ソース ファイル\1.フレームワーク\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapChainManager.h">
+      <Filter>ソース ファイル\1.フレームワーク\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugCount.h">
+      <Filter>ソース ファイル\4.デバッグ</Filter>
+    </ClInclude>
+    <ClInclude Include="LightComponent.h">
+      <Filter>ソース ファイル\1.フレームワーク\Component\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="LightManager.h">
+      <Filter>ソース ファイル\1.フレームワーク\Component\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="LightObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugRenderer.h">
+      <Filter>ソース ファイル\1.フレームワーク\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="DistanceJointComponent.h">
+      <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem\Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="BallJointComponent.h">
+      <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem\Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="HingeJointComponent.h">
+      <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem\Joint</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoader.h">
+      <Filter>ソース ファイル\1.フレームワーク\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatorComponent.h">
+      <Filter>ソース ファイル\1.フレームワーク\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationClip.h">
+      <Filter>ソース ファイル\1.フレームワーク\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatorController.h">
+      <Filter>ソース ファイル\1.フレームワーク\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneManager.h">
+      <Filter>ソース ファイル\1.フレームワーク\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneObject.h">
+      <Filter>ソース ファイル\1.フレームワーク\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="SkinMatrixProviderComponent.h">
+      <Filter>ソース ファイル\1.フレームワーク\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderPose.h">
+      <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SandbagObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="NorenObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayroomScene.h">
+      <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="AppleObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\PrimitiveObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\PrimitiveObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\PrimitiveObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AppleGenerator.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SelfDestroyComponent.h">
+      <Filter>ソース ファイル\2.汎用コンポーネント</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoRotateComponent.h">
+      <Filter>ソース ファイル\2.汎用コンポーネント</Filter>
+    </ClInclude>
+    <ClInclude Include="KomaComponent.h">
+      <Filter>ソース ファイル\2.汎用コンポーネント</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterControllerComponent.h">
+      <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\PrimitiveObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelAnimeObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\PrimitiveObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRendererComponent.h">
+      <Filter>ソース ファイル\1.フレームワーク\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAnimationComponent.h">
+      <Filter>ソース ファイル\1.フレームワーク\Component\Sprite</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shader\common.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\PS_TexUnlit.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\PS_PixelLit.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\PS_PointLit.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\PS_Toon.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\VS_Lit.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\VS_Outline.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\PS_Outline.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\LightingCommon.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\PS_Debug.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\VS_Debug.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\VS_Skinned.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\VS_SkinnedOutline.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\VS_Sprite.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\PS_Sprite.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
