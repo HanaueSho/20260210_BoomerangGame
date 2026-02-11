@@ -5,6 +5,7 @@
 #ifndef INPUTSYSTEM_H_
 #define INPUTSYSTEM_H_
 #include "Keyboard.h"
+#include "Mouse.h"
 #include "Vector3.h"
 
 class InputSystem
@@ -26,6 +27,14 @@ public:
 	static bool IsJumpDownTrigger()
 	{
 		return Keyboard_IsKeyDownTrigger(KK_SPACE);
+	}
+	static bool IsAimDown()
+	{
+		return Mouse_IsClick(MS_CLICK_RIGHT);
+	}
+	static bool IsThrowDown()
+	{
+		return Mouse_IsClick(MS_CLICK_LEFT);
 	}
 	static const Vector3& GetInputMove()
 	{

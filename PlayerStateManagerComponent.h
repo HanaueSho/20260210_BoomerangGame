@@ -13,7 +13,10 @@
 #include "PlayerStateIdle.h"
 #include "PlayerStateMove.h"
 #include "PlayerStateJump.h"
+#include "PlayerStateAim.h"
+#include "PlayerStateThrow.h"
 #include "ModelAnimeObject.h"
+#include "CameraFollowComponent.h"
 
 
 enum class PlayerStateId
@@ -22,6 +25,7 @@ enum class PlayerStateId
 	Move, // 移動
 	Jump, // ジャンプ
 	Aim,  // 狙う
+	Throw,  // 投げる
 };
 
 class PlayerStateManagerComponent : public Component
@@ -34,6 +38,8 @@ private:
 	PlayerStateIdle m_StateIdle;
 	PlayerStateMove m_StateMove;
 	PlayerStateJump m_StateJump;
+	PlayerStateAim  m_StateAim;
+	PlayerStateThrow  m_StateThrow;
 
 	// カメラ
 	GameObject* m_pCamera = nullptr;
@@ -101,6 +107,20 @@ public:
 		return m_pCamera->Transform()->Right();
 	}
 
+	// カメラ制御
+	void SetCameraStateFollow()
+	{
+		if (!m_pCamera) return;
+		auto* follow = m_pCamera->GetComponent<CameraFollowComponent>();
+		follow->SetStateFollow();
+	}
+	void SetCameraStateAim()
+	{
+		if (!m_pCamera) return;
+		auto* follow = m_pCamera->GetComponent<CameraFollowComponent>();
+		follow->SetStateAim();
+	}
+
 private:	
 	PlayerStateInterface* ResolveStateId(PlayerStateId id)
 	{
@@ -113,7 +133,10 @@ private:
 		case PlayerStateId::Jump:
 			return &m_StateJump;
 		case PlayerStateId::Aim:
-			// return &m_StateAim;
+			return &m_StateAim;
+		case PlayerStateId::Throw:
+			return &m_StateThrow;
+
 		default:
 			assert(false && "Unknown PlayerStateId");
 			return nullptr;

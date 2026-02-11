@@ -282,6 +282,12 @@
     <ClCompile Include="CameraFollowComponent.cpp">
       <Filter>ソース ファイル\1.フレームワーク\Component\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerStateAim.cpp">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateThrow.cpp">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vector3.h">
@@ -553,6 +559,12 @@
     </ClInclude>
     <ClInclude Include="CameraFollowComponent.h">
       <Filter>ソース ファイル\1.フレームワーク\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateAim.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateThrow.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

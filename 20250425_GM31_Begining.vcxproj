@@ -205,9 +205,11 @@
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerObject.cpp" />
+    <ClCompile Include="PlayerStateAim.cpp" />
     <ClCompile Include="PlayerStateIdle.cpp" />
     <ClCompile Include="PlayerStateJump.cpp" />
     <ClCompile Include="PlayerStateMove.cpp" />
+    <ClCompile Include="PlayerStateThrow.cpp" />
     <ClCompile Include="PlayroomScene.cpp" />
     <ClCompile Include="polygon.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -294,11 +296,13 @@
     <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerObject.h" />
+    <ClInclude Include="PlayerStateAim.h" />
     <ClInclude Include="PlayerStateIdle.h" />
     <ClInclude Include="PlayerStateInterface.h" />
     <ClInclude Include="PlayerStateJump.h" />
     <ClInclude Include="PlayerStateManagerComponent.h" />
     <ClInclude Include="PlayerStateMove.h" />
+    <ClInclude Include="PlayerStateThrow.h" />
     <ClInclude Include="PlayroomScene.h" />
     <ClInclude Include="polygon.h" />
     <ClInclude Include="Quaternion.h" />

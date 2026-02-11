@@ -18,6 +18,9 @@ private:
 	AnimationClip m_ClipWalk;
 	AnimationClip m_ClipRun;
 	AnimationClip m_ClipJump;
+	AnimationClip m_ClipJumpAir;
+	AnimationClip m_ClipAim;
+	AnimationClip m_ClipThrow;
 	Skeleton m_Skeleton;
 	AnimatorController* m_pController = nullptr;
 	BoneManager* m_pBoneManager = nullptr;
@@ -36,6 +39,9 @@ public:
 	void SetSpeedAnime(float speed);
 	void PlayAnimeIdle();
 	void PlayAnimeJump();
+	void PlayAnimeJumpAir();
+	void PlayAnimeAim();
+	void PlayAnimeThrow();
 
 
 	// çúÇÃÉZÉbÉg

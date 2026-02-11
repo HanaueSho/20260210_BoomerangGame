@@ -17,7 +17,8 @@ private:
 	// ƒAƒjƒŠÖŒW
 	ModelAnimeObject* m_pModelAnimeObject = nullptr;
 
-	float m_SpeedParam = 0.0f;
+	// ‚¢‚ç‚È‚¢‚à‚Ì«««««
+	float m_SpeedParam = 0.0f; // ‚à‚¤‚¢‚ç‚È‚¢
 
 	// ˆÚ“®ŠÖŒW
 	Vector3 m_ForwardVector = {0, 0, 1};

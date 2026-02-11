@@ -31,6 +31,7 @@ void PlayerStateJump::Update(PlayerStateManagerComponent& manager, float dt)
 	// 空中ジャンプ
 	if (InputSystem::IsJumpDownTrigger())
 	{
+		manager.GetModelAnime()->PlayAnimeJumpAir();
 		manager.GetCC()->OnJumpPressed();
 	}
 
@@ -38,9 +39,12 @@ void PlayerStateJump::Update(PlayerStateManagerComponent& manager, float dt)
 	// 着地判定
 	if (manager.GetCC()->IsGround())
 	{
-		manager.GetModelAnime()->PlayAnimeIdle();
-		manager.GetModelAnime()->SetIsLocomotion(true);
 		manager.ChangeState(PlayerStateId::Idle);
+	}
+	// エイム遷移
+	if (InputSystem::IsAimDown())
+	{
+		manager.ChangeState(PlayerStateId::Aim);
 	}
 }
 

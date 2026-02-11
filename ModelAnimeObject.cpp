@@ -38,7 +38,10 @@ void ModelAnimeObject::Init()
 	m_ClipIdle = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Idle.fbx", m_Skeleton, 0);
 	m_ClipWalk = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Walk.fbx", m_Skeleton, 0);
 	m_ClipRun  = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Run.fbx", m_Skeleton, 0);
-	m_ClipJump = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Jump.fbx", m_Skeleton, 0);
+	m_ClipJump = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_002_Jump.fbx", m_Skeleton, 0);
+	m_ClipJumpAir = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_JumpAir.fbx", m_Skeleton, 0);
+	m_ClipAim   = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Aim.fbx", m_Skeleton, 0);
+	m_ClipThrow = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Throw.fbx", m_Skeleton, 0);
 	assert(m_ClipIdle.duration > 0.0f);
 	assert(!m_ClipIdle.tracks.empty());
 	animator->SetSkeleton(&m_Skeleton);
@@ -140,30 +143,30 @@ void ModelAnimeObject::Update(float dt)
 	}
 
 
-	if (Keyboard_IsKeyDownTrigger(KK_D1))
-	{
-		auto animator = GetComponent<AnimatorComponent>();
-		animator->CrossFadeFromCurrentPose(&m_ClipIdle, 1.0f, true);
-		animator->SetSpeed(1.0f);
-	}
-	if (Keyboard_IsKeyDownTrigger(KK_D2))
-	{
-		auto animator = GetComponent<AnimatorComponent>();
-		animator->CrossFadeFromCurrentPose(&m_ClipWalk, 1.0f, true);
-		animator->SetSpeed(1.3f);
-	}
-	if (Keyboard_IsKeyDownTrigger(KK_D3))
-	{
-		auto animator = GetComponent<AnimatorComponent>();
-		animator->CrossFadeFromCurrentPose(&m_ClipRun, 1.0f, true);
-		animator->SetSpeed(1.8f);
-	}
-	if (Keyboard_IsKeyDownTrigger(KK_D4))
-	{
-		auto animator = GetComponent<AnimatorComponent>();
-		animator->CrossFadeFromCurrentPose(&m_ClipJump, 0.2f, false);
-		animator->SetSpeed(1.0f);
-	}
+	//if (Keyboard_IsKeyDownTrigger(KK_D1))
+	//{
+	//	auto animator = GetComponent<AnimatorComponent>();
+	//	animator->CrossFadeFromCurrentPose(&m_ClipIdle, 1.0f, true);
+	//	animator->SetSpeed(1.0f);
+	//}
+	//if (Keyboard_IsKeyDownTrigger(KK_D2))
+	//{
+	//	auto animator = GetComponent<AnimatorComponent>();
+	//	animator->CrossFadeFromCurrentPose(&m_ClipWalk, 1.0f, true);
+	//	animator->SetSpeed(1.3f);
+	//}
+	//if (Keyboard_IsKeyDownTrigger(KK_D3))
+	//{
+	//	auto animator = GetComponent<AnimatorComponent>();
+	//	animator->CrossFadeFromCurrentPose(&m_ClipRun, 1.0f, true);
+	//	animator->SetSpeed(1.8f);
+	//}
+	//if (Keyboard_IsKeyDownTrigger(KK_D4))
+	//{
+	//	auto animator = GetComponent<AnimatorComponent>();
+	//	animator->CrossFadeFromCurrentPose(&m_ClipJump, 0.2f, false);
+	//	animator->SetSpeed(1.0f);
+	//}
 	/*if (Keyboard_IsKeyDown(KK_O))
 	{
 		m_SpeedParam -= 1.0f * dt; if (m_SpeedParam < 0.0f) m_SpeedParam = 0.0f;
@@ -202,6 +205,24 @@ void ModelAnimeObject::PlayAnimeJump()
 {
 	auto animator = GetComponent<AnimatorComponent>();
 	animator->CrossFadeFromCurrentPose(&m_ClipJump, 0.2f, false);
+}
+
+void ModelAnimeObject::PlayAnimeJumpAir()
+{
+	auto animator = GetComponent<AnimatorComponent>();
+	animator->CrossFadeFromCurrentPose(&m_ClipJumpAir, 0.1f, false);
+}
+
+void ModelAnimeObject::PlayAnimeAim()
+{
+	auto animator = GetComponent<AnimatorComponent>();
+	animator->CrossFadeFromCurrentPose(&m_ClipAim, 0.1f, false);
+}
+
+void ModelAnimeObject::PlayAnimeThrow()
+{
+	auto animator = GetComponent<AnimatorComponent>();
+	animator->CrossFadeFromCurrentPose(&m_ClipThrow, 0.1f, false);
 }
 
 void ModelAnimeObject::SetupBones()

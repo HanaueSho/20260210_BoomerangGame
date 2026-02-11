@@ -11,6 +11,10 @@
 void PlayerStateIdle::Enter(PlayerStateManagerComponent& manager)
 {
 	manager.GetModelAnime()->SetSpeedAnime(1.0f);
+	manager.GetModelAnime()->SetIsLocomotion(true);
+	manager.GetModelAnime()->PlayAnimeIdle();
+	// ƒJƒƒ‰§Œä
+	manager.SetCameraStateFollow();
 }
 
 void PlayerStateIdle::Update(PlayerStateManagerComponent& manager, float dt)
@@ -36,6 +40,11 @@ void PlayerStateIdle::Update(PlayerStateManagerComponent& manager, float dt)
 	if (!manager.GetCC()->IsGround())
 	{
 		manager.ChangeState(PlayerStateId::Jump);
+	}
+	// ƒGƒCƒ€‘JˆÚ
+	if (InputSystem::IsAimDown())
+	{
+		manager.ChangeState(PlayerStateId::Aim);
 	}
 }
 
