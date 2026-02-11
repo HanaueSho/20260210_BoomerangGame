@@ -33,8 +33,11 @@ public:
 	void Init() override;
 	void Update(float dt) override;
 
-	void SetPlayerObject(GameObject* player);
+	void ChangeState(State newState);
 
+	void SetPlayerObject(GameObject* player);
+	void SetHand();
+	void SetSpine();
 };
 
 
