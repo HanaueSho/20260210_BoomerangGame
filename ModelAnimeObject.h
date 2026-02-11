@@ -14,9 +14,10 @@ class AnimatorController;
 class ModelAnimeObject : public GameObject
 {
 private:
-	AnimationClip m_Clip;
-	AnimationClip m_Clip1;
-	AnimationClip m_Clip2;
+	AnimationClip m_ClipIdle;
+	AnimationClip m_ClipWalk;
+	AnimationClip m_ClipRun;
+	AnimationClip m_ClipJump;
 	Skeleton m_Skeleton;
 	AnimatorController* m_pController = nullptr;
 	BoneManager* m_pBoneManager = nullptr;
@@ -29,13 +30,20 @@ public:
 	void Uninit() override;
 	void Update(float dt) override;
 
+	// ----- 外部から呼び出されるアニメ制御 -----
+	void SetIsLocomotion(bool b);
+	void SetBlendParam(float blend);
+	void SetSpeedAnime(float speed);
+	void PlayAnimeIdle();
+	void PlayAnimeJump();
+
+
 	// 骨のセット
 	void SetupBones();
 
 	// ゲッター（これらを作るとエラーが出る）
 	const BoneManager& GetBoneManager() const { return *m_pBoneManager; }
 	const AnimatorController& GetAnimatorController() const { return *m_pController; }
-
 };
 
 #endif

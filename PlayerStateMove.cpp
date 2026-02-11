@@ -21,6 +21,11 @@ void PlayerStateMove::Update(PlayerStateManagerComponent& manager, float dt)
 	manager.GetCC()->SetMoveInput(input);
 
 
+	// ----- アニメーション管理 -----
+	float speed = manager.GetCC()->ActualVelocity().length();
+	float maxSpeed = manager.GetCC()->MaxMoveSpeed();
+	manager.GetModelAnime()->SetBlendParam(speed / maxSpeed);
+	manager.GetModelAnime()->SetSpeedAnime(speed / maxSpeed * 1.5f);
 
 	// ----- 状態遷移 -----
 	// ジャンプ遷移

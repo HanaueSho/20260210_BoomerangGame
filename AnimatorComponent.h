@@ -62,14 +62,17 @@ private:
 	// コントローラー
 	// --------------------------------------------------
 	AnimatorController* m_Controller = nullptr;
-	float m_SpeedParam = 0.0f; // コントローラー用の速度
+	float m_BlendParam = 0.0f; // コントローラー用の速度
 	float m_TimeA = 0.0f; // Blend1D 用
 	float m_TimeB = 0.0f; // Blend1D 用
 	// --------------------------------------------------
 	// 制御フラグ
 	// --------------------------------------------------
 	bool m_IsLocomotion = true;
-
+	// ==================================================
+	// ----- クロスフェード制御 -----
+	// ==================================================
+	bool m_FadeFromSnapshot = false;
 	// ==================================================
 	// ----- ボーンごとのTRS, Matrix -----
 	// ==================================================
@@ -79,6 +82,7 @@ private:
 	std::vector<LocalTRS> m_TRS_LocalPoseA;
 	std::vector<LocalTRS> m_TRS_LocalPoseB;
 	std::vector<LocalTRS> m_TRS_LocalPoseOut;
+	std::vector<LocalTRS> m_TRS_FadeFromPose; // CrossFade用のスナップショット
 	std::vector<Matrix4x4> m_LocalPoseOut;
 	// --------------------------------------------------
 	// ボーンごとの現在の合成結果姿勢
@@ -102,7 +106,7 @@ public:
 	void SetLoop(bool b)		   noexcept { m_LoopCurrent = b; }
 	void SetSpeed(float s)		   noexcept { m_Speed = s; }
 	void SetController(AnimatorController* c) noexcept { m_Controller = c; }
-	void SetSpeedParam(float s) noexcept { m_SpeedParam = s; }
+	void SetBlendParam(float s) noexcept { m_BlendParam = s;}
 	void SetIsLocomotion(bool b)   noexcept { m_IsLocomotion = b; }
 
 	// ==================================================
@@ -130,7 +134,29 @@ public:
 	void CrossFade(AnimationClip* clip, float duration, bool loop) 
 	{
 		if (!clip) return;
+
 		m_IsBlending = true;
+		m_FadeFromSnapshot = false;
+
+		m_ClipNext = clip;
+		m_TimeNext = 0.0f;
+		m_LoopNext = loop;
+		m_BlendElapsed = 0.0f;
+		m_BlendDuration = duration;
+	}
+	void CrossFadeFromCurrentPose(AnimationClip* clip, float duration, bool loop)
+	{
+		if (!clip) return;
+
+		// 現在出力からスナップショット
+		const int boneCount = (int)m_Skeleton->bones.size();
+		m_TRS_FadeFromPose = m_TRS_LocalPoseOut;
+		if ((int)m_TRS_FadeFromPose.size() != boneCount)
+			m_TRS_FadeFromPose.resize(boneCount); // 念のため
+
+		m_IsBlending = true;
+		m_FadeFromSnapshot = true;
+
 		m_ClipNext = clip;
 		m_TimeNext = 0.0f;
 		m_LoopNext = loop;

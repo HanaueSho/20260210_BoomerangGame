@@ -181,13 +181,13 @@ void ModelObject::Update(float dt)
 	{
 		m_SpeedParam -= 1.0f * dt; if (m_SpeedParam < 0.0f) m_SpeedParam = 0.0f;
 		auto animator = GetComponent<AnimatorComponent>();
-		animator->SetSpeedParam(m_SpeedParam);
+		animator->SetBlendParam(m_SpeedParam);
 	}
 	if (Keyboard_IsKeyDown(KK_P))
 	{
 		m_SpeedParam += 1.0f * dt; if (m_SpeedParam > 1.0f) m_SpeedParam = 1.0f;
 		auto animator = GetComponent<AnimatorComponent>();
-		animator->SetSpeedParam(m_SpeedParam);
+		animator->SetBlendParam(m_SpeedParam);
 	}
 
 	const float speed = 6.0f;

@@ -69,7 +69,7 @@ void PhysicsSystem::Init()
 
 	for (int i = 0; i < MaxLayers; i++)
 		m_CollisionMask[i] = 0xFFFFFFFFu; // とりあえず全部ON
-	//SetCollision(1, 2, false);
+	SetCollision(30, 31, false); // 30: モデルボーン, 31: CharacterControllerComponent
 }
 void PhysicsSystem::Shutdown()
 {

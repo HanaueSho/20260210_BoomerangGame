@@ -10,10 +10,16 @@
 
 void PlayerStateIdle::Enter(PlayerStateManagerComponent& manager)
 {
+	manager.GetModelAnime()->SetSpeedAnime(1.0f);
 }
 
 void PlayerStateIdle::Update(PlayerStateManagerComponent& manager, float dt)
 {
+	// ----- アニメーション管理 -----
+	float speed = manager.GetCC()->ActualVelocity().lengthSq();
+	float maxSpeed = manager.GetCC()->MaxMoveSpeed();
+	manager.GetModelAnime()->SetBlendParam(speed/maxSpeed);
+
 	// ----- 状態遷移 -----
 	// 移動遷移
 	if (InputSystem::IsMoveDown())

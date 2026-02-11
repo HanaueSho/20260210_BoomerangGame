@@ -36,13 +36,15 @@ void PlayerObject::Init()
 
 	// CharacterController
 	auto* cc = AddComponent<CharacterControllerComponent>();
-	cc->SetMaxMoveSpeed(10.0f);
 
 	// StatePattern
 	auto* state = AddComponent<PlayerStateManagerComponent>();
 	state->Init();
+	state->SetModelAnime(m_pModelAnimeObject);
 	state->SetStateInitial(PlayerStateId::Idle);
 
+	// ÉåÉCÉÑÅ[
+	SetPhysicsLayer(31);
 }
 
 void PlayerObject::Uninit()

@@ -210,7 +210,7 @@
     <ClCompile Include="LightObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Ffield.cpp">
+    <ClCompile Include="Field.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
     </ClCompile>
     <ClCompile Include="DebugRenderer.cpp">
@@ -275,6 +275,9 @@
     </ClCompile>
     <ClCompile Include="InputSystem.cpp">
       <Filter>ソース ファイル\3.汎用ヘルパ</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMainScene.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -541,6 +544,9 @@
     </ClInclude>
     <ClInclude Include="InputSystem.h">
       <Filter>ソース ファイル\3.汎用ヘルパ</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMainScene.h">
+      <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

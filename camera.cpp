@@ -34,41 +34,42 @@ void Camera::Update(float dt)
 {
 	GameObject::Update(dt);
 
-	if (Keyboard_IsKeyDownTrigger(KK_D7)) // 初期位置
-	{
-		Transform()->SetPosition({ 0, 10, -15 });
-		Transform()->SetEulerAngles({ 0.5, 0, 0 });
-	}
-	if (Keyboard_IsKeyDownTrigger(KK_D1)) // メッシュフィールド
-	{
-		Transform()->SetPosition({ 3, 5, -10 });
-		Transform()->SetEulerAngles({ 0.8, -0.5, 0 });
-	}
-	if (Keyboard_IsKeyDownTrigger(KK_D2)) // 回転床
-	{
-		Transform()->SetPosition({ 0, 10, 15 });
-		Transform()->SetEulerAngles({ 0.5, -0.2, 0 });
-	}
-	if (Keyboard_IsKeyDownTrigger(KK_D3)) // 坂道
-	{
-		Transform()->SetPosition({ 30, 30, 10 });
-		Transform()->SetEulerAngles({ 0.5, -0.2, 0 });
-	}
-	if (Keyboard_IsKeyDownTrigger(KK_D4)) // キャラ
-	{
-		Transform()->SetPosition({ 50, 15, -15 });
-		Transform()->SetEulerAngles({ 0.5, 0, 0 });
-	}
-	if (Keyboard_IsKeyDownTrigger(KK_D5)) // 独楽
-	{
-		Transform()->SetPosition({ 20, 10, -55 });
-		Transform()->SetEulerAngles({ 0.5, 0, 0 });
-	}
-	if (Keyboard_IsKeyDownTrigger(KK_D6)) // バウンド
-	{
-		Transform()->SetPosition({ -45, 20, -30 });
-		Transform()->SetEulerAngles({ 0.5, 0, 0 });
-	}
+	// ----- カメラ制御 -----
+	//if (Keyboard_IsKeyDownTrigger(KK_D7)) // 初期位置
+	//{
+	//	Transform()->SetPosition({ 0, 10, -15 });
+	//	Transform()->SetEulerAngles({ 0.5, 0, 0 });
+	//}
+	//if (Keyboard_IsKeyDownTrigger(KK_D1)) // メッシュフィールド
+	//{
+	//	Transform()->SetPosition({ 3, 5, -10 });
+	//	Transform()->SetEulerAngles({ 0.8, -0.5, 0 });
+	//}
+	//if (Keyboard_IsKeyDownTrigger(KK_D2)) // 回転床
+	//{
+	//	Transform()->SetPosition({ 0, 10, 15 });
+	//	Transform()->SetEulerAngles({ 0.5, -0.2, 0 });
+	//}
+	//if (Keyboard_IsKeyDownTrigger(KK_D3)) // 坂道
+	//{
+	//	Transform()->SetPosition({ 30, 30, 10 });
+	//	Transform()->SetEulerAngles({ 0.5, -0.2, 0 });
+	//}
+	//if (Keyboard_IsKeyDownTrigger(KK_D4)) // キャラ
+	//{
+	//	Transform()->SetPosition({ 50, 15, -15 });
+	//	Transform()->SetEulerAngles({ 0.5, 0, 0 });
+	//}
+	//if (Keyboard_IsKeyDownTrigger(KK_D5)) // 独楽
+	//{
+	//	Transform()->SetPosition({ 20, 10, -55 });
+	//	Transform()->SetEulerAngles({ 0.5, 0, 0 });
+	//}
+	//if (Keyboard_IsKeyDownTrigger(KK_D6)) // バウンド
+	//{
+	//	Transform()->SetPosition({ -45, 20, -30 });
+	//	Transform()->SetEulerAngles({ 0.5, 0, 0 });
+	//}
 }
 
 

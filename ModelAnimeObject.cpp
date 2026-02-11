@@ -35,19 +35,20 @@ void ModelAnimeObject::Init()
 
 	// Animator
 	auto* animator = AddComponent<AnimatorComponent>();
-	m_Clip = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Idle.fbx", m_Skeleton, 0);
-	m_Clip1 = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Walk.fbx", m_Skeleton, 0);
-	//m_Clip2 = ModelLoader::BuildAnimationClipFromFile("assets\\model\\Akai_FastRun.fbx", m_Skeleton, 0);
-	assert(m_Clip.duration > 0.0f);
-	assert(!m_Clip.tracks.empty());
+	m_ClipIdle = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Idle.fbx", m_Skeleton, 0);
+	m_ClipWalk = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Walk.fbx", m_Skeleton, 0);
+	m_ClipRun  = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Run.fbx", m_Skeleton, 0);
+	m_ClipJump = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Jump.fbx", m_Skeleton, 0);
+	assert(m_ClipIdle.duration > 0.0f);
+	assert(!m_ClipIdle.tracks.empty());
 	animator->SetSkeleton(&m_Skeleton);
-	animator->SetClip(&m_Clip);
+	animator->SetClip(&m_ClipIdle);
 	animator->SetSpeed(1.3f);
 
 	// AnimatorController
 	m_pController = new AnimatorController();
-	m_pController->m_Locomotion.clipA = &m_Clip;
-	m_pController->m_Locomotion.clipB = &m_Clip1;
+	m_pController->m_Locomotion.clipA = &m_ClipIdle;
+	m_pController->m_Locomotion.clipB = &m_ClipRun;
 	animator->SetController(m_pController);
 	animator->SetIsLocomotion(true);
 
@@ -58,7 +59,7 @@ void ModelAnimeObject::Init()
 	m_pProvider = AddComponent<SkinMatrixProviderComponent>();
 	m_pProvider->SetUp(&m_Skeleton, animator, m_pBoneManager, Transform());
 	m_pProvider->SetMode(SkinMatrixProviderComponent::Mode::Hybrid);
-	//SetupBones();
+	SetupBones();
 
 
 	// MeshRenderer
@@ -142,30 +143,65 @@ void ModelAnimeObject::Update(float dt)
 	if (Keyboard_IsKeyDownTrigger(KK_D1))
 	{
 		auto animator = GetComponent<AnimatorComponent>();
-		animator->CrossFade(&m_Clip, 5.0f, true);
+		animator->CrossFadeFromCurrentPose(&m_ClipIdle, 1.0f, true);
+		animator->SetSpeed(1.0f);
 	}
 	if (Keyboard_IsKeyDownTrigger(KK_D2))
 	{
 		auto animator = GetComponent<AnimatorComponent>();
-		animator->CrossFade(&m_Clip1, 5.0f, true);
+		animator->CrossFadeFromCurrentPose(&m_ClipWalk, 1.0f, true);
+		animator->SetSpeed(1.3f);
 	}
 	if (Keyboard_IsKeyDownTrigger(KK_D3))
 	{
 		auto animator = GetComponent<AnimatorComponent>();
-		animator->CrossFade(&m_Clip2, 5.0f, true);
+		animator->CrossFadeFromCurrentPose(&m_ClipRun, 1.0f, true);
+		animator->SetSpeed(1.8f);
 	}
-	if (Keyboard_IsKeyDown(KK_O))
+	if (Keyboard_IsKeyDownTrigger(KK_D4))
+	{
+		auto animator = GetComponent<AnimatorComponent>();
+		animator->CrossFadeFromCurrentPose(&m_ClipJump, 0.2f, false);
+		animator->SetSpeed(1.0f);
+	}
+	/*if (Keyboard_IsKeyDown(KK_O))
 	{
 		m_SpeedParam -= 1.0f * dt; if (m_SpeedParam < 0.0f) m_SpeedParam = 0.0f;
 		auto animator = GetComponent<AnimatorComponent>();
-		animator->SetSpeedParam(m_SpeedParam);
+		animator->SetBlendParam(m_SpeedParam);
 	}
 	if (Keyboard_IsKeyDown(KK_P))
 	{
 		m_SpeedParam += 1.0f * dt; if (m_SpeedParam > 1.0f) m_SpeedParam = 1.0f;
 		auto animator = GetComponent<AnimatorComponent>();
-		animator->SetSpeedParam(m_SpeedParam);
-	}
+		animator->SetBlendParam(m_SpeedParam);
+	}*/
+}
+
+void ModelAnimeObject::SetIsLocomotion(bool b)
+{
+	auto animator = GetComponent<AnimatorComponent>();
+	animator->SetIsLocomotion(b);
+}
+void ModelAnimeObject::SetBlendParam(float blend)
+{
+	auto animator = GetComponent<AnimatorComponent>();
+	animator->SetBlendParam(blend);
+}
+void ModelAnimeObject::SetSpeedAnime(float speed)
+{
+	auto animator = GetComponent<AnimatorComponent>();
+	animator->SetSpeed(speed);
+}
+void ModelAnimeObject::PlayAnimeIdle()
+{
+	auto animator = GetComponent<AnimatorComponent>();
+	animator->CrossFade(&m_ClipIdle, 0.1f, true);
+}
+void ModelAnimeObject::PlayAnimeJump()
+{
+	auto animator = GetComponent<AnimatorComponent>();
+	animator->CrossFade(&m_ClipJump, 0.2f, false);
 }
 
 void ModelAnimeObject::SetupBones()
@@ -427,6 +463,13 @@ void ModelAnimeObject::SetupBones()
 		if (i == indexUpperLegR + 1) { coll->SetCapsule(0.4f, 1.0f); coll->SetOffsetPosition({ 0, 1.10f, 0.0f }); }
 		if (i == indexUpperLegR + 2) { coll->SetCapsule(0.3f, 1.0f); coll->SetOffsetPosition({ 0, 1.00f, 0.0f }); }
 		if (i == indexUpperLegR + 3) { coll->SetCapsule(0.1f, 0.4f); coll->SetOffsetPosition({ 0, 0.60f, 0.0f }); }
+	}
+
+	//ボーンの Rigidbody のレイヤーを設定する
+	for (int i = 0; i < m_pBoneManager->GetBonesSize(); i++)
+	{
+		auto* bone = m_pBoneManager->GetBoneObject(i);
+		bone->SetPhysicsLayer(30);
 	}
 }
 

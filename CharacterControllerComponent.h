@@ -25,14 +25,14 @@ public:
 	struct Settings
 	{
 		// ----- movement -----
-		float maxSpeed = 1.0f;			// 最大移動速度
-		float acceleration = 20.0f;		// 加速度 [m/s^2]
-		float deceleration = 20.0f;		// 停止加速度 [m/s^2]
-		float turnAcceleration = 40.0f; // ターン加速度 [m/s^2]
+		float maxSpeed = 30.0f;			// 最大移動速度
+		float acceleration = 40.0f;		// 加速度 [m/s^2]
+		float deceleration = 40.0f;		// 停止加速度 [m/s^2]
+		float turnAcceleration = 50.0f; // ターン加速度 [m/s^2]
 
 		// ----- jump -----
 		float gravity   = -9.8f;
-		float jumpSpeed = 10.0f; // ジャンプ初速度
+		float jumpSpeed = 20.0f; // ジャンプ初速度
 		float gravityScaleJump = 1.5f; // 上昇中（vY > 0 かつ JumpHold 中）の重力倍率
 		float gravityScaleFall = 2.0f; // 下降中（vY <= 0）の重力倍率
 		float gravityScaleCut  = 2.5f; // 上昇中にボタン離しの重力倍率
@@ -142,6 +142,7 @@ public:
 	bool IsGround() const { return m_Grounded; }
 	const Vector3& GroundNormal() const { return m_GroundNormal; }
 	const Vector3& ActualVelocity() const { return m_ActualVelocity; }
+	float MaxMoveSpeed() const { return m_Settings.maxSpeed; }
 
 	// ==================================================
 	// セッター

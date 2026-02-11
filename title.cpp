@@ -2,14 +2,15 @@
 	Title.h
 	20250625  hanaue sho
 */
-#include "title.h"
-#include "manager.h"
+#include "Title.h"
+#include "Manager.h"
 
 #include "GameObject.h"
-#include "polygon.h"
-#include "camera.h"
-#include "keyboard.h"
-#include "game.h"
+#include "Polygon.h"
+#include "Camera.h"
+#include "Keyboard.h"
+#include "Game.h"
+#include "GameMainScene.h"
 #include "PlayroomScene.h"
 
 
@@ -34,7 +35,8 @@ void Title::Update(float dt)
 	Scene::Update(dt);
 	if (Keyboard_IsKeyDownTrigger(KK_ENTER))
 	{
-		Manager::SetScene<Game>();
+		Manager::SetScene<GameMainScene>();
+		//Manager::SetScene<Game>();
 		//Manager::SetScene<PlayroomScene>();
 	}
 }

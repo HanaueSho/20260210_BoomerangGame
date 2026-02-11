@@ -300,24 +300,39 @@ void AnimatorComponent::Update(float dt)
 	// --------------------------------------------------
 	// クロスフェード中
 	// --------------------------------------------------
-	if (m_IsBlending && m_ClipNext && m_ClipCurrent) // ブレンド中
+	if (m_IsBlending && m_ClipNext) // ブレンド中
 	{
-		const auto& clipCurrent = *m_ClipCurrent;
 		const auto& clipNext = *m_ClipNext;
 
 		// 時間経過
 		m_BlendElapsed += dt;
 		float alpha = (m_BlendDuration <= 0) ? 1 : Vector3::Clamp(m_BlendElapsed / m_BlendDuration, 0.0f, 1.0f);
 
+		// ----- B側の評価 -----
 		// 時間更新
-		AdvanceTime(dt, clipCurrent, m_LoopCurrent, m_TimeCurrent);
 		AdvanceTime(dt, clipNext, m_LoopNext, m_TimeNext);
-
 		// アニメーションのポーズ評価
-		EvaluateLocalPoseTRS(clipCurrent, m_TimeCurrent,  m_TRS_LocalPoseA);
 		EvaluateLocalPoseTRS(clipNext, m_TimeNext, m_TRS_LocalPoseB);
 
-		// ここでブレンド処理
+		// ----- A側の評価 -----
+		if (m_FadeFromSnapshot)
+		{
+			// スナップショットをそのままAにする
+			if ((int)m_TRS_FadeFromPose.size() != boneCount)
+				m_TRS_FadeFromPose.resize(boneCount);
+			m_TRS_LocalPoseA = m_TRS_FadeFromPose;
+		}
+		else
+		{
+			// クリップAから A を作る
+			if (!m_ClipCurrent) return;
+			const auto& clipCurrent = *m_ClipCurrent;
+			AdvanceTime(dt, clipCurrent, m_LoopCurrent, m_TimeCurrent);
+			EvaluateLocalPoseTRS(clipCurrent, m_TimeCurrent, m_TRS_LocalPoseA);
+		}
+
+
+		// ----- A/B をブレンドして out を作る -----
 		m_TRS_LocalPoseOut.resize(boneCount);
 		m_LocalPoseOut.resize(boneCount);
 		for (int i = 0; i < boneCount; i++)
@@ -365,7 +380,7 @@ void AnimatorComponent::Update(float dt)
 	// --------------------------------------------------
 	if (m_Controller && m_IsLocomotion)
 	{
-		const Blend1DResult r = m_Controller->EvaluateLocomotion(m_SpeedParam);
+		const Blend1DResult r = m_Controller->EvaluateLocomotion(m_BlendParam);
 		if (r.IsValid())
 		{
 			// 時間更新

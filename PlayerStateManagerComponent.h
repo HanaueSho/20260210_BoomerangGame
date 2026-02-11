@@ -13,6 +13,7 @@
 #include "PlayerStateIdle.h"
 #include "PlayerStateMove.h"
 #include "PlayerStateJump.h"
+#include "ModelAnimeObject.h"
 
 
 enum class PlayerStateId
@@ -34,8 +35,12 @@ private:
 	PlayerStateMove m_StateMove;
 	PlayerStateJump m_StateJump;
 
+	// アニメーションオブジェクトポインタ（外部参照）
+	ModelAnimeObject* m_pModelAnime = nullptr;
+
 	// コンポーネントポインタ
 	CharacterControllerComponent* m_pController = nullptr;
+	
 public:
 	// ----- ライフライクル -----
 	void Init() override
@@ -56,6 +61,7 @@ public:
 		m_CurrentState->FixedUpdate(*this, fixedDt);
 	}
 
+	// ----- 初期化セッター -----
 	// ステートの初期化
 	void SetStateInitial(PlayerStateId id)
 	{
@@ -63,7 +69,12 @@ public:
 		PlayerStateInterface* newState = ResolveStateId(id);
 		SetStateInitial(newState);
 	}
-	// ステートの切り替え
+	void SetModelAnime(ModelAnimeObject* model)
+	{
+		m_pModelAnime = model;
+	}
+
+	// ----- ステートの切り替え -----
 	void ChangeState(PlayerStateId id)
 	{
 		PlayerStateInterface* newState = ResolveStateId(id);
@@ -71,8 +82,9 @@ public:
 		if (success) SetStateId(id);
 	}
 
-	// ゲッター
+	// ----- ゲッター -----
 	CharacterControllerComponent* GetCC() { return m_pController; }
+	ModelAnimeObject* GetModelAnime() { return m_pModelAnime; }
 
 private:	
 	PlayerStateInterface* ResolveStateId(PlayerStateId id)

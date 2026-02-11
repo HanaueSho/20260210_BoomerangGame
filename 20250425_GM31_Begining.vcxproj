@@ -179,8 +179,9 @@
     <ClCompile Include="DebugRenderer.cpp" />
     <ClCompile Include="DxDevice.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Ffield.cpp" />
+    <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameMainScene.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="Keyboard.cpp" />
@@ -258,6 +259,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameMainScene.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="HingeJointComponent.h" />
     <ClInclude Include="Input.h" />

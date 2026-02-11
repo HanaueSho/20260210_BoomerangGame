@@ -12,6 +12,9 @@
 
 void PlayerStateJump::Enter(PlayerStateManagerComponent& manager)
 {
+	manager.GetModelAnime()->PlayAnimeJump();
+	manager.GetModelAnime()->SetIsLocomotion(false);
+	manager.GetModelAnime()->SetSpeedAnime(2.0f);
 }
 
 void PlayerStateJump::Update(PlayerStateManagerComponent& manager, float dt)
@@ -31,6 +34,8 @@ void PlayerStateJump::Update(PlayerStateManagerComponent& manager, float dt)
 	// ’…’n”»’è
 	if (manager.GetCC()->IsGround())
 	{
+		manager.GetModelAnime()->PlayAnimeIdle();
+		manager.GetModelAnime()->SetIsLocomotion(true);
 		manager.ChangeState(PlayerStateId::Idle);
 	}
 }
