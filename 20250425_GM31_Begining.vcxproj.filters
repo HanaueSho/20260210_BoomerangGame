@@ -277,7 +277,10 @@
       <Filter>ソース ファイル\3.汎用ヘルパ</Filter>
     </ClCompile>
     <ClCompile Include="GameMainScene.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraFollowComponent.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Component\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -547,6 +550,9 @@
     </ClInclude>
     <ClInclude Include="GameMainScene.h">
       <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraFollowComponent.h">
+      <Filter>ソース ファイル\1.フレームワーク\Component\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

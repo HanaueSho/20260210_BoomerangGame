@@ -20,7 +20,7 @@ void Field::Init()
 	for (int i = 0; i < 100 * 100; i++) heights.push_back(0.0f);
 	for (int i = 0; i < 100 * 100; i++) if (i % 1 == 0) heights[i] = Random::RandomRangeStepped(0.0f, 2.0f, 0.1f);
 	auto* mf = AddComponent<MeshFilterComponent>();
-	MeshFactory::CreateMeshField(mf, { 100, 100, 10.0f, 10.0f, heights, true});
+	MeshFactory::CreateMeshField(mf, { 100, 100, 20.0f, 20.0f, heights, true});
 
 	// 3) Material を追加（シェーダ/テクスチャ/マテリアル）
 	auto* mat = AddComponent<MaterialComponent>();
@@ -51,7 +51,7 @@ void Field::Init()
 
 	// 当たり判定追加
 	Collider* coll = AddComponent<Collider>();
-	coll->SetMeshField(100, 100, 10.0f, 10.0f, heights);
+	coll->SetMeshField(100, 100, 20.0f, 20.0f, heights);
 	//coll->SetSphere(1);
 	coll->SetModeSimulate();
 

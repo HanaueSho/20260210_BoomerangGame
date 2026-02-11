@@ -8,17 +8,19 @@
 #include "keyboard.h"
 #include "result.h"
 
-#include "polygon.h"
-#include "field.h"
-#include "camera.h"
-#include "player.h"
-#include "enemy.h"
+#include "Polygon.h"
+#include "Field.h"
+#include "Player.h"
+#include "Enemy.h"
 #include "LightObject.h"
 #include "ModelObject.h"
 #include "AppleObject.h"
 #include "PlayerObject.h"
 #include "SandbagObject.h"
 #include "NorenObject.h"
+#include "CameraFollowComponent.h"
+#include "PlayerStateManagerComponent.h"
+#include "Camera.h"
 
 #include "AudioSource.h"
 #include "AudioBank.h"
@@ -37,6 +39,7 @@ void GameMainScene::Init()
 			SetPerspective(DirectX::XMConvertToRadians(60.0f), (float)SCREEN_WIDTH / SCREEN_HEIGHT, 0.1f, 1000.0f);
 		pCamera->Transform()->SetPosition({ 0, 5, -15 });
 		pCamera->Transform()->SetEulerAngles({ 0.5, 0, 0 });
+		pCamera->AddComponent<CameraFollowComponent>();
 
 		auto* as = pCamera->AddComponent<AudioSource>();
 		AudioBank::Pin("assets\\audio\\BGMresult.wav");
@@ -71,6 +74,11 @@ void GameMainScene::Init()
 	// プレイヤー -----
 	PlayerObject* pPlayer = AddGameObject<PlayerObject>(1);
 	pPlayer->Init();
+	auto* psm = pPlayer->GetComponent<PlayerStateManagerComponent>();
+	Camera* pCamera = GetGameObject<Camera>();
+	auto* follow = pCamera->GetComponent<CameraFollowComponent>();
+	follow->SetTargetObject(pPlayer);
+	psm->SetCameraObject(pCamera);
 
 	//// サンドバッグ
 	//SandbagObject* pSandbag = AddGameObject<SandbagObject>(1);

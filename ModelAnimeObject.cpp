@@ -196,12 +196,12 @@ void ModelAnimeObject::SetSpeedAnime(float speed)
 void ModelAnimeObject::PlayAnimeIdle()
 {
 	auto animator = GetComponent<AnimatorComponent>();
-	animator->CrossFade(&m_ClipIdle, 0.1f, true);
+	animator->CrossFadeFromCurrentPose(&m_ClipIdle, 0.1f, true);
 }
 void ModelAnimeObject::PlayAnimeJump()
 {
 	auto animator = GetComponent<AnimatorComponent>();
-	animator->CrossFade(&m_ClipJump, 0.2f, false);
+	animator->CrossFadeFromCurrentPose(&m_ClipJump, 0.2f, false);
 }
 
 void ModelAnimeObject::SetupBones()

@@ -35,6 +35,9 @@ private:
 	PlayerStateMove m_StateMove;
 	PlayerStateJump m_StateJump;
 
+	// カメラ
+	GameObject* m_pCamera = nullptr;
+
 	// アニメーションオブジェクトポインタ（外部参照）
 	ModelAnimeObject* m_pModelAnime = nullptr;
 
@@ -73,6 +76,10 @@ public:
 	{
 		m_pModelAnime = model;
 	}
+	void SetCameraObject(GameObject* camera)
+	{
+		m_pCamera = camera;
+	}
 
 	// ----- ステートの切り替え -----
 	void ChangeState(PlayerStateId id)
@@ -85,6 +92,14 @@ public:
 	// ----- ゲッター -----
 	CharacterControllerComponent* GetCC() { return m_pController; }
 	ModelAnimeObject* GetModelAnime() { return m_pModelAnime; }
+	const Vector3& GetCameraForward() const
+	{
+		return m_pCamera->Transform()->Forward();
+	}
+	const Vector3& GetCameraRight() const
+	{
+		return m_pCamera->Transform()->Right();
+	}
 
 private:	
 	PlayerStateInterface* ResolveStateId(PlayerStateId id)

@@ -146,6 +146,7 @@ void CharacterControllerComponent::DoJump(bool isAirJump, float jumpSpeed)
 	else
 		m_VerticalVelocity = jumpSpeed;
 
+
 	if (isAirJump)
 	{
 		// 空中ジャンプカウント

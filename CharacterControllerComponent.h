@@ -25,25 +25,25 @@ public:
 	struct Settings
 	{
 		// ----- movement -----
-		float maxSpeed = 30.0f;			// 最大移動速度
-		float acceleration = 40.0f;		// 加速度 [m/s^2]
-		float deceleration = 40.0f;		// 停止加速度 [m/s^2]
-		float turnAcceleration = 50.0f; // ターン加速度 [m/s^2]
+		float maxSpeed = 50.0f;			// 最大移動速度
+		float acceleration = 200.0f;		// 加速度 [m/s^2]
+		float deceleration = 200.0f;		// 停止加速度 [m/s^2]
+		float turnAcceleration = 400.0f; // ターン加速度 [m/s^2]
 
 		// ----- jump -----
 		float gravity   = -9.8f;
-		float jumpSpeed = 20.0f; // ジャンプ初速度
-		float gravityScaleJump = 1.5f; // 上昇中（vY > 0 かつ JumpHold 中）の重力倍率
-		float gravityScaleFall = 2.0f; // 下降中（vY <= 0）の重力倍率
-		float gravityScaleCut  = 2.5f; // 上昇中にボタン離しの重力倍率
+		float jumpSpeed = 50.0f; // ジャンプ初速度
+		float gravityScaleJump = 6.5f; // 上昇中（vY > 0 かつ JumpHold 中）の重力倍率
+		float gravityScaleFall = 10.0f; // 下降中（vY <= 0）の重力倍率
+		float gravityScaleCut  = 11.5f; // 上昇中にボタン離しの重力倍率
 		int maxAirJumps = 2; // 最大ジャンプ回数
-		float airJumpSpeed = 10.0f; // 空中ジャンプの初速度
+		float airJumpSpeed = 50.0f; // 空中ジャンプの初速度
 		bool resetVerticalOnAirJump = true; // 空中ジャンプ時に上書きするか（上書き推奨）
 		float coyoteTime = 0.10f;	 // 崖から落ちた後も地上ジャンプ扱いにする
 		float jumpBufferTime = 0.1f; // 早押しジャンプを保持する猶予
 
 		// ----- air control -----
-		float airMaxSpeedScaleJump = 0.9f; // 上昇中の空中最大速度
+		float airMaxSpeedScaleJump = 0.8f; // 上昇中の空中最大速度
 		float airMaxSpeedScaleFall = 1.0f; // 落下中の空中最大速度
 		float airAccelScale     = 1.0f; // 空中加速度スケール
 		float airTurnAccelScale = 0.3f; // 空中ターン加速度スケール

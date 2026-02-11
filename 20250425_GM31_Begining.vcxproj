@@ -169,6 +169,7 @@
     <ClCompile Include="BoneManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="CameraFollowComponent.cpp" />
     <ClCompile Include="CameraMove.cpp" />
     <ClCompile Include="CharacterControllerComponent.cpp" />
     <ClCompile Include="Collision.cpp">
@@ -243,6 +244,7 @@
     <ClInclude Include="BoneObject.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="CameraFollowComponent.h" />
     <ClInclude Include="CameraMove.h" />
     <ClInclude Include="CharacterControllerComponent.h" />
     <ClInclude Include="ColliderComponent.h" />
