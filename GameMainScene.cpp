@@ -8,6 +8,7 @@
 #include "keyboard.h"
 #include "result.h"
 
+// object
 #include "Polygon.h"
 #include "Field.h"
 #include "Player.h"
@@ -18,6 +19,8 @@
 #include "PlayerObject.h"
 #include "SandbagObject.h"
 #include "NorenObject.h"
+#include "BoomerangObject.h"
+
 #include "CameraFollowComponent.h"
 #include "PlayerStateManagerComponent.h"
 #include "Camera.h"
@@ -87,6 +90,11 @@ void GameMainScene::Init()
 	//// ƒmƒŒƒ“
 	//NorenObject* pNoren = AddGameObject<NorenObject>(1);
 	//pNoren->Init();
+
+	// ƒu[ƒƒ‰ƒ“
+	BoomerangObject* pBoomerang = AddGameObject<BoomerangObject>(1);
+	pBoomerang->Init();
+	pBoomerang->SetPlayerObject(pPlayer);
 
 	// ‚è‚ñ‚²-----
 	AppleObject* pApple = AddGameObject<AppleObject>(1);

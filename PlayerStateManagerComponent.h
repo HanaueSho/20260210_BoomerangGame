@@ -87,6 +87,7 @@ public:
 		m_pCamera = camera;
 	}
 
+
 	// ----- ステートの切り替え -----
 	void ChangeState(PlayerStateId id)
 	{

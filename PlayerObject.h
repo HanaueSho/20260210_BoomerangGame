@@ -27,7 +27,7 @@ public:
 	void Uninit() override;
 	void Update(float dt) override;
 
-	int GetSign(float f) { if (f < 0) return -1; else return 1; }
+	GameObject* GetBoneObject(int index);
 };
 
 #endif

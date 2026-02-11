@@ -12,6 +12,7 @@
 #include "ModelAnimeObject.h"
 #include "Manager.h"
 #include "Scene.h"
+#include "BoneManager.h"
 
 
 void PlayerObject::Init()
@@ -85,4 +86,9 @@ void PlayerObject::Update(float dt)
 	//cc->SetMoveInput(targetVector);
 
 	
+}
+
+GameObject* PlayerObject::GetBoneObject(int index)
+{
+	return m_pModelAnimeObject->GetBoneManager().GetBoneObject(index);
 }
