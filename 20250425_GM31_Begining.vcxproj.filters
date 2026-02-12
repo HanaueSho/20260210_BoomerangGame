@@ -118,6 +118,12 @@
     <Filter Include="ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes">
       <UniqueIdentifier>{c9826197-6f5c-4d99-adbf-c4e0053e71df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\6.ゲームコンポーネント\BoomerangObject">
+      <UniqueIdentifier>{f524e329-b60f-47f6-9089-3e69040dbfc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\6.ゲームコンポーネント\Camera">
+      <UniqueIdentifier>{078f8223-0a1f-43b9-a183-a2d95975f6c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioSource.cpp">
@@ -279,17 +285,20 @@
     <ClCompile Include="GameMainScene.cpp">
       <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="CameraFollowComponent.cpp">
-      <Filter>ソース ファイル\1.フレームワーク\Component\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerStateAim.cpp">
       <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
     </ClCompile>
     <ClCompile Include="PlayerStateThrow.cpp">
       <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
     </ClCompile>
+    <ClCompile Include="BoomerangStateManagerComponent.cpp">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\BoomerangObject</Filter>
+    </ClCompile>
     <ClCompile Include="BoomerangObject.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraFollowComponent.cpp">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -560,9 +569,6 @@
     <ClInclude Include="GameMainScene.h">
       <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="CameraFollowComponent.h">
-      <Filter>ソース ファイル\1.フレームワーク\Component\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerStateAim.h">
       <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
     </ClInclude>
@@ -571,6 +577,12 @@
     </ClInclude>
     <ClInclude Include="BoomerangObject.h">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangStateManagerComponent.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\BoomerangObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraFollowComponent.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

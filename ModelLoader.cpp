@@ -130,7 +130,7 @@ namespace
 				if (!inserted)
 				{
 					//it->second = bone;
-					printf("重複があります: %s\n", name.c_str());
+					//printf("重複があります: %s\n", name.c_str()); // ※ 邪魔なのでコメントアウト
 				}
 			}
 		}

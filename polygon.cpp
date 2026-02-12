@@ -29,7 +29,7 @@ void Polygon2D::Init()
     mat->SetVSPS(vs, ps, il, /*takeVS*/true, /*takePS*/true, /*takeIL*/true);
 
     // 旧 Polygon2D と同じ kirby を使う
-    ID3D11ShaderResourceView* srv = Texture::LoadAndRegisterKey("assets\\texture\\apple.png");
+    ID3D11ShaderResourceView* srv = Texture::LoadAndRegisterKey("assets\\texture\\PlayerDead.png");
     // サンプラーは Renderer::Init() で 0番に PSSetSamplers 済みなら null でも描ける
     mat->SetMainTexture(srv, /*sampler*/nullptr, /*takeSrv*/false, /*takeSamp*/false);
 
@@ -40,19 +40,19 @@ void Polygon2D::Init()
     mat->SetMaterial(m);
 
     // 透明テクスチャの可能性が高いのでアルファブレンドに
-    mat->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Opaque);
+    mat->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Alpha);
 
     // 4) MeshRenderer を追加（描画実行係）
     auto* sr = AddComponent<SpriteRendererComponent>();
     sr->SetUI(true);
-    sr->SetColor({ 1, 1, 1, 0.5f });
+    sr->SetColor({ 1, 1, 1, 1.0f });
 
     // SpriteAnimation
     auto* sa = AddComponent<SpriteAnimationComponent>();
-    m_Clip.columns = 2;
-    m_Clip.rows = 2;
-    m_Clip.frameCount = 2 * 2;
-    m_Clip.fps = 5;
+    m_Clip.columns = 5;
+    m_Clip.rows = 1;
+    m_Clip.frameCount = 5;
+    m_Clip.fps = 10;
     m_Clip.loopDefault = true;
     sa->SetClip(&m_Clip);
 }

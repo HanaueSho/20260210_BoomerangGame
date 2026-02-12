@@ -8,12 +8,10 @@
 #include "MeshRendererComponent.h"
 #include "RigidbodyComponent.h"
 #include "ColliderComponent.h"
+#include "BoomerangStateManagerComponent.h"
 #include "ModelLoader.h"
 #include "Keyboard.h"
 #include "Texture.h"
-
-#include "BoneManager.h"
-#include "PlayerObject.h"
 
 
 void BoomerangObject::Init()
@@ -84,52 +82,31 @@ void BoomerangObject::Init()
 	matOutline->SetVSPS(vs, ps, il, /*takeVS*/true, /*takePS*/true, /*takeIL*/true);
 	matOutline->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Opaque);
 	mr->SetOutlineMaterial(matOutline);
+
+	// Collider
+	auto* col = AddComponent<Collider>();
+	col->Init();
+	col->SetSphere(4);
+	col->SetModeTrigger(); // 最初はトリガー判定
+	SetPhysicsLayer(29);
+
+	// Rigidbody
+	auto* rigid = AddComponent<Rigidbody>();
+	rigid->Init();
+	rigid->SetBodyTypeKinematic();
+
+	// BoomerangStateManagerComponent
+	auto* state = AddComponent<BoomerangStateManagerComponent>();
+	state->Init();
 }
 
 void BoomerangObject::Update(float dt)
 {
 	GameObject::Update(dt);
 
+	//Vector3 position = Transform()->LocalPosition();
+	//Vector3::Printf(position, "boomPos");
+	//Vector3 angles = Transform()->LocalEulerAngles();
+	//Vector3::Printf(angles, "boomAng");
 
-	switch (m_State)
-	{
-	case State::Idle:
-			break;
-	case State::Aim:
-			break;
-	case State::Throw:
-			break;
-	case State::Back:
-			break;
-	}
-
-}
-
-void BoomerangObject::ChangeState(State newState)
-{
-	m_State = newState;
-	switch (newState)
-	{
-	case State::Idle:
-		break;
-	case State::Aim:
-		break;
-	case State::Throw:
-		break;
-	case State::Back:
-		break;
-	}
-}
-
-void BoomerangObject::SetPlayerObject(GameObject* player)
-{
-	m_pPlayerObject = player;
-	// 背骨ボーン
-	GameObject* bone = dynamic_cast<PlayerObject*>(m_pPlayerObject)->GetBoneObject(2);
-	m_pBoneSpineObject = bone;
-	//Transform()->SetParent(bone->Transform());
-	m_pBoneHandObject = dynamic_cast<PlayerObject*>(m_pPlayerObject)->GetBoneObject(23);
-	Transform()->SetParent(m_pBoneHandObject->Transform());
-	Transform()->SetLocalPosition(m_OffsetHandPosition);
-	Transform()->SetEulerAngles(m_OffsetHandRotation);
 }

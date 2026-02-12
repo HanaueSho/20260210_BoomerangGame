@@ -46,6 +46,7 @@ void PlayerObject::Init()
 
 	// ƒŒƒCƒ„[
 	SetPhysicsLayer(31);
+	SetTag("Player");
 }
 
 void PlayerObject::Uninit()

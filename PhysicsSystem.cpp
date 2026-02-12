@@ -69,7 +69,8 @@ void PhysicsSystem::Init()
 
 	for (int i = 0; i < MaxLayers; i++)
 		m_CollisionMask[i] = 0xFFFFFFFFu; // とりあえず全部ON
-	SetCollision(30, 31, false); // 30: モデルボーン, 31: CharacterControllerComponent
+	SetCollision(30, 31, false); // 30: Playerモデルボーン, 31: CharacterControllerComponent
+	SetCollision(29, 30, false); // 29: BoomerangObject
 }
 void PhysicsSystem::Shutdown()
 {

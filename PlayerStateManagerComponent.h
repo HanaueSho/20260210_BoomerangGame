@@ -9,6 +9,7 @@
 #include "Component.h"
 #include "GameObject.h"
 #include "CharacterControllerComponent.h"
+#include "BoomerangStateManagerComponent.h"
 #include "PlayerStateInterface.h"
 #include "PlayerStateIdle.h"
 #include "PlayerStateMove.h"
@@ -49,6 +50,7 @@ private:
 
 	// コンポーネントポインタ
 	CharacterControllerComponent* m_pController = nullptr;
+	BoomerangStateManagerComponent* m_pBoomerang = nullptr;
 	
 public:
 	// ----- ライフライクル -----
@@ -61,7 +63,7 @@ public:
 		assert(m_CurrentState && "PlayerStateManagerComponent: m_CurrentState is null. Call SetStateInitial() before Update().");
 		if (!m_CurrentState) return;
 		m_CurrentState->Update(*this, dt);
-		DebugPrintfState();
+		//DebugPrintfState();
 	}
 	void FixedUpdate(float fixedDt) override
 	{
@@ -86,7 +88,10 @@ public:
 	{
 		m_pCamera = camera;
 	}
-
+	void SetBoomerangObject(GameObject* boomerang)
+	{
+		m_pBoomerang = boomerang->GetComponent<BoomerangStateManagerComponent>();
+	}
 
 	// ----- ステートの切り替え -----
 	void ChangeState(PlayerStateId id)
@@ -99,6 +104,7 @@ public:
 	// ----- ゲッター -----
 	CharacterControllerComponent* GetCC() { return m_pController; }
 	ModelAnimeObject* GetModelAnime() { return m_pModelAnime; }
+	BoomerangStateManagerComponent* GetBoomerang() { return m_pBoomerang; }
 	const Vector3& GetCameraForward() const
 	{
 		return m_pCamera->Transform()->Forward();
@@ -107,6 +113,7 @@ public:
 	{
 		return m_pCamera->Transform()->Right();
 	}
+
 
 	// カメラ制御
 	void SetCameraStateFollow()

@@ -23,6 +23,7 @@
 
 #include "CameraFollowComponent.h"
 #include "PlayerStateManagerComponent.h"
+#include "BoomerangStateManagerComponent.h"
 #include "Camera.h"
 
 #include "AudioSource.h"
@@ -94,7 +95,11 @@ void GameMainScene::Init()
 	// ƒu[ƒƒ‰ƒ“
 	BoomerangObject* pBoomerang = AddGameObject<BoomerangObject>(1);
 	pBoomerang->Init();
-	pBoomerang->SetPlayerObject(pPlayer);
+	auto* state = pBoomerang->GetComponent<BoomerangStateManagerComponent>();
+	state->SetPlayerObject(pPlayer);
+	state->ChangeStateIdle();
+	psm->SetBoomerangObject(pBoomerang); // Player Setter
+
 
 	// ‚è‚ñ‚²-----
 	AppleObject* pApple = AddGameObject<AppleObject>(1);

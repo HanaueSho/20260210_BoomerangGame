@@ -12,6 +12,7 @@
 
 void PlayerStateAim::Enter(PlayerStateManagerComponent& manager)
 {
+	// アニメ処理
 	manager.GetModelAnime()->PlayAnimeAim();
 	manager.GetModelAnime()->SetIsLocomotion(false);
 	manager.GetModelAnime()->SetSpeedAnime(1.0f);
@@ -25,6 +26,9 @@ void PlayerStateAim::Enter(PlayerStateManagerComponent& manager)
 	manager.Owner()->Transform()->LookAt(targetPos);
 	// カメラ制御
 	manager.SetCameraStateAim();
+
+	// ブーメラン制御
+	manager.GetBoomerang()->ChangeStateAim();
 }
 
 void PlayerStateAim::Update(PlayerStateManagerComponent& manager, float dt)
@@ -38,6 +42,8 @@ void PlayerStateAim::Update(PlayerStateManagerComponent& manager, float dt)
 	}
 	if (!InputSystem::IsAimDown())
 	{
+		// ブーメラン制御
+		manager.GetBoomerang()->ChangeStateIdle();
 		manager.ChangeState(PlayerStateId::Idle);
 	}
 }

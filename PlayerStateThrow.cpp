@@ -13,6 +13,9 @@ void PlayerStateThrow::Enter(PlayerStateManagerComponent& manager)
 	manager.GetModelAnime()->SetSpeedAnime(2.0f);
 	manager.GetModelAnime()->SetIsLocomotion(false);
 	manager.GetModelAnime()->PlayAnimeThrow();
+
+	// ƒu[ƒƒ‰ƒ“§Œä
+	manager.GetBoomerang()->ChangeStateThrow();
 }
 
 void PlayerStateThrow::Update(PlayerStateManagerComponent& manager, float dt)

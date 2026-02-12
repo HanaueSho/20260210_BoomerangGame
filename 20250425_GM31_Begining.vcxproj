@@ -168,6 +168,7 @@
     <ClCompile Include="AudioSystem.cpp" />
     <ClCompile Include="BoneManager.cpp" />
     <ClCompile Include="BoomerangObject.cpp" />
+    <ClCompile Include="BoomerangStateManagerComponent.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="CameraFollowComponent.cpp" />
@@ -246,6 +247,7 @@
     <ClInclude Include="BoneManager.h" />
     <ClInclude Include="BoneObject.h" />
     <ClInclude Include="BoomerangObject.h" />
+    <ClInclude Include="BoomerangStateManagerComponent.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="CameraFollowComponent.h" />
