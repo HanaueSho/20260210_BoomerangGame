@@ -8,8 +8,9 @@
 #include <cassert>
 #include "Component.h"
 #include "GameObject.h"
-#include "CharacterControllerComponent.h"
+#include "AimStateManagerComponent.h"
 #include "BoomerangStateManagerComponent.h"
+#include "CharacterControllerComponent.h"
 #include "PlayerStateInterface.h"
 #include "PlayerStateIdle.h"
 #include "PlayerStateMove.h"

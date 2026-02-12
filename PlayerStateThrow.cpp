@@ -20,7 +20,6 @@ void PlayerStateThrow::Enter(PlayerStateManagerComponent& manager)
 
 void PlayerStateThrow::Update(PlayerStateManagerComponent& manager, float dt)
 {
-
 	// ----- ó‘Ô‘JˆÚ -----
 	// ˆÚ“®‘JˆÚ
 	if (InputSystem::IsMoveDown())

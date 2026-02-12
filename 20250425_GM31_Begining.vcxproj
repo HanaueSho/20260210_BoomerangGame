@@ -159,6 +159,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AimObject.cpp" />
+    <ClCompile Include="AimStateManagerComponent.cpp" />
     <ClCompile Include="AnimatorComponent.cpp" />
     <ClCompile Include="AppleGenerator.cpp" />
     <ClCompile Include="AppleObject.cpp" />
@@ -182,6 +184,7 @@
     <ClCompile Include="DebugRenderer.cpp" />
     <ClCompile Include="DxDevice.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyObject.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMainScene.cpp" />
@@ -231,6 +234,8 @@
     <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AimObject.h" />
+    <ClInclude Include="AimStateManagerComponent.h" />
     <ClInclude Include="AnimationClip.h" />
     <ClInclude Include="AnimatorComponent.h" />
     <ClInclude Include="AnimatorController.h" />
@@ -265,6 +270,7 @@
     <ClInclude Include="DistanceJointComponent.h" />
     <ClInclude Include="DxDevice.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyObject.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMainScene.h" />

@@ -10,10 +10,11 @@
 
 class BoomerangObject : public GameObject
 {
+private:
+
 public:
 	void Init() override;
 	void Update(float dt) override;
-
 };
 
 

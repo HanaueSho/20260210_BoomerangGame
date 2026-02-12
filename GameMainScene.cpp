@@ -20,11 +20,13 @@
 #include "SandbagObject.h"
 #include "NorenObject.h"
 #include "BoomerangObject.h"
+#include "EnemyObject.h"
 
 #include "CameraFollowComponent.h"
 #include "PlayerStateManagerComponent.h"
 #include "BoomerangStateManagerComponent.h"
 #include "Camera.h"
+#include "ColliderComponent.h"
 
 #include "AudioSource.h"
 #include "AudioBank.h"
@@ -100,6 +102,12 @@ void GameMainScene::Init()
 	state->ChangeStateIdle();
 	psm->SetBoomerangObject(pBoomerang); // Player Setter
 
+	// エネミー
+	EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
+	pEnemyObject->Init();
+	pEnemyObject = AddGameObject<EnemyObject>(1);
+	pEnemyObject->Init();
+	pEnemyObject->Transform()->SetPosition({ 0, 10, 90 });
 
 	// りんご-----
 	AppleObject* pApple = AddGameObject<AppleObject>(1);
@@ -225,8 +233,6 @@ void GameMainScene::Init()
 	pField->Init();
 	pField->Transform()->SetPosition({ -500, -5, -500 });
 
-
-
 	// シェーダー関係
 	ToonApp toon = MakeToon(ToonPreset::GravityRush2Like);
 	Renderer::SetToon(toon);
@@ -250,6 +256,7 @@ void GameMainScene::Update(float dt)
 	{
 		Manager::SetScene<Result>();
 	}
+
 }
 
 void GameMainScene::Draw()

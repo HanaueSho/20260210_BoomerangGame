@@ -29,6 +29,7 @@ void Camera::Init()
 	//                     0.1f, 1000.0f);
 	// tf->SetPosition({0, 2, -5});
 	
+
 }
 void Camera::Update(float dt) 
 {

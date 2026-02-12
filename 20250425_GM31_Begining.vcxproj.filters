@@ -124,6 +124,9 @@
     <Filter Include="ソース ファイル\6.ゲームコンポーネント\Camera">
       <UniqueIdentifier>{078f8223-0a1f-43b9-a183-a2d95975f6c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\6.ゲームコンポーネント\EnemyObject">
+      <UniqueIdentifier>{123cce42-1fbf-43c9-85ab-7bf1b474deea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioSource.cpp">
@@ -299,6 +302,15 @@
     </ClCompile>
     <ClCompile Include="CameraFollowComponent.cpp">
       <Filter>ソース ファイル\6.ゲームコンポーネント\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="AimObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="AimStateManagerComponent.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -583,6 +595,15 @@
     </ClInclude>
     <ClInclude Include="CameraFollowComponent.h">
       <Filter>ソース ファイル\6.ゲームコンポーネント\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="AimObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="AimStateManagerComponent.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\BoomerangObject</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

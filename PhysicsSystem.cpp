@@ -873,10 +873,10 @@ void PhysicsSystem::ResolveVelocity(float dt)
 			const Vector3 rB = p - xB; // COM からのベクトル（相対位置）
 			
 			// 速度（角成分込み）
-			const Vector3 vA = rbA->GetLinearVelocitySolver();
-			const Vector3 wA = rbA->GetAngularVelocitySolver();
-			const Vector3 vB = rbB->GetLinearVelocitySolver();
-			const Vector3 wB = rbB->GetAngularVelocitySolver();
+			const Vector3 vA = rbA ? rbA->GetLinearVelocitySolver()  : Vector3() ;
+			const Vector3 wA = rbA ? rbA->GetAngularVelocitySolver() : Vector3() ;
+			const Vector3 vB = rbB ? rbB->GetLinearVelocitySolver()  : Vector3() ;
+			const Vector3 wB = rbB ? rbB->GetAngularVelocitySolver() : Vector3() ;
 
 			// 接触点の相対速度 vRel = (vB + wB×rB) - (vA + wA×rA) [relative velocity]
 			const Vector3 vRel = (vB + Vector3::Cross(wB, rB)) - (vA + Vector3::Cross(wA, rA)); // 相対速度（Aから見たBの相対速度）
@@ -937,10 +937,10 @@ void PhysicsSystem::ResolveVelocity(float dt)
 			const Vector3 rB = p - xB; // COM からのベクトル（相対位置）
 
 			// ----- 動摩擦力（法線更新後の相対速度で評価） -----
-			const Vector3 vA2 = rbA->GetLinearVelocitySolver();
-			const Vector3 wA2 = rbA->GetAngularVelocitySolver();
-			const Vector3 vB2 = rbB->GetLinearVelocitySolver();
-			const Vector3 wB2 = rbB->GetAngularVelocitySolver();
+			const Vector3 vA2 = rbA ? rbA->GetLinearVelocitySolver()  : Vector3();
+			const Vector3 wA2 = rbA ? rbA->GetAngularVelocitySolver() : Vector3();
+			const Vector3 vB2 = rbB ? rbB->GetLinearVelocitySolver()  : Vector3();
+			const Vector3 wB2 = rbB ? rbB->GetAngularVelocitySolver() : Vector3();
 			const Vector3 vRel2 = (vB2 + Vector3::Cross(wB2, rB)) - (vA2 + Vector3::Cross(wA2, rA)); // 相対速度
 
 			// ----- 希望する接線のインパルス -----

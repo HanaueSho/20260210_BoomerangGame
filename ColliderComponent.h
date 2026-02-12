@@ -162,11 +162,11 @@ public:
 
 	void OnTriggerEnter(class Collider* me, class Collider* other) override
 	{
-		printf("“–‚½‚Á‚½‚æ");
+		//printf("“–‚½‚Á‚½‚æ");
 	}
 	void OnTriggerExit(class Collider* me, class Collider* other)
 	{
-		printf("—£‚ê‚½‚æ");		
+		//printf("—£‚ê‚½‚æ");		
 	}
 
 public:

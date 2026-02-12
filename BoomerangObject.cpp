@@ -13,6 +13,9 @@
 #include "Keyboard.h"
 #include "Texture.h"
 
+#include "Manager.h"
+#include "Scene.h"
+
 
 void BoomerangObject::Init()
 {
@@ -98,6 +101,8 @@ void BoomerangObject::Init()
 	// BoomerangStateManagerComponent
 	auto* state = AddComponent<BoomerangStateManagerComponent>();
 	state->Init();
+
+
 }
 
 void BoomerangObject::Update(float dt)

@@ -3,10 +3,16 @@
 	20260212  hanaue sho
 */
 #include "BoomerangStateManagerComponent.h"
+#include "AimStateManagerComponent.h"
 #include "BoneManager.h"
 #include "PlayerObject.h"
 #include "GameObject.h"
 #include "Keyboard.h"
+#include "AimObject.h"
+#include "ColliderComponent.h"
+
+#include "Manager.h"
+#include "Scene.h"
 
 namespace
 {
@@ -21,11 +27,13 @@ namespace
 
 void BoomerangStateManagerComponent::Init()
 {
+	// AimObject の生成
+	m_pAimObject = Manager::GetScene()->AddGameObject<AimObject>(1);
+	m_pAimObject->Init();
 }
 
 void BoomerangStateManagerComponent::Update(float dt)
 {
-
 	switch (m_State)
 	{
 	case State::Idle:
@@ -43,6 +51,28 @@ void BoomerangStateManagerComponent::Update(float dt)
 
 void BoomerangStateManagerComponent::FixedUpdate(float fixedDt)
 {
+}
+
+void BoomerangStateManagerComponent::OnTriggerEnter(Collider* me, Collider* other)
+{
+	switch (m_State)
+	{
+	case State::Idle:
+		break;
+	case State::Aim:
+		break;
+	case State::Throw:
+	{
+		if (other->Owner()->Tag() == "Enemy")
+		{
+			m_IndexTargets++;
+			m_IsApproach = true;
+		}
+	}
+		break;
+	case State::Back:
+		break;
+	}
 }
 
 void BoomerangStateManagerComponent::ChangeState(State newState)
@@ -67,17 +97,27 @@ void BoomerangStateManagerComponent::ChangeState(State newState)
 	case State::Idle:
 	{
 		SetSpine();
+		GetAimObject()->GetComponent<AimStateManagerComponent>()->SetIsAimming(false);
 	}
 		break;
 	case State::Aim:
 	{
 		SetHand();
+		GetAimObject()->GetComponent<AimStateManagerComponent>()->SetIsAimming(true);
 	}
 		break;
 	case State::Throw:
 	{
+		// Target をコピー
+		m_Targets = GetAimObject()->GetComponent<AimStateManagerComponent>()->Targets();
+		if (m_Targets.size() < 1)
+		{
+			ChangeState(State::Idle); // 投げれない
+			break;
+		}
+
 		// 飛翔方向算出
-		m_MoveDir = m_pPlayerObject->Transform()->Forward(); // 正面ベクトル
+		m_MoveDir  = m_pPlayerObject->Transform()->Forward(); // 正面ベクトル
 		m_MoveDir += m_pPlayerObject->Transform()->Right(); // 右側へ補正
 		m_MoveDir.y += 0.2f; // 上へも少し補正
 		m_MoveDir.normalize();
@@ -85,6 +125,8 @@ void BoomerangStateManagerComponent::ChangeState(State newState)
 		Owner()->Transform()->SetParentKeepWorld(nullptr);
 		// フラグ初期化
 		m_IsApproach = false;
+		// インデックス初期化
+		m_IndexTargets = 0;
 	}
 		break;
 	case State::Back:
@@ -122,8 +164,20 @@ void BoomerangStateManagerComponent::Throw(float dt)
 	if (m_IsApproach)
 	{
 		// ターゲット位置
-		Vector3 target = m_pPlayerObject->Transform()->Position();
+		Vector3 target = {0, 0, 0};
+		if (m_IndexTargets >= m_Targets.size())
+		{
+			// プレイヤーに飛ぶ
+			target = m_pPlayerObject->Transform()->Position();
+		}
+		else
+		{
+			// エネミーに飛ぶ
+			target = m_Targets[m_IndexTargets]->Transform()->Position();
+		}
+
 		Vector3 vect = target - Owner()->Transform()->Position(); 
+		float dist = vect.length();
 		vect.normalize();
 		// ----- 水平成分 -----
 		// 水平成分のみ取り出す
@@ -136,7 +190,11 @@ void BoomerangStateManagerComponent::Throw(float dt)
 		float yawVect = atan2f(vectHolizontal.x, vectHolizontal.z);
 		float yawDiff = WrapPi(yawVect - yawCur); // 差分
 		// 最大旋回角にクランプ
-		float maxTurn = m_TurnRateApproach * dt; // １フレーム内の最大旋回角
+		float maxTurn = m_IsApproach ? m_TurnRateApproach * dt : m_TurnRateFlight * dt; // １フレーム内の最大旋回角
+		// 近距離は maxTurn を増加
+		float addTurn = 90 * std::clamp((30.0f - dist) / 30.0f, 0.0f, 1.0f) * dt;
+		maxTurn += addTurn;
+
 		float yawStep = std::clamp(yawDiff, -maxTurn, maxTurn);
 		float yawNew = yawCur + yawStep;
 
@@ -162,7 +220,7 @@ void BoomerangStateManagerComponent::Throw(float dt)
 	else
 	{
 		Vector3 vect = m_MoveDir;
-		// 位置更新
+		// 位置更新（直進）
 		Vector3 position = Owner()->Transform()->Position();
 		position += vect * (m_Speed * dt);
 		Owner()->Transform()->SetPosition(position);
@@ -174,6 +232,14 @@ void BoomerangStateManagerComponent::Throw(float dt)
 			m_IsApproach = true;
 		}
 	}
+	
+	//if (!m_IsApproach) m_TimerFlight += dt;
+	//if (m_TimerFlight > 1.0f)
+	//{
+	//	m_TimerFlight = 0.0f;
+	//	m_IsApproach = true;
+	//}
+
 	// ----- 回転処理 -----
 	Vector3 lookPos = Owner()->Transform()->Position();
 	lookPos += Vector3::Cross(m_MoveDir, { 0, 1, 0 }); // 進行方向の内側を向くようにする
