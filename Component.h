@@ -33,9 +33,11 @@ public:
 
 	// ----- ディスパッチ -----
 	virtual void OnTriggerEnter(class Collider* me, class Collider* other) {}
+	virtual void OnTriggerStay (class Collider* me, class Collider* other) {}
 	virtual void OnTriggerExit (class Collider* me, class Collider* other) {}
 
 	virtual void OnCollisionEnter(class Collider* me, class Collider* other) {}
+	virtual void OnCollisionStay (class Collider* me, class Collider* other) {}
 	virtual void OnCollisionExit (class Collider* me, class Collider* other) {}
 
 

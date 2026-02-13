@@ -4,6 +4,7 @@
 */
 #include "AimStateManagerComponent.h"
 #include "ColliderComponent.h"
+#include "Keyboard.h"
 
 void AimStateManagerComponent::Init()
 {
@@ -14,6 +15,9 @@ void AimStateManagerComponent::Update(float dt)
 {
 	Component::Update(dt);
 	printf("[size]: %d\n", (int)m_Targets.size());
+
+	/*if (Keyboard_IsKeyDown(KK_D1))
+		Owner()->Transform()->SetParentKeepWorld(nullptr);*/
 }
 
 void AimStateManagerComponent::OnTriggerEnter(Collider* me, Collider* other)
@@ -26,6 +30,10 @@ void AimStateManagerComponent::OnTriggerEnter(Collider* me, Collider* other)
 			m_Targets.push_back(other->Owner());
 		}
 	}
+}
+
+void AimStateManagerComponent::OnTriggerStay(Collider* me, Collider* other)
+{
 }
 
 void AimStateManagerComponent::OnTriggerExit(Collider* me, Collider* other)

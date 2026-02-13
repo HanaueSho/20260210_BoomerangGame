@@ -229,8 +229,10 @@ private:
 	// î≠âŒÉLÉÖÅ[
     // --------------------------------------------------
 	std::vector<std::pair<Collider*, Collider*>> m_TriggerEnter;
+	std::vector<std::pair<Collider*, Collider*>> m_TriggerStay;
 	std::vector<std::pair<Collider*, Collider*>> m_TriggerExit;
 	std::vector<std::pair<Collider*, Collider*>> m_CollisionEnter;
+	std::vector<std::pair<Collider*, Collider*>> m_CollisionStay;
 	std::vector<std::pair<Collider*, Collider*>> m_CollisionExit;
 
 	// --------------------------------------------------

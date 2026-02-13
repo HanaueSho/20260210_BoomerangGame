@@ -62,8 +62,10 @@ void PhysicsSystem::Init()
 	m_PrevCollision.clear();
 	m_CurrCollision.clear();
 	m_TriggerEnter.clear();
+	m_TriggerStay.clear();
 	m_TriggerExit.clear();
 	m_CollisionEnter.clear();
+	m_CollisionStay.clear();
 	m_CollisionExit.clear();
 	m_NextId = 0; m_FreeIds.clear(); m_ById.clear();
 
@@ -81,8 +83,10 @@ void PhysicsSystem::Shutdown()
 	m_PrevCollision.clear();
 	m_CurrCollision.clear();
 	m_TriggerEnter.clear();
+	m_TriggerStay.clear();
 	m_TriggerExit.clear();
 	m_CollisionEnter.clear();
+	m_CollisionStay.clear();
 	m_CollisionExit.clear();
 	m_pScene = nullptr;
 }
@@ -416,7 +420,7 @@ void PhysicsSystem::EndStep(float fixedDt)
 	for (int i = 0; i < 4; i++)	CorrectPosition();
 
 
-	auto diffSets = [&](auto& prev, auto& curr, auto& outEnter, auto& outExit)
+	auto diffSets = [&](auto& prev, auto& curr, auto& outEnter, auto& outExit, auto& outStay)
 		{
 			// Enter : Curr にあって Prev にない
 			for (auto k: curr) 
@@ -430,11 +434,15 @@ void PhysicsSystem::EndStep(float fixedDt)
 				{
 					outExit.emplace_back(m_ById[KeyHigh(k)], m_ById[KeyLow(k)]); // Exit にいれる
 				}
+				else
+				{   // Stay : Prev にあって Curr にもある
+					outStay.emplace_back(m_ById[KeyHigh(k)], m_ById[KeyLow(k)]); // Stay にいれる
+				}
 			prev.swap(curr); curr.clear();
 		};
 
-	diffSets(m_PrevTrigger  , m_CurrTrigger  , m_TriggerEnter  , m_TriggerExit);
-	diffSets(m_PrevCollision, m_CurrCollision, m_CollisionEnter, m_CollisionExit);
+	diffSets(m_PrevTrigger  , m_CurrTrigger  , m_TriggerEnter  , m_TriggerExit  , m_TriggerStay);
+	diffSets(m_PrevCollision, m_CurrCollision, m_CollisionEnter, m_CollisionExit, m_CollisionStay);
 
 	// ----- ディスパッチ処理 -----
 	DispatchEvents(); 
@@ -467,6 +475,24 @@ void PhysicsSystem::DispatchEvents()
 							else	   c->OnCollisionExit(me, other);
 						}
 					}); // ”ラムダ”を渡している
+			}
+		};
+	// OnTriggerStay の呼出し
+	auto callAllStay = [](Collider* me, Collider* other, bool isTrigger)
+		{
+			if (auto* go = me->Owner())
+			{
+				go->ForEachComponent(
+					[&](Component* c) {
+						if (isTrigger)
+						{
+							c->OnTriggerStay(me, other);
+						}
+						else
+						{
+							c->OnCollisionStay(me, other);
+						}
+					});
 			}
 		};
 
@@ -502,11 +528,31 @@ void PhysicsSystem::DispatchEvents()
 		callAll(A, B, false, false);
 		callAll(B, A, false, false);
 	}
+	// TriggerStay -----
+	for (auto& p : m_TriggerStay)
+	{
+		Collider* A = p.first;
+		Collider* B = p.second;
+		callAllStay(A, B, true);
+		callAllStay(B, A, true);
+	}
+
+	// CollisionStay -----
+	for (auto& p : m_TriggerStay)
+	{
+		Collider* A = p.first;
+		Collider* B = p.second;
+		callAllStay(A, B, false);
+		callAllStay(B, A, false);
+	}
+
 
 	// 後始末
 	m_TriggerEnter.clear();
+	m_TriggerStay.clear();
 	m_TriggerExit.clear();
 	m_CollisionEnter.clear();
+	m_CollisionStay.clear();
 	m_CollisionExit.clear();
 }
 

@@ -18,6 +18,7 @@ public:
 	void Update(float dt) override;
 
 	void OnTriggerEnter(class Collider* me, class Collider* other) override;
+	void OnTriggerStay(class Collider* me, class Collider* other) override;
 	void OnTriggerExit(class Collider* me, class Collider* other)  override; 
 
 	void SetIsAimming(bool b);
