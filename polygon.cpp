@@ -45,6 +45,7 @@ void Polygon2D::Init()
     // 4) MeshRenderer ‚ğ’Ç‰Ái•`‰æÀsŒWj
     auto* sr = AddComponent<SpriteRendererComponent>();
     sr->SetUI(true);
+    sr->SetOnWorld(true);
     sr->SetColor({ 1, 1, 1, 1.0f });
 
     // SpriteAnimation

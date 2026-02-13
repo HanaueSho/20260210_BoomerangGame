@@ -16,7 +16,8 @@ private:
 	Vector2 m_UvScale  = { 1, 1 };
 	Vector4 m_Color	   = { 1, 1, 1, 1 };
 
-	bool m_IsUI = false;
+	bool m_IsUI    = false; // UI•\¦
+	bool m_OnWorld = false; // ‚RD‹óŠÔ‚É‚ ‚é‚©‚Ç‚¤‚©
 	int m_Order = 0; // UI•`‰æ‡˜i[“x‚É‚Í—Š‚ç‚È‚¢j
 
 public:
@@ -75,8 +76,10 @@ public:
 	}
 	void SetColor(const Vector4& color) { m_Color = color; }
 	void SetUI(bool b) { m_IsUI = b; }
+	void SetOnWorld(bool b) { m_OnWorld = b; }
 	void SetOrder(int order) { m_Order = order; }
 	bool IsUI() const { return m_IsUI; }
+	bool OnWorld() const { return m_OnWorld; }
 	int Order() const { return m_Order; }
 };
 

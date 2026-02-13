@@ -140,6 +140,7 @@ void Scene::Draw()
 	{
 		SpriteRendererComponent* sr = nullptr;
 		int order = 0;
+		bool onWorld = false;
 	};
 	std::vector<DrawItem> opaques;      // 不透明
 	std::vector<DrawItem> transparents; // 透明
@@ -159,7 +160,10 @@ void Scene::Draw()
 			if (auto* sr = gameObject->GetComponent<SpriteRendererComponent>())
 			{
 				if (sr->IsUI())
-					uiSprites.push_back({ sr, sr->Order() });
+				{
+					uiSprites.push_back({ sr, sr->Order(), sr->OnWorld() });
+					continue;
+				}
 			}
 
 			// ----- DrawItem -----
@@ -216,6 +220,12 @@ void Scene::Draw()
 	Renderer::SetBlendState(Renderer::BlendMode::Premultiplied);
 	Renderer::SetDepthState(Renderer::DepthMode::Transparent);
 	for (auto& it : transparents) it.mr->DrawBase();
+	// ワールド空間UI（デプス無視）
+	Renderer::SetRasterizerState(Renderer::RasterizerMode::BackCullSolid);
+	Renderer::SetBlendState(Renderer::BlendMode::Premultiplied);
+	Renderer::SetDepthState(Renderer::DepthMode::DisableDepth);
+	for (auto& it : uiSprites) { if(it.onWorld) it.sr->DrawBase(); }
+
 	// デバッグ描画
 	if (m_IsDrawCollision)
 	{
@@ -239,7 +249,7 @@ void Scene::Draw()
 		Renderer::SetRasterizerState(Renderer::RasterizerMode::BackCullSolid);
 		Renderer::SetBlendState(Renderer::BlendMode::Premultiplied);
 		Renderer::SetDepthState(Renderer::DepthMode::DisableDepth);
-		for (auto& it : uiSprites) it.sr->DrawBase();
+		for (auto& it : uiSprites) { if (!it.onWorld) it.sr->DrawBase(); }
 	}
 }
 
