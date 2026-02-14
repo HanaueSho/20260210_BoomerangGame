@@ -142,6 +142,9 @@
     <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Tree">
       <UniqueIdentifier>{f3ad40c1-103d-498f-ad13-f6cb2b5b9a75}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Skydome">
+      <UniqueIdentifier>{40f4ec8e-1add-42b4-8e79-d9ac59ea053c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioSource.cpp">
@@ -341,6 +344,12 @@
     </ClCompile>
     <ClCompile Include="TentObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Tent</Filter>
+    </ClCompile>
+    <ClCompile Include="SkydomeObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Skydome</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStage0Scene.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -649,6 +658,12 @@
     </ClInclude>
     <ClInclude Include="TreeObject.h">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="SkydomeObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Skydome</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStage0Scene.h">
+      <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

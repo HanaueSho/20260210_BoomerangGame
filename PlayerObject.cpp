@@ -19,14 +19,14 @@ void PlayerObject::Init()
 {
 	auto* tf = GetComponent<TransformComponent>();
 	float s = 1.0f;
-	tf->SetPosition({ 0, 10, 0 });
+	tf->SetPosition({ 0, 5, -150 });
 	tf->SetScale({ s, s, s });
 	tf->SetEulerAngles({ 0, 0, 0 });
 
 	// ModelAnimeObject
 	m_pModelAnimeObject = Manager::GetScene()->AddGameObject<ModelAnimeObject>(1);
 	m_pModelAnimeObject->Init();
-	m_pModelAnimeObject->Transform()->SetParent(this->Transform());
+	m_pModelAnimeObject->Transform()->SetParentKeepWorld(this->Transform());
 
 	// コライダー
 	auto* col = AddComponent<Collider>();

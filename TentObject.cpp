@@ -81,6 +81,6 @@ void TentObject::Init()
 	// Collider
 	auto* col = AddComponent<Collider>();
 	col->Init();
-	col->SetBox({1,1,1});
+	col->SetBox({3,4.0f,10});
 	col->SetModeSimulate(); 
 }

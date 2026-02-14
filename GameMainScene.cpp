@@ -25,6 +25,7 @@
 #include "TentObject.h"
 #include "FenceObject.h"
 #include "TreeObject.h"
+#include "SkydomeObject.h"
 
 // Component
 #include "CameraFollowComponent.h"
@@ -37,6 +38,7 @@
 #include "AudioSource.h"
 #include "AudioBank.h"
 #include "Random.h"
+#include "GameStage0Scene.h"
 
 namespace
 {
@@ -54,7 +56,7 @@ void GameMainScene::Init()
 		pCamera->GetComponent<CameraComponent>()->SetMode(CameraComponent::Mode::Perspective);
 		pCamera->GetComponent<CameraComponent>()->
 			SetPerspective(DirectX::XMConvertToRadians(60.0f), (float)SCREEN_WIDTH / SCREEN_HEIGHT, 0.1f, 1000.0f);
-		pCamera->Transform()->SetPosition({ 0, 5, -15 });
+		pCamera->Transform()->SetPosition({ 0, 5, -150 });
 		pCamera->Transform()->SetEulerAngles({ 0.5, 0, 0 });
 		pCamera->AddComponent<CameraFollowComponent>();
 
@@ -96,6 +98,11 @@ void GameMainScene::Init()
 	auto* follow = pCamera->GetComponent<CameraFollowComponent>();
 	follow->SetTargetObject(pPlayer);
 	psm->SetCameraObject(pCamera);
+
+	// スカイドーム
+	SkydomeObject* pSkydome = AddGameObject<SkydomeObject>(1);
+	pSkydome->Init();
+	//pSkydome->Transform()->SetParent(pPlayer->Transform());
 
 	//// サンドバッグ
 	//SandbagObject* pSandbag = AddGameObject<SandbagObject>(1);
@@ -235,7 +242,7 @@ void GameMainScene::Init()
 	CreateFences();
 
 	// テント
-	//CreateTents();
+	CreateTents();
 
 	// 木
 	CreateTrees();
@@ -307,12 +314,49 @@ void GameMainScene::CreateFences()
 		pFence->Transform()->SetScale(scale);
 		pFence->Transform()->RotateAxis({ 0, 1, 0 }, -rad + myPI / 2.0f);
 	}
+
+	// 横断
+	for (int i = 0; i < 7; i++)
+	{
+		float rad = -myPI / 4.0f;
+		float x = cosf(rad) * i *  30;
+		float z = sinf(rad) * i * -30;
+		Vector3 position = { x, -5, z };
+
+		FenceObject* pFence = AddGameObject<FenceObject>(1);
+		pFence->Init();
+		pFence->Transform()->SetPosition(position);
+		pFence->Transform()->SetScale(scale);
+		pFence->Transform()->RotateAxis({ 0, 1, 0 }, -myPI / 4.0f);
+		pFence->GetComponent<Collider>()->SetBox({ 6, 0.5f, 5 });
+		pFence->GetComponent<Collider>()->SetOffsetPosition({ 0, 0.0f, 0 });
+	}
+	for (int i = 1; i < 7; i++)
+	{
+		float rad = -myPI / 4.0f;
+		float x = cosf(rad) * i * -30;
+		float z = sinf(rad) * i * 30;
+		Vector3 position = { x, -5, z };
+
+		FenceObject* pFence = AddGameObject<FenceObject>(1);
+		pFence->Init();
+		pFence->Transform()->SetPosition(position);
+		pFence->Transform()->SetScale(scale);
+		pFence->Transform()->RotateAxis({ 0, 1, 0 }, -myPI / 4.0f);
+		pFence->GetComponent<Collider>()->SetBox({ 6, 0.5f, 5 });
+		pFence->GetComponent<Collider>()->SetOffsetPosition({ 0, 0.0f, 0 });
+	}
+
 }
 
 void GameMainScene::CreateTents()
 {
 	TentObject* pTent = AddGameObject<TentObject>(1);
 	pTent->Init();
+	float s = 7.0f;
+	pTent->Transform()->SetScale({s, s, s});
+	pTent->Transform()->SetPosition({220, -5, 0});
+	pTent->Transform()->RotateAxis({0, 1, 0}, PI / 2 * 3);
 }
 
 void GameMainScene::CreateTrees()

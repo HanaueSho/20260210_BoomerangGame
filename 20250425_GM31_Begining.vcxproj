@@ -190,6 +190,7 @@
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMainScene.cpp" />
+    <ClCompile Include="GameStage0Scene.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="Keyboard.cpp" />
@@ -224,6 +225,7 @@
     <ClCompile Include="SandbagObject.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SkinMatrixProviderComponent.cpp" />
+    <ClCompile Include="SkydomeObject.cpp" />
     <ClCompile Include="SphereObject.cpp" />
     <ClCompile Include="SwapChainManager.cpp" />
     <ClCompile Include="TargetObject.cpp" />
@@ -282,6 +284,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMainScene.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameStage0Scene.h" />
     <ClInclude Include="HingeJointComponent.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="InputSystem.h" />
@@ -331,6 +334,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SelfDestroyComponent.h" />
     <ClInclude Include="SkinMatrixProviderComponent.h" />
+    <ClInclude Include="SkydomeObject.h" />
     <ClInclude Include="SphereObject.h" />
     <ClInclude Include="SpriteAnimationComponent.h" />
     <ClInclude Include="SpriteRendererComponent.h" />

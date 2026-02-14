@@ -23,7 +23,8 @@ void ModelAnimeObject::Init()
 {
 	auto* tf = GetComponent<TransformComponent>();
 	float s = 1.0f;
-	tf->SetPosition({ 0, -5.5f, 0 });
+	//tf->SetPosition({ 0, -5.5f, 0 });
+	tf->SetPosition({ 0, -0.5f, -150 }); // SetParentKeepWorld‚ÌŠÖŒW‚Å‚±‚Á‚¿‚ðŽg‚¤
 	tf->SetScale({ s, s, s });
 	tf->SetEulerAngles({ 3.141592F / 2 * 3, 0, 0 });
 

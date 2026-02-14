@@ -555,7 +555,7 @@ void Renderer::CreateRasterizerStates()
 	m_RS_BackCull = MakeRS(dev, D3D11_FILL_SOLID, D3D11_CULL_BACK, FALSE, TRUE, FALSE, FALSE, FALSE, 0, 0, 0);
 
 	// アウトライン（背面法：前面カリング）
-	m_RS_FrontCull = MakeRS(dev, D3D11_FILL_SOLID, D3D11_CULL_FRONT, FALSE, TRUE, FALSE, FALSE, FALSE, -2, -1, 0); // 最後から３番目の引数が -2 だと黒く塗りつぶされやすい（０だと平気？）
+	m_RS_FrontCull = MakeRS(dev, D3D11_FILL_SOLID, D3D11_CULL_FRONT, FALSE, TRUE, FALSE, FALSE, FALSE, 0, 0.0f, 0.0f); // 最後から３番目の引数が -2 だと黒く塗りつぶされやすい（０だと平気？）
 
 	// ダブルサイド
 	m_RS_NoCull = MakeRS(dev, D3D11_FILL_SOLID, D3D11_CULL_NONE, FALSE, TRUE, FALSE, FALSE, FALSE, 0, 0, 0);
