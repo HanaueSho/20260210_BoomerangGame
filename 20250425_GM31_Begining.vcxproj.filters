@@ -127,6 +127,12 @@
     <Filter Include="ソース ファイル\6.ゲームコンポーネント\EnemyObject">
       <UniqueIdentifier>{123cce42-1fbf-43c9-85ab-7bf1b474deea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Enemy">
+      <UniqueIdentifier>{957514c1-9a07-4782-90b8-4553773695b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Player">
+      <UniqueIdentifier>{c093b23f-36cb-4251-a455-2c573dc6d34d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioSource.cpp">
@@ -240,9 +246,6 @@
     <ClCompile Include="SkinMatrixProviderComponent.cpp">
       <Filter>ソース ファイル\1.フレームワーク\Model</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerObject.cpp">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
-    </ClCompile>
     <ClCompile Include="SandbagObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
     </ClCompile>
@@ -297,23 +300,29 @@
     <ClCompile Include="BoomerangStateManagerComponent.cpp">
       <Filter>ソース ファイル\6.ゲームコンポーネント\BoomerangObject</Filter>
     </ClCompile>
-    <ClCompile Include="BoomerangObject.cpp">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
-    </ClCompile>
     <ClCompile Include="CameraFollowComponent.cpp">
       <Filter>ソース ファイル\6.ゲームコンポーネント\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="AimObject.cpp">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyObject.cpp">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
     </ClCompile>
     <ClCompile Include="AimStateManagerComponent.cpp">
       <Filter>ソース ファイル\6.ゲームコンポーネント\BoomerangObject</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="AimObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyModelAnimeObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Enemy</Filter>
+    </ClCompile>
     <ClCompile Include="TargetObject.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -515,9 +524,6 @@
     <ClInclude Include="ColliderPose.h">
       <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerObject.h">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
-    </ClInclude>
     <ClInclude Include="SandbagObject.h">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
     </ClInclude>
@@ -590,26 +596,32 @@
     <ClInclude Include="PlayerStateThrow.h">
       <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
     </ClInclude>
-    <ClInclude Include="BoomerangObject.h">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
-    </ClInclude>
     <ClInclude Include="BoomerangStateManagerComponent.h">
       <Filter>ソース ファイル\6.ゲームコンポーネント\BoomerangObject</Filter>
     </ClInclude>
     <ClInclude Include="CameraFollowComponent.h">
       <Filter>ソース ファイル\6.ゲームコンポーネント\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="AimObject.h">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
-    </ClInclude>
     <ClInclude Include="AimStateManagerComponent.h">
       <Filter>ソース ファイル\6.ゲームコンポーネント\BoomerangObject</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyObject.h">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
-    </ClInclude>
     <ClInclude Include="TargetObject.h">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="AimObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyModelAnimeObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

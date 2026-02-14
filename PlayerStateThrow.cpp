@@ -16,6 +16,9 @@ void PlayerStateThrow::Enter(PlayerStateManagerComponent& manager)
 
 	// ブーメラン制御
 	manager.GetBoomerang()->ChangeStateThrow();
+
+	// タイマー初期化
+	m_Timer = 0.0f;
 }
 
 void PlayerStateThrow::Update(PlayerStateManagerComponent& manager, float dt)
@@ -23,6 +26,11 @@ void PlayerStateThrow::Update(PlayerStateManagerComponent& manager, float dt)
 	// ----- 状態遷移 -----
 	// 移動遷移
 	if (InputSystem::IsMoveDown())
+	{
+		manager.ChangeState(PlayerStateId::Idle);
+	}
+	m_Timer += dt;
+	if (m_Timer > 0.5f)
 	{
 		manager.ChangeState(PlayerStateId::Idle);
 	}

@@ -34,7 +34,8 @@ void BoomerangStateManagerComponent::Init()
 
 void BoomerangStateManagerComponent::Update(float dt)
 {
-	printf("[size]: %d\n", (int)m_Targets.size());
+	//printf("[size]: %d\n", (int)m_Targets.size());
+	printf("[BoomState]: %d\n", (int)m_State);
 	switch (m_State)
 	{
 	case State::Idle:
@@ -45,6 +46,7 @@ void BoomerangStateManagerComponent::Update(float dt)
 		Throw(dt);
 		break;
 	case State::Back:
+		Back(dt);
 		break;
 	}
 }
@@ -65,8 +67,13 @@ void BoomerangStateManagerComponent::OnTriggerEnter(Collider* me, Collider* othe
 	{
 		if (other->Owner()->Tag() == "Target")
 		{
+			// ターゲット以外なら終わり
+			if (other->Owner() != m_Targets[m_IndexTargets]) break;
+
 			m_IndexTargets++;
 			m_IsApproach = true; // これ false にするのはどうなん？
+
+			if (m_IndexTargets >= m_Targets.size()) ChangeStateBack();
 		}
 	}
 		break;
@@ -202,17 +209,7 @@ void BoomerangStateManagerComponent::Throw(float dt)
 	if (m_IsApproach)
 	{
 		// ターゲット位置
-		Vector3 target = {0, 0, 0};
-		if (m_IndexTargets >= m_Targets.size())
-		{
-			// プレイヤーに飛ぶ
-			target = m_pPlayerObject->Transform()->Position();
-		}
-		else
-		{
-			// エネミーに飛ぶ
-			target = m_Targets[m_IndexTargets]->Transform()->Position();
-		}
+		Vector3 target = target = m_Targets[m_IndexTargets]->Transform()->Position();
 
 		Vector3 vect = target - Owner()->Transform()->Position(); 
 		float dist = vect.length();
@@ -285,5 +282,67 @@ void BoomerangStateManagerComponent::Throw(float dt)
 	Owner()->Transform()->LookAt(lookPos, Owner()->Transform()->Up()); // 内側へ向ける
 	Vector3 axis = Owner()->Transform()->Forward();
 	Owner()->Transform()->RotateAxis(axis, -50.0f * dt); // 回転させる
+
+}
+
+void BoomerangStateManagerComponent::Back(float dt)
+{
+	// ターゲット位置（プレイヤーへ飛ぶ）
+	Vector3 target = m_pPlayerObject->Transform()->Position();
+	
+	Vector3 vect = target - Owner()->Transform()->Position();
+	float dist = vect.length();
+	vect.normalize();
+	// ----- 水平成分 -----
+	// 水平成分のみ取り出す
+	Vector3 vectHolizontal = Vector3(vect.x, 0, vect.z);
+	Vector3 dirHolizontal = Vector3(m_MoveDir.x, 0, m_MoveDir.z);
+	vectHolizontal.normalize();
+	dirHolizontal.normalize();
+	// 水平成分の角度を求める
+	float yawCur = atan2f(dirHolizontal.x, dirHolizontal.z);
+	float yawVect = atan2f(vectHolizontal.x, vectHolizontal.z);
+	float yawDiff = WrapPi(yawVect - yawCur); // 差分
+	// 最大旋回角にクランプ
+	float maxTurn = m_IsApproach ? m_TurnRateApproach * dt : m_TurnRateFlight * dt; // １フレーム内の最大旋回角
+	// 近距離は maxTurn を増加
+	float addTurn = 90 * std::clamp((30.0f - dist) / 30.0f, 0.0f, 1.0f) * dt;
+	maxTurn += addTurn;
+
+	float yawStep = std::clamp(yawDiff, -maxTurn, maxTurn);
+	float yawNew = yawCur + yawStep;
+
+	// yawNew から水平方向を復元
+	Vector3 dirNew = { sinf(yawNew), 0.0f, cosf(yawNew) };
+	dirNew.normalize();
+
+	// ----- 垂直成分 -----
+	float diffVertical = target.y - Owner()->Transform()->Position().y;
+	diffVertical *= 1.0f * dt;
+	// 成分合成
+	dirNew.y += diffVertical;
+	dirNew.normalize();
+
+	// 位置更新
+	Vector3 position = Owner()->Transform()->Position();
+	position += dirNew * (m_Speed * dt);
+	Owner()->Transform()->SetPosition(position);
+
+	// 進行方向更新
+	m_MoveDir = dirNew;
+
+	// ----- 回転処理 -----
+	Vector3 lookPos = Owner()->Transform()->Position();
+	lookPos += Vector3::Cross(m_MoveDir, { 0, 1, 0 }); // 進行方向の内側を向くようにする
+
+	Owner()->Transform()->LookAt(lookPos, Owner()->Transform()->Up()); // 内側へ向ける
+	Vector3 axis = Owner()->Transform()->Forward();
+	Owner()->Transform()->RotateAxis(axis, -50.0f * dt); // 回転させる
+
+	// ----- プレイヤー接触処理 -----
+	if (dist < 10.0f)
+	{
+		ChangeState(State::Idle);
+	}
 
 }

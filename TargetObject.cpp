@@ -18,8 +18,8 @@ void TargetObject::Init()
 {
 	// 1) Transform（既に GameObject ctor で追加済み）を取得して初期姿勢を入れておく
 	auto* tf = GetComponent<TransformComponent>();
-	tf->SetPosition({ 0,0,50 });
-	float s = 5.0f;
+	tf->SetPosition({ 0, 0, 0 });
+	float s = 4.0f;
 	tf->SetScale({ s,s,s });
 	tf->SetEulerAngles({ 0,0,0 });
 
@@ -67,7 +67,7 @@ void TargetObject::Init()
 	// 物理を働かせたいのでコライダーなどを設定
 	Collider* coll = AddComponent<Collider>();
 	coll->SetSphere(1);
-	coll->SetModeSimulate();
+	coll->SetModeTrigger();
 
 	Rigidbody* rigid = AddComponent<Rigidbody>();
 	rigid->SetGravityScale(1.0f);

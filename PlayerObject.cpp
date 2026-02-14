@@ -31,7 +31,7 @@ void PlayerObject::Init()
 	// コライダー
 	auto* col = AddComponent<Collider>();
 	col->SetCapsule(1.5f, 8);
-	col->SetModeTrigger();
+	col->SetModeQuery();
 	col->SetOffsetPosition({0, 0, 0});
 	col->SetOffsetRotation(Quaternion::FromEulerAngles({ 0, 0, 0}));
 
@@ -57,35 +57,6 @@ void PlayerObject::Uninit()
 void PlayerObject::Update(float dt)
 {
 	GameObject::Update(dt);
-
-	// ----- 移動処理 -----
-	//auto* cc = GetComponent<CharacterControllerComponent>();
-	//Vector3 targetVector = { 0, 0, 0 };
-	//if (Keyboard_IsKeyDown(KK_W))
-	//{
-	//	targetVector.z += 1;
-	//}
-	//if (Keyboard_IsKeyDown(KK_S))
-	//{
-	//	targetVector.z += -1;
-	//}
-	//if (Keyboard_IsKeyDown(KK_A))
-	//{
-	//	targetVector.x += -1;
-	//}
-	//if (Keyboard_IsKeyDown(KK_D))
-	//{
-	//	targetVector.x += 1;
-	//}
-	//if (Keyboard_IsKeyDownTrigger(KK_SPACE))
-	//{
-	//	cc->OnJumpPressed();
-	//}
-	//// ジャンプ長押し
-	//cc->SetJumpHeld(Keyboard_IsKeyDown(KK_SPACE));
-	
-	//cc->SetMoveInput(targetVector);
-
 	
 }
 

@@ -73,6 +73,8 @@ namespace
 		auto it = skeleton.nodeNameToIndex.find(n.name);
 		if (it != skeleton.nodeNameToIndex.end())
 		{
+			printf("DUP node name: '%s'  existingIndex=%d  newParent=%d\n",
+				n.name.c_str(), it->second, parentNode);
 			assert(false && "error");
 		}
 

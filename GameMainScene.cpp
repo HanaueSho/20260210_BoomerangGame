@@ -106,11 +106,11 @@ void GameMainScene::Init()
 	psm->SetBoomerangObject(pBoomerang); // Player Setter
 
 	// エネミー
-	TargetObject* pEnemyObject = AddGameObject<TargetObject>(1);
+	EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
 	pEnemyObject->Init();
-	pEnemyObject = AddGameObject<TargetObject>(1);
+	pEnemyObject = AddGameObject<EnemyObject>(1);
 	pEnemyObject->Init();
-	pEnemyObject->Transform()->SetPosition({ 0, 10, 90 });
+	pEnemyObject->Transform()->SetPosition({ 0, 10, 80 });
 
 	// りんご-----
 	AppleObject* pApple = AddGameObject<AppleObject>(1);

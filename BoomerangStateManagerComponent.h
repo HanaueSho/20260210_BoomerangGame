@@ -62,6 +62,7 @@ public:
 	// ゲッター
 	GameObject* GetAimObject() { return m_pAimObject; }
 	int GetTargetsSize() const { return (int)m_Targets.size(); }
+	bool IsStateIdle() const  { return m_State == State::Idle; }
 
 	// ターゲット追加
 	void AddTarget();
@@ -72,6 +73,7 @@ private:
 	void SetSpine();
 	// ステート内部処理
 	void Throw(float dt);
+	void Back(float dt);
 };
 
 #endif

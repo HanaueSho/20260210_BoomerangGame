@@ -184,6 +184,7 @@
     <ClCompile Include="DebugRenderer.cpp" />
     <ClCompile Include="DxDevice.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyModelAnimeObject.cpp" />
     <ClCompile Include="EnemyObject.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -271,6 +272,7 @@
     <ClInclude Include="DistanceJointComponent.h" />
     <ClInclude Include="DxDevice.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyModelAnimeObject.h" />
     <ClInclude Include="EnemyObject.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="Game.h" />
