@@ -56,9 +56,16 @@ public:
 	void ChangeStateThrow() { ChangeState(State::Throw); }
 	void ChangeStateBack()  { ChangeState(State::Back);  }
 
+	// 準備セッター
 	void SetPlayerObject(GameObject* player);
 
+	// ゲッター
 	GameObject* GetAimObject() { return m_pAimObject; }
+	int GetTargetsSize() const { return (int)m_Targets.size(); }
+
+	// ターゲット追加
+	void AddTarget();
+	void ClearTargets() { m_Targets.clear(); }
 
 private:
 	void SetHand();

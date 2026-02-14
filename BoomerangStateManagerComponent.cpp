@@ -34,6 +34,7 @@ void BoomerangStateManagerComponent::Init()
 
 void BoomerangStateManagerComponent::Update(float dt)
 {
+	printf("[size]: %d\n", (int)m_Targets.size());
 	switch (m_State)
 	{
 	case State::Idle:
@@ -46,7 +47,6 @@ void BoomerangStateManagerComponent::Update(float dt)
 	case State::Back:
 		break;
 	}
-
 }
 
 void BoomerangStateManagerComponent::FixedUpdate(float fixedDt)
@@ -63,10 +63,10 @@ void BoomerangStateManagerComponent::OnTriggerEnter(Collider* me, Collider* othe
 		break;
 	case State::Throw:
 	{
-		if (other->Owner()->Tag() == "Enemy")
+		if (other->Owner()->Tag() == "Target")
 		{
 			m_IndexTargets++;
-			m_IsApproach = true;
+			m_IsApproach = true; // これ false にするのはどうなん？
 		}
 	}
 		break;
@@ -85,6 +85,8 @@ void BoomerangStateManagerComponent::ChangeState(State newState)
 	case State::Aim:
 		break;
 	case State::Throw:
+		// ターゲットクリア
+		ClearTargets();
 		break;
 	case State::Back:
 		break;
@@ -96,6 +98,7 @@ void BoomerangStateManagerComponent::ChangeState(State newState)
 	{
 	case State::Idle:
 	{
+		// 背中にセット
 		SetSpine();
 		GetAimObject()->GetComponent<AimStateManagerComponent>()->SetIsAimming(false);
 	}
@@ -108,8 +111,8 @@ void BoomerangStateManagerComponent::ChangeState(State newState)
 		break;
 	case State::Throw:
 	{
-		// Target をコピー
-		m_Targets = GetAimObject()->GetComponent<AimStateManagerComponent>()->Targets();
+		// Target をコピー（ここでしなくても良くなりそう）
+		//m_Targets = GetAimObject()->GetComponent<AimStateManagerComponent>()->Targets();
 		if (m_Targets.size() < 1)
 		{
 			ChangeState(State::Idle); // 投げれない
@@ -140,6 +143,41 @@ void BoomerangStateManagerComponent::SetPlayerObject(GameObject* player)
 	// 背骨ボーン
 	m_pBoneSpineObject = dynamic_cast<PlayerObject*>(m_pPlayerObject)->GetBoneObject(2);
 	m_pBoneHandObject = dynamic_cast<PlayerObject*>(m_pPlayerObject)->GetBoneObject(24);
+}
+
+// ターゲット追加
+void BoomerangStateManagerComponent::AddTarget()
+{
+	// とりあえずターゲットを持ってくる
+	std::vector<GameObject*> targets = m_pAimObject->GetComponent<AimStateManagerComponent>()->Targets();
+	if ((int)targets.size() < 1) return;
+
+	// ----- 既に入ってるやつは無視 -----
+	for (const auto& x : m_Targets)
+	{
+		auto it = std::remove(targets.begin(), targets.end(), x); // 共通要素を取り除く（この時点では終端に無駄な領域が残る）
+		targets.erase(it, targets.end()); // 削除（無駄な領域を削除する）
+	}
+	// ----- 距離優先 -----
+	if ((int)targets.size() < 1) return;
+	Vector3 axis = m_pAimObject->Transform()->Forward(); // コライダーの軸
+	Vector3 aimPos = m_pAimObject->Transform()->Position(); // コライダーの始点
+	GameObject* nearest = nullptr;
+	float distMin = FLT_MAX;
+	for (int i = 0; i < (int)targets.size(); i++)
+	{
+		Vector3 targetPosition = targets[i]->Transform()->Position(); // target の位置
+		Vector3 vectToTarget = targetPosition - aimPos; // aim の始点から target へのベクトル
+		Vector3 pointOnAxis = Vector3::Dot(axis, vectToTarget) * axis; // 軸上の最近接点
+		float dist = (targetPosition - pointOnAxis).length();
+		if (dist < distMin) // 最小距離更新
+		{
+			nearest = targets[i];
+			distMin = dist;
+		}
+	}
+	// 最後に登録
+	m_Targets.push_back(nearest);
 }
 
 void BoomerangStateManagerComponent::SetHand()

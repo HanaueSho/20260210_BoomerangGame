@@ -10,7 +10,6 @@ class EnemyObject : public GameObject
 {
 private:
 
-
 public:
 	void Init() override;
 

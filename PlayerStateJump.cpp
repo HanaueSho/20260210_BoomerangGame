@@ -42,7 +42,7 @@ void PlayerStateJump::Update(PlayerStateManagerComponent& manager, float dt)
 		manager.ChangeState(PlayerStateId::Idle);
 	}
 	// ƒGƒCƒ€‘JˆÚ
-	if (InputSystem::IsAimDown())
+	if (InputSystem::IsToAimDown())
 	{
 		manager.ChangeState(PlayerStateId::Aim);
 	}

@@ -14,19 +14,19 @@ void AimStateManagerComponent::Init()
 void AimStateManagerComponent::Update(float dt)
 {
 	Component::Update(dt);
-	printf("[size]: %d\n", (int)m_Targets.size());
+	//printf("[size]: %d\n", (int)m_Targets.size());
 
-	/*if (Keyboard_IsKeyDown(KK_D1))
-		Owner()->Transform()->SetParentKeepWorld(nullptr);*/
+	//if (Keyboard_IsKeyDown(KK_D1))
+	//	Owner()->Transform()->SetParentKeepWorld(nullptr);
 }
 
 void AimStateManagerComponent::OnTriggerEnter(Collider* me, Collider* other)
 {
-	if (m_IsAimming)
+	//if (m_IsAimming)
 	{
-		if (other->Owner()->Tag() == "Enemy")
+		if (other->Owner()->Tag() == "Target")
 		{
-			printf("「Enemyにあたりました」\n");
+			printf("「Targetにあたりました」\n");
 			m_Targets.push_back(other->Owner());
 		}
 	}
@@ -38,11 +38,11 @@ void AimStateManagerComponent::OnTriggerStay(Collider* me, Collider* other)
 
 void AimStateManagerComponent::OnTriggerExit(Collider* me, Collider* other)
 {
-	if (m_IsAimming)
+	//if (m_IsAimming)
 	{
-		if (other->Owner()->Tag() == "Enemy")
+		if (other->Owner()->Tag() == "Target")
 		{
-			printf("「Enemyから外れました」\n");
+			printf("「Targetから外れました」\n");
 			m_Targets.erase(std::remove(m_Targets.begin(), m_Targets.end(), other->Owner()), m_Targets.end());
 		}
 	}
@@ -53,7 +53,7 @@ void AimStateManagerComponent::SetIsAimming(bool b)
 	m_IsAimming = b;
 	if (b == false)
 	{
-		m_Targets.clear();
+		//m_Targets.clear();
 	}
 	else
 	{

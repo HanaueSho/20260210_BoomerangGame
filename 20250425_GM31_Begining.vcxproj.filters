@@ -312,6 +312,9 @@
     <ClCompile Include="AimStateManagerComponent.cpp">
       <Filter>ソース ファイル\6.ゲームコンポーネント\BoomerangObject</Filter>
     </ClCompile>
+    <ClCompile Include="TargetObject.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vector3.h">
@@ -603,6 +606,9 @@
       <Filter>ソース ファイル\6.ゲームコンポーネント\BoomerangObject</Filter>
     </ClInclude>
     <ClInclude Include="EnemyObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="TargetObject.h">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
     </ClInclude>
   </ItemGroup>

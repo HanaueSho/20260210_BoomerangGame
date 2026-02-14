@@ -33,18 +33,26 @@ void PlayerStateAim::Enter(PlayerStateManagerComponent& manager)
 
 void PlayerStateAim::Update(PlayerStateManagerComponent& manager, float dt)
 {
+	// ターゲット補足
+	if (InputSystem::IsAimDownTrigger())
+	{
+		// ターゲットを追加
+		manager.GetBoomerang()->AddTarget();
+	}
 
 	// ----- 状態遷移 -----
 	// 待機遷移
-	if (InputSystem::IsThrowDown())
+	if (InputSystem::IsThrowUp())
 	{
-		manager.ChangeState(PlayerStateId::Throw);
-	}
-	if (!InputSystem::IsAimDown())
-	{
-		// ブーメラン制御
-		manager.GetBoomerang()->ChangeStateIdle();
-		manager.ChangeState(PlayerStateId::Idle);
+		if (manager.GetBoomerang()->GetTargetsSize() > 0)
+		{
+			manager.ChangeState(PlayerStateId::Throw);
+		}
+		else
+		{
+			manager.GetBoomerang()->ChangeStateIdle();
+			manager.ChangeState(PlayerStateId::Idle);
+		}
 	}
 }
 

@@ -21,13 +21,16 @@
 #include "NorenObject.h"
 #include "BoomerangObject.h"
 #include "EnemyObject.h"
+#include "TargetObject.h"
 
+// Component
 #include "CameraFollowComponent.h"
 #include "PlayerStateManagerComponent.h"
 #include "BoomerangStateManagerComponent.h"
 #include "Camera.h"
 #include "ColliderComponent.h"
 
+// Audio
 #include "AudioSource.h"
 #include "AudioBank.h"
 
@@ -103,9 +106,9 @@ void GameMainScene::Init()
 	psm->SetBoomerangObject(pBoomerang); // Player Setter
 
 	// エネミー
-	EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
+	TargetObject* pEnemyObject = AddGameObject<TargetObject>(1);
 	pEnemyObject->Init();
-	pEnemyObject = AddGameObject<EnemyObject>(1);
+	pEnemyObject = AddGameObject<TargetObject>(1);
 	pEnemyObject->Init();
 	pEnemyObject->Transform()->SetPosition({ 0, 10, 90 });
 

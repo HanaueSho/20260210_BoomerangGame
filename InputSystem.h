@@ -28,13 +28,21 @@ public:
 	{
 		return Keyboard_IsKeyDownTrigger(KK_SPACE);
 	}
-	static bool IsAimDown()
+	static bool IsToAimDown()
 	{
 		return Mouse_IsClick(MS_CLICK_RIGHT);
+	}
+	static bool IsAimDownTrigger()
+	{
+		return Mouse_IsClick(MS_CLICK_LEFT);
 	}
 	static bool IsThrowDown()
 	{
 		return Mouse_IsClick(MS_CLICK_LEFT);
+	}
+	static bool IsThrowUp()
+	{
+		return Mouse_IsClickUp(MS_CLICK_RIGHT);
 	}
 	static const Vector3& GetInputMove()
 	{
