@@ -133,6 +133,15 @@
     <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Player">
       <UniqueIdentifier>{c093b23f-36cb-4251-a455-2c573dc6d34d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Fence">
+      <UniqueIdentifier>{fa4d2ec6-061d-4f71-b4fa-869ed26f45cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Tent">
+      <UniqueIdentifier>{317b1b09-cc42-43c5-a524-a672b172849d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Tree">
+      <UniqueIdentifier>{f3ad40c1-103d-498f-ad13-f6cb2b5b9a75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioSource.cpp">
@@ -323,6 +332,15 @@
     </ClCompile>
     <ClCompile Include="TargetObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="TreeObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="FenceObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Fence</Filter>
+    </ClCompile>
+    <ClCompile Include="TentObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Tent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -622,6 +640,15 @@
     </ClInclude>
     <ClInclude Include="EnemyModelAnimeObject.h">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="FenceObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Fence</Filter>
+    </ClInclude>
+    <ClInclude Include="TentObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Tent</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Tree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

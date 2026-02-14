@@ -16,6 +16,10 @@ public:
 	void Update(float dt) override;
 	void Draw() override;
 
+private:
+	void CreateFences();
+	void CreateTents();
+	void CreateTrees();
 };
 
 #endif

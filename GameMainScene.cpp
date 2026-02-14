@@ -22,6 +22,9 @@
 #include "BoomerangObject.h"
 #include "EnemyObject.h"
 #include "TargetObject.h"
+#include "TentObject.h"
+#include "FenceObject.h"
+#include "TreeObject.h"
 
 // Component
 #include "CameraFollowComponent.h"
@@ -33,7 +36,12 @@
 // Audio
 #include "AudioSource.h"
 #include "AudioBank.h"
+#include "Random.h"
 
+namespace
+{
+	const float myPI = 3.1415926535f;
+}
 
 void GameMainScene::Init()
 {
@@ -223,6 +231,15 @@ void GameMainScene::Init()
 	pEnemy->GetComponent<Collider>()->SetBox({ 1, 1, 1 });
 	pEnemy->GetComponent<Rigidbody>()->SetBodyType(Rigidbody::BodyType::Static); // 壁
 
+	// 柵
+	CreateFences();
+
+	// テント
+	//CreateTents();
+
+	// 木
+	CreateTrees();
+
 	// ライト関係
 	LightApp light = {};
 	light.enable = 1;
@@ -244,6 +261,7 @@ void GameMainScene::Init()
 	outline.outlineWidth = 0.05f;
 	outline.outlineColor = Vector3(0.0f, 0.0f, 0.0f);
 	Renderer::SetOutline(outline);
+
 }
 
 void GameMainScene::Uninit()
@@ -265,4 +283,63 @@ void GameMainScene::Update(float dt)
 void GameMainScene::Draw()
 {
 	Scene::Draw();
+}
+
+void GameMainScene::CreateFences()
+{
+	float s = 2;
+	Vector3 scale = { s, s, s };
+
+	float radius = 200.0f;
+
+	// n 角形を作る
+	const int numVertex = 8 * 6;
+	for (int i = 0; i < numVertex; i++)
+	{
+		float rad = myPI * 2.0f / numVertex * i;
+		float x = cosf(rad) * radius;
+		float z = sinf(rad) * radius;
+		Vector3 position = { x, -5, z };
+
+		FenceObject* pFence = AddGameObject<FenceObject>(1);
+		pFence->Init();
+		pFence->Transform()->SetPosition(position);
+		pFence->Transform()->SetScale(scale);
+		pFence->Transform()->RotateAxis({ 0, 1, 0 }, -rad + myPI / 2.0f);
+	}
+}
+
+void GameMainScene::CreateTents()
+{
+	TentObject* pTent = AddGameObject<TentObject>(1);
+	pTent->Init();
+}
+
+void GameMainScene::CreateTrees()
+{
+
+	float radiusBase = 280.0f;
+
+	// n 角形を作る
+	const int numVertex = 8 * 6;
+	for (int j = 0; j < 5; j++)
+	{
+		float radius = radiusBase + 50 * Random::Random01() + j * 30.0f;
+		float s = 3 - Random::Random01();
+		for (int i = 0; i < numVertex; i++)
+		{
+			float rad = myPI * 2.0f / numVertex * i; rad += j * 2;
+			float x = cosf(rad) * radius + 50.0f * Random::Random01();
+			float z = sinf(rad) * radius + 50.0f * Random::Random01();
+			Vector3 position = { x, -5, z };
+
+			Vector3 scale = { s, s, s };
+
+			TreeObject* pTree = AddGameObject<TreeObject>(1);
+			pTree->Init();
+			pTree->Transform()->SetPosition(position);
+			pTree->Transform()->SetScale(scale);
+			pTree->Transform()->RotateAxis({ 0, 1, 0 }, Random::RandomRange(0.0f, 6.0f));
+		}
+	}
 }

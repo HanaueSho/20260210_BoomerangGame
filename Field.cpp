@@ -33,7 +33,7 @@ void Field::Init()
 	mat->SetVSPS(vs, ps, il, /*takeVS*/true, /*takePS*/true, /*takeIL*/true);
 
 	// 旧 Polygon2D と同じ kirby を使う
-	ID3D11ShaderResourceView* srv = Texture::LoadAndRegisterKey("assets\\texture\\error.png");
+	ID3D11ShaderResourceView* srv = Texture::LoadAndRegisterKey("assets\\texture\\ground.png");
 	// サンプラーは Renderer::Init() で 0番に PSSetSamplers 済みなら null でも描ける
 	mat->SetMainTexture(srv, /*sampler*/nullptr, /*takeSrv*/false, /*takeSamp*/false);
 
