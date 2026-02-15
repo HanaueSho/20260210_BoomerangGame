@@ -47,32 +47,36 @@ void Scene::Uninit()
 	if (m_pLightManager)  { m_pLightManager->Shutdown();  m_pLightManager.reset(); }
 }
 
-void Scene::Update(float dt)
+void Scene::Update(float gameDt, float realDt)
 {
 	m_pLightManager->BeginFrameAndUploadAllLights(); // ライト情報を格納する
+
 	// オブジェクト更新処理
 	for (auto& gameObjectList : m_GameObjects)
 	{
 		for (auto* gameObject : gameObjectList)
 		{
 			if (gameObject)
-				gameObject->Update(dt);
+				gameObject->Update(gameDt, realDt);
 		}
 	}
 	// オブジェクト破棄処理
-	for (auto& gameObjectList : m_GameObjects) // 参照型じゃないとバグるよ
+	if (gameDt > 0.0f)
 	{
-		gameObjectList.remove_if(
-			[](GameObject* object)
-			{
-				if (object && object->IsDestroyRequested())
+		for (auto& gameObjectList : m_GameObjects) // 参照型じゃないとバグるよ
+		{
+			gameObjectList.remove_if(
+				[](GameObject* object)
 				{
-					object->Uninit();
-					delete object; // 所有者が delete
-					return true; // リストから外す
-				}
-				return false;
-			});
+					if (object && object->IsDestroyRequested())
+					{
+						object->Uninit();
+						delete object; // 所有者が delete
+						return true; // リストから外す
+					}
+					return false;
+				});
+		}
 	}
 
 	// デバッグ切り替え
@@ -84,6 +88,7 @@ void Scene::Update(float dt)
 	{
 		m_IsDrawCollisionInFront = !m_IsDrawCollisionInFront;
 	}
+
 }
 
 void Scene::FixedUpdate(float fixedDt)

@@ -60,9 +60,9 @@ void MarkSpriteObject::Init()
     auto* bb = AddComponent<BillboardComponent>();
 }
 
-void MarkSpriteObject::Update(float dt)
+void MarkSpriteObject::Update(float gameDt, float realDt)
 {
-    GameObject::Update(dt);
+    GameObject::Update(gameDt, realDt);
 
     switch (m_State)
     {
@@ -70,7 +70,7 @@ void MarkSpriteObject::Update(float dt)
         break;
     case State::FadeIn:
     {
-        m_Timer += dt * m_Speed;
+        m_Timer += realDt * m_Speed;
         if (m_Timer > m_Time)
         {
             m_Timer = m_Time;
@@ -83,7 +83,7 @@ void MarkSpriteObject::Update(float dt)
     break;
     case State::FadeOut:
     {
-        m_Timer -= dt * m_Speed;
+        m_Timer -= realDt * m_Speed;
         if (m_Timer < 0)
         {
             m_Timer = 0;

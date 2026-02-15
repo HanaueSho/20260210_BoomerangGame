@@ -68,11 +68,11 @@ void EffectObject::Init()
 
 }
 
-void EffectObject::Update(float dt)
+void EffectObject::Update(float gameDt, float realDt)
 {
-    GameObject::Update(dt);
+    GameObject::Update(gameDt, realDt);
 
-    m_Timer += dt;
+    m_Timer += gameDt;
     float alpha =  1.0f - m_Timer / 3.0f;
     auto* sr = GetComponent<SpriteRendererComponent>();
     sr->SetColor({ 1, 1, 1, alpha });

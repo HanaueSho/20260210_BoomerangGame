@@ -12,5 +12,5 @@ private:
 	float m_Radian = 0;
 public:
 	void Init() override;
-	void Update(float dt) override;
+	void Update(float gameDt, float realDt) override;
 };

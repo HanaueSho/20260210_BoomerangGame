@@ -17,7 +17,7 @@ class Camera : public GameObject
 public:
 	void Init() override;
 	//void Uninit() override {}
-	void Update(float dt) override;
+	void Update(float gameDt, float realDt) override;
 	//void Draw() override {}
 };
 

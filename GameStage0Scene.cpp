@@ -132,9 +132,9 @@ void GameStage0Scene::Uninit()
 	Scene::Uninit();
 }
 
-void GameStage0Scene::Update(float dt)
+void GameStage0Scene::Update(float gameDt, float realDt)
 {
-	Scene::Update(dt);
+	Scene::Update(gameDt, realDt);
 
 	if (Keyboard_IsKeyDownTrigger(KK_ENTER))
 	{

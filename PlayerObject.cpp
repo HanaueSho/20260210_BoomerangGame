@@ -59,9 +59,9 @@ void PlayerObject::Uninit()
 	GameObject::Uninit();
 }
 
-void PlayerObject::Update(float dt)
+void PlayerObject::Update(float gameDt, float realDt)
 {
-	GameObject::Update(dt);
+	GameObject::Update(gameDt, realDt);
 	
 }
 

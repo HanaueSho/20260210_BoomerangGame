@@ -39,7 +39,15 @@ public:
 	virtual void Init()					{ for (auto& c : m_Components) c->Init(); }
 	virtual void Uninit()				{ for (auto& c : m_Components) c->Uninit(); }
 	virtual void FixedUpdate(float dt)	{ for (auto& c : m_Components) c->FixedUpdate(dt); FlushRemoveComponents();}
-	virtual void Update(float dt)		{ for (auto& c : m_Components) c->Update(dt); FlushRemoveComponents();}
+	virtual void Update(float gameDt, float realDt)	
+	{ 
+		for (auto& c : m_Components)
+		{
+			const float dt = (c->Clock() == UpdateClock::Real) ? realDt : gameDt;
+			c->Update(dt);
+		}
+		FlushRemoveComponents();
+	}
 	virtual void Draw()					{ for (auto& c : m_Components) c->Draw(); }
 
 	// ----- ”jŠüƒtƒ‰ƒO -----

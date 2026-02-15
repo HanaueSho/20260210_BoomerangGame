@@ -126,9 +126,9 @@ void PlayroomScene::Uninit()
 	Scene::Uninit();
 }
 
-void PlayroomScene::Update(float dt)
+void PlayroomScene::Update(float gameDt, float realDt)
 {
-	Scene::Update(dt);
+	Scene::Update(gameDt, realDt);
 
 	if (Keyboard_IsKeyDownTrigger(KK_ENTER))
 	{

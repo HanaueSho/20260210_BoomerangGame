@@ -8,6 +8,12 @@
 
 class GameObject; // 前方宣言
 
+enum class UpdateClock
+{
+	Game, // timeScale / hitstop の影響を受ける
+	Real  // timeScale / hitstop を無視する
+};
+
 class Component
 {
 protected:
@@ -28,6 +34,7 @@ public:
 	virtual void Uninit() {}		// GameObject破棄時
 
 	// ----- 更新 -----
+	virtual UpdateClock Clock() const noexcept { return UpdateClock::Game; }
 	virtual void FixedUpdate(float dt) {}	// 固定更新（物理演算系）
 	virtual void Update(float dt) {}		// 通常更新
 	virtual void Draw() {}					// 描画

@@ -30,9 +30,9 @@ void Result::Uninit()
 	Scene::Uninit();
 }
 
-void Result::Update(float dt)
+void Result::Update(float gameDt, float realDt)
 {
-	Scene::Update(dt);
+	Scene::Update(gameDt, realDt);
 	if (Keyboard_IsKeyDownTrigger(KK_ENTER))
 	{
 		Manager::SetScene<Title>();

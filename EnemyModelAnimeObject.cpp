@@ -157,9 +157,9 @@ void EnemyModelAnimeObject::Uninit()
 	GameObject::Uninit();
 }
 
-void EnemyModelAnimeObject::Update(float dt)
+void EnemyModelAnimeObject::Update(float gameDt, float realDt)
 {
-	GameObject::Update(dt);
+	GameObject::Update(gameDt, realDt);
 
 	auto* animator = GetComponent<AnimatorComponent>();
 	auto* provider = GetComponent<SkinMatrixProviderComponent>();

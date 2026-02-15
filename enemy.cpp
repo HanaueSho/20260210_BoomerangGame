@@ -73,13 +73,13 @@ void Enemy::Init()
 	SetPhysicsLayer(0);
 }
 
-void Enemy::Update(float dt)
+void Enemy::Update(float gameDt, float realDt)
 {
-	GameObject::Update(dt);
+	GameObject::Update(gameDt, realDt);
 
 	if (GetComponent<Rigidbody>()->IsKinematic())
 	{
-		const float value = 10.0f * dt;
+		const float value = 10.0f * gameDt;
 		if (Keyboard_IsKeyDown(KK_A))
 		{
 			Vector3 position = Transform()->Position();

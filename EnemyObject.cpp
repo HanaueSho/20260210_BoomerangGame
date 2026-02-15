@@ -67,9 +67,9 @@ void EnemyObject::Init()
 	SetTag("Enemy");
 }
 
-void EnemyObject::Update(float dt)
+void EnemyObject::Update(float gameDt, float realDt)
 {
-	GameObject::Update(dt);
+	GameObject::Update(gameDt, realDt);
 
 	//if (Keyboard_IsKeyDownTrigger(KK_D1))
 	//	m_pModelAnimeObject->PlayAnimeIdle();

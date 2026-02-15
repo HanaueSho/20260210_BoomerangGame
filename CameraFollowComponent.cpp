@@ -16,10 +16,10 @@ void CameraFollowComponent::Update(float dt)
 	case State::None:
 		break;
 	case State::Follow:
-		Follow();
+		Follow(dt);
 		break;
 	case State::Aim:
-		Aim();
+		Aim(dt);
 		break;
 	}
 
@@ -27,7 +27,7 @@ void CameraFollowComponent::Update(float dt)
 
 }
 
-void CameraFollowComponent::Follow()
+void CameraFollowComponent::Follow(float dt)
 {
 	if (!m_pTarget) return;
 
@@ -58,21 +58,32 @@ void CameraFollowComponent::Follow()
 	// ê¸å`ï‚ä‘
 	Vector3 position = Owner()->Transform()->Position();
 	Vector3 diff = targetPosition - position;
-	position += diff * 0.1f;
 
+	const float k = 6.32f;
+	float alpha = 1.0f - expf(-k * dt);
+	if (alpha < 0.0f) alpha = 0.0f;
+	if (alpha > 1.0f) alpha = 1.0f;
+
+	position += diff * alpha;
 	Owner()->Transform()->SetPosition(position);
 
 	// å¸Ç≠
 	Owner()->Transform()->LookAt(targetPos);
 }
 
-void CameraFollowComponent::Aim()
+void CameraFollowComponent::Aim(float dt)
 {
 	// å®âzÇµÉJÉÅÉâ
 	Vector3 offset = m_Offset; // í≤êÆ
 	Vector3 targetPosition = m_pTarget->Transform()->WorldMatrix().TransformPoint(offset);
 	Vector3 position = Owner()->Transform()->Position();
 	Vector3 diff = targetPosition - position;
-	position += diff * 0.2f;
+
+	const float k = 10.0f; // AimÇÕí«è]ã≠ÇﬂÇ≈Ç‡OK
+	float alpha = 1.0f - expf(-k * dt);
+	if (alpha < 0.0f) alpha = 0.0f;
+	if (alpha > 1.0f) alpha = 1.0f;
+
+	position += diff * alpha;
 	Owner()->Transform()->SetPosition(position);
 }

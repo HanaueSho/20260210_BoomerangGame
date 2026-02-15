@@ -32,6 +32,7 @@ private:
 	Vector3 m_Offset = { 1.5f, 6.0f, -2.0f };
 
 public:
+	UpdateClock Clock() const noexcept override { return UpdateClock::Real; }
 	void Update(float dt) override;
 
 	void SetTargetObject(GameObject* target)
@@ -44,8 +45,8 @@ public:
 	void SetStateAim() { m_State = State::Aim; }
 
 private:
-	void Follow();
-	void Aim();
+	void Follow(float dt);
+	void Aim(float dt);
 };
 
 #endif

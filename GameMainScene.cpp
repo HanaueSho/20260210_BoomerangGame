@@ -276,14 +276,28 @@ void GameMainScene::Uninit()
 	Scene::Uninit();
 }
 
-void GameMainScene::Update(float dt)
+void GameMainScene::Update(float gameDt, float realDt)
 {
-	Scene::Update(dt);
+	Scene::Update(gameDt, realDt);
 
 	if (Keyboard_IsKeyDownTrigger(KK_ENTER))
 	{
 		Manager::SetScene<Result>();
 	}
+
+	if (Keyboard_IsKeyDownTrigger(KK_D1))
+	{
+		Manager::SetTimeScale(1.0f);
+	}
+	if (Keyboard_IsKeyDownTrigger(KK_D2))
+	{
+		Manager::SetTimeScale(0.2f);
+	}
+	if (Keyboard_IsKeyDownTrigger(KK_D3))
+	{
+		Manager::AddHitStop(0.06f);
+	}
+
 
 }
 

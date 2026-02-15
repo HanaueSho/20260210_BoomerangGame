@@ -109,9 +109,9 @@ void NorenObject::Uninit()
 	GameObject::Uninit();
 }
 
-void NorenObject::Update(float dt)
+void NorenObject::Update(float gameDt, float realDt)
 {
-	GameObject::Update(dt);
+	GameObject::Update(gameDt, realDt);
 
 	// ----- アニメーション再生 -----
 	auto* animator = GetComponent<AnimatorComponent>();

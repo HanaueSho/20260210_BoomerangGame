@@ -130,13 +130,19 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 		// ----- 時間計測 -----
 		auto now = clock::now(); // 現在のフレームの時間
-		double dt = std::chrono::duration<double>(now - prev).count(); // 前のフレームの時間と今のフレームの時間の差分
+		double dtD = std::chrono::duration<double>(now - prev).count(); // 前のフレームの時間と今のフレームの時間の差分
 		prev = now; // 現在のフレームの時間の保存
 		//dt = std::min(dt, 0.05); // フレーム最大 50ms
+		float realDt = static_cast<float>(dtD);
+		float gameDt = Manager::CalcGameDt(realDt);
 
 		// ----- 物理 -----
 		//accumulator = std::min(accumulator + dt, 0.25); // 累積最大 250 ms
-		accumulator += dt; 
+		accumulator += gameDt;
+
+		// 累計最大（スパイラル対策を強める）
+		accumulator = std::min(accumulator, 0.25); // 最大 250 ms
+
 		int steps = 0; 
 		const int maxSteps = 6; // スパイラル対策
 		while (accumulator >= fixedDt && steps < maxSteps)
@@ -157,7 +163,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		const float clearColor[4] = { 0.1f, 0.3f, 0.5f, 1.0f };
 		g_Swap.Clear(clearColor);
 
-		Manager::Update(dt);
+		Manager::Update(gameDt, realDt);
 		Manager::Draw();
 
 		g_Swap.Present(1);
@@ -167,7 +173,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 
 		// ----- FPS計測とタイトル更新（１秒ごと） -----
-		fpsElapsed += dt; // 毎ループ時間カウント
+		fpsElapsed += realDt; // 毎ループ時間カウント
 		fpsFrames += 1; // 毎ループフレームカウント
 		if (fpsElapsed >= 1.0f) 
 		{

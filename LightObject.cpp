@@ -77,9 +77,9 @@ void LightObject::Init()
 	SetPhysicsLayer(2);
 }
 
-void LightObject::Update(float dt)
+void LightObject::Update(float gameDt, float realDt)
 {
-	GameObject::Update(dt);
+	GameObject::Update(gameDt, realDt);
 	/*
 	m_Radian += 2.0f * dt;
 	if (m_Radian > PI * 2) m_Radian -= PI * 2;

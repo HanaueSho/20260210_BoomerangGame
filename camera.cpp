@@ -31,9 +31,9 @@ void Camera::Init()
 	
 
 }
-void Camera::Update(float dt) 
+void Camera::Update(float gameDt, float realDt)
 {
-	GameObject::Update(dt);
+	GameObject::Update(gameDt, realDt);
 
 	// ----- ƒJƒƒ‰§Œä -----
 	//if (Keyboard_IsKeyDownTrigger(KK_D7)) // ‰ŠúˆÊ’u

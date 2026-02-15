@@ -78,7 +78,7 @@ void SphereObject::Init()
 	SetPhysicsLayer(1);
 }
 
-void SphereObject::Update(float dt)
+void SphereObject::Update(float gameDt, float realDt)
 {
-	GameObject::Update(dt);
+	GameObject::Update(gameDt, realDt);
 }

@@ -16,7 +16,7 @@ private:
 
 public:
 	void Init() override;
-	void Update(float dt) override;
+	void Update(float gameDt, float realDt) override;
 
 	AimSpriteObject* GetAimSprite() { return m_pAimSprite; }
 };

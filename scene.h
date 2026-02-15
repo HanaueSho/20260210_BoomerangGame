@@ -44,10 +44,9 @@ public:
 
 	virtual void Init();
 	virtual void Uninit();
-	virtual void Update(float dt);
+	virtual void Update(float gameDt, float realDt);
 	virtual void FixedUpdate(float dt);
 	virtual void Draw();
-
 
 	// ゲームオブジェクトの登録 -----
 	template < typename T > // テンプレート

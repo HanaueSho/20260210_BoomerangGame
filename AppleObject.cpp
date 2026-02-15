@@ -80,9 +80,9 @@ void AppleObject::Init()
 	SetPhysicsLayer(1);
 }
 
-void AppleObject::Update(float dt)
+void AppleObject::Update(float gameDt, float realDt)
 {
-	GameObject::Update(dt);
+	GameObject::Update(gameDt, realDt);
 	if (auto rigid = GetComponent<Rigidbody>())
 	{	
 		if (rigid->IsKinematic())
@@ -91,37 +91,37 @@ void AppleObject::Update(float dt)
 			if (Keyboard_IsKeyDown(KK_UP))
 			{
 				Vector3 pos = Transform()->Position();
-				pos.z += speed * dt;
+				pos.z += speed * gameDt;
 				Transform()->SetPosition(pos);
 			}
 			if (Keyboard_IsKeyDown(KK_DOWN))
 			{
 				Vector3 pos = Transform()->Position();
-				pos.z += -speed * dt;
+				pos.z += -speed * gameDt;
 				Transform()->SetPosition(pos);
 			}
 			if (Keyboard_IsKeyDown(KK_LEFT))
 			{
 				Vector3 pos = Transform()->Position();
-				pos.x -= speed * dt;
+				pos.x -= speed * gameDt;
 				Transform()->SetPosition(pos);
 			}
 			if (Keyboard_IsKeyDown(KK_RIGHT))
 			{
 				Vector3 pos = Transform()->Position();
-				pos.x += speed * dt;
+				pos.x += speed * gameDt;
 				Transform()->SetPosition(pos);
 			}
 			if (Keyboard_IsKeyDown(KK_SPACE))
 			{
 				Vector3 pos = Transform()->Position();
-				pos.y += speed * dt;
+				pos.y += speed * gameDt;
 				Transform()->SetPosition(pos);
 			}
 			if (Keyboard_IsKeyDown(KK_RIGHTSHIFT))
 			{
 				Vector3 pos = Transform()->Position();
-				pos.y += -speed * dt;
+				pos.y += -speed * gameDt;
 				Transform()->SetPosition(pos);
 			}
 		}

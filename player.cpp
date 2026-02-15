@@ -79,9 +79,9 @@ void Player::Init()
 }
 
 
-void Player::Update(float dt)
+void Player::Update(float gameDt, float realDt)
 {
-	GameObject::Update(dt);
+	GameObject::Update(gameDt, realDt);
 
 	//Transform()->RotateAxis({0, 1, 0}, 0.01f);
 	//Transform()->MarkLocalDirty();

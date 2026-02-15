@@ -141,9 +141,9 @@ void ModelObject::Uninit()
 	GameObject::Uninit();
 }
 
-void ModelObject::Update(float dt)
+void ModelObject::Update(float gameDt, float realDt)
 {
-	GameObject::Update(dt);
+	GameObject::Update(gameDt, realDt);
 
 	auto* animator = GetComponent<AnimatorComponent>();
 	auto* provider = GetComponent<SkinMatrixProviderComponent>();
@@ -179,13 +179,13 @@ void ModelObject::Update(float dt)
 	}
 	if (Keyboard_IsKeyDown(KK_O))
 	{
-		m_SpeedParam -= 1.0f * dt; if (m_SpeedParam < 0.0f) m_SpeedParam = 0.0f;
+		m_SpeedParam -= 1.0f * gameDt; if (m_SpeedParam < 0.0f) m_SpeedParam = 0.0f;
 		auto animator = GetComponent<AnimatorComponent>();
 		animator->SetBlendParam(m_SpeedParam);
 	}
 	if (Keyboard_IsKeyDown(KK_P))
 	{
-		m_SpeedParam += 1.0f * dt; if (m_SpeedParam > 1.0f) m_SpeedParam = 1.0f;
+		m_SpeedParam += 1.0f * gameDt; if (m_SpeedParam > 1.0f) m_SpeedParam = 1.0f;
 		auto animator = GetComponent<AnimatorComponent>();
 		animator->SetBlendParam(m_SpeedParam);
 	}
@@ -194,37 +194,37 @@ void ModelObject::Update(float dt)
 	if (Keyboard_IsKeyDown(KK_W))
 	{
 		Vector3 pos = Transform()->Position();
-		pos.z += speed * dt;
+		pos.z += speed * gameDt;
 		Transform()->SetPosition(pos);
 	}
 	if (Keyboard_IsKeyDown(KK_S))
 	{
 		Vector3 pos = Transform()->Position();
-		pos.z += -speed * dt;
+		pos.z += -speed * gameDt;
 		Transform()->SetPosition(pos);
 	}
 	if (Keyboard_IsKeyDown(KK_A))
 	{
 		Vector3 pos = Transform()->Position();
-		pos.x -= speed * dt;
+		pos.x -= speed * gameDt;
 		Transform()->SetPosition(pos);
 	}
 	if (Keyboard_IsKeyDown(KK_D))
 	{
 		Vector3 pos = Transform()->Position();
-		pos.x += speed * dt;
+		pos.x += speed * gameDt;
 		Transform()->SetPosition(pos);
 	}
 	if (Keyboard_IsKeyDown(KK_Q))
 	{
 		Vector3 pos = Transform()->Position();
-		pos.y += speed * dt;
+		pos.y += speed * gameDt;
 		Transform()->SetPosition(pos);
 	}
 	if (Keyboard_IsKeyDown(KK_E))
 	{
 		Vector3 pos = Transform()->Position();
-		pos.y += -speed * dt;
+		pos.y += -speed * gameDt;
 		Transform()->SetPosition(pos);
 	}
 

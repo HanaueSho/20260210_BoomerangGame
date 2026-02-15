@@ -19,7 +19,7 @@ private:
 	float m_AppleScale = 1.0f;
 public:
 	void Init() override;
-	void Update(float dt) override;
+	void Update(float gameDt, float realDt) override;
 
 	void SetMoveVector(const Vector3& vect) { m_Move = vect; }
 	void SetInterval(float interval) { m_Interval = interval; }

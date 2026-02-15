@@ -66,9 +66,9 @@ void AimSpriteObject::Init()
     //sa->SetClip(&m_Clip);
 }
 
-void AimSpriteObject::Update(float dt)
+void AimSpriteObject::Update(float gameDt, float realDt)
 {
-    GameObject::Update(dt);
+    GameObject::Update(gameDt, realDt);
 
     switch (m_State)
     {
@@ -76,7 +76,7 @@ void AimSpriteObject::Update(float dt)
         break;
     case State::FadeIn:
     {
-        m_Timer += dt * m_Speed; 
+        m_Timer += realDt * m_Speed; 
         if (m_Timer > m_Time)
         {
             m_Timer = m_Time;
@@ -89,7 +89,7 @@ void AimSpriteObject::Update(float dt)
         break;
     case State::FadeOut:
     {
-        m_Timer -= dt * m_Speed;
+        m_Timer -= realDt * m_Speed;
         if (m_Timer < 0)
         {
             m_Timer = 0;

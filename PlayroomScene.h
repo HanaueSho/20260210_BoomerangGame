@@ -13,7 +13,7 @@ private:
 public:
 	void Init() override;
 	void Uninit() override;
-	void Update(float dt) override;
+	void Update(float gameDt, float realDt) override;
 	void Draw() override;
 
 	void CreateSection_0(); // プレイヤーと軽いオブジェクトなど（０時）

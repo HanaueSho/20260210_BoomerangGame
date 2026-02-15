@@ -78,7 +78,7 @@ void CubeObject::Init()
 	SetPhysicsLayer(1);
 }
 
-void CubeObject::Update(float dt)
+void CubeObject::Update(float gameDt, float realDt)
 {
-	GameObject::Update(dt);
+	GameObject::Update(gameDt, realDt);
 }

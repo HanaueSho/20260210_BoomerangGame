@@ -74,12 +74,12 @@ void AppleGenerator::Init()
 	SetPhysicsLayer(1);
 }
 
-void AppleGenerator::Update(float dt)
+void AppleGenerator::Update(float gameDt, float realDt)
 {
-	GameObject::Update(dt);
+	GameObject::Update(gameDt, realDt);
 
 	// ŽžŠÔŒo‰ß
-	m_Timer += dt;
+	m_Timer += gameDt;
 
 	if (m_Timer > m_Interval)
 	{
@@ -93,7 +93,7 @@ void AppleGenerator::Update(float dt)
 	}
 
 	// ˆÚ“®
-	m_Radian += dt;
+	m_Radian += gameDt;
 	if (m_Radian > 3.14f) m_Radian -= 3.14f;
 	Vector3 position = m_BasePosition;
 	position += m_Move * std::sinf(m_Radian);

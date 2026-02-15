@@ -38,9 +38,9 @@ void AimObject::Init()
 	m_pAimSprite->Init();
 }
 
-void AimObject::Update(float dt)
+void AimObject::Update(float gameDt, float realDt)
 {
-	GameObject::Update(dt);
+	GameObject::Update(gameDt, realDt);
 
 }
 

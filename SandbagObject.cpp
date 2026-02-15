@@ -109,9 +109,9 @@ void SandbagObject::Uninit()
 	GameObject::Uninit();
 }
 
-void SandbagObject::Update(float dt)
+void SandbagObject::Update(float gameDt, float realDt)
 {
-	GameObject::Update(dt);
+	GameObject::Update(gameDt, realDt);
 
 	// ----- アニメーション再生 -----
 	auto* animator = GetComponent<AnimatorComponent>();

@@ -105,9 +105,9 @@ void BoomerangObject::Init()
 
 }
 
-void BoomerangObject::Update(float dt)
+void BoomerangObject::Update(float gameDt, float realDt)
 {
-	GameObject::Update(dt);
+	GameObject::Update(gameDt, realDt);
 
 	//Vector3 position = Transform()->LocalPosition();
 	//Vector3::Printf(position, "boomPos");
