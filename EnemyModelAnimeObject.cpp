@@ -14,7 +14,6 @@
 #include "SkinMatrixProviderComponent.h"
 #include "AnimatorController.h"
 #include "BoneManager.h"
-#include "TargetObject.h"
 
 #include "Keyboard.h"
 
@@ -147,12 +146,7 @@ void EnemyModelAnimeObject::Init()
 	matOutline->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Opaque);
 	mr->SetOutlineMaterial(matOutline);
 
-	// ----- ターゲット -----
-	GameObject* bone = m_pBoneManager->GetBoneObject(0);
-	GameObject* target = Manager::GetScene()->AddGameObject<TargetObject>(1);
-	target->Init();
-	target->Transform()->SetParent(bone->Transform());
-	target->Transform()->SetPosition({ 0, 10, 0 });
+
 
 }
 
@@ -207,12 +201,13 @@ void EnemyModelAnimeObject::PlayAnimeIdle()
 void EnemyModelAnimeObject::PlayAnimeReady()
 {
 	auto animator = GetComponent<AnimatorComponent>();
-	animator->CrossFadeFromCurrentPose(&m_ClipReady, 0.1f, false);
+	animator->CrossFadeFromCurrentPose(&m_ClipReady, 2.0f, false);
 }
 void EnemyModelAnimeObject::PlayAnimeAttack()
 {
 	auto animator = GetComponent<AnimatorComponent>();
-	animator->CrossFadeFromCurrentPose(&m_ClipAttack, 0.1f, true);
+	if (m_Type == Type::Melee) animator->CrossFadeFromCurrentPose(&m_ClipAttack, 0.1f, true);
+	else if (m_Type == Type::Shot) animator->CrossFadeFromCurrentPose(&m_ClipAttack, 1.0f, true);
 }
 void EnemyModelAnimeObject::PlayAnimeDead()
 {

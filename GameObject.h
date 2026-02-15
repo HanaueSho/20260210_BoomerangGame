@@ -18,6 +18,7 @@ class GameObject
 protected:
 	bool m_IsDestroy = false; // 破棄フラグ
 	std::vector<std::unique_ptr<Component>> m_Components;
+	std::vector<Component*> m_PendingRemove; // 遅延削除用
 	// --------------------------------------------------
 	// タグ
 	// --------------------------------------------------
@@ -37,8 +38,8 @@ public:
 	// ----- ライフサイクル ----- （付与済み全コンポーネントに配信）
 	virtual void Init()					{ for (auto& c : m_Components) c->Init(); }
 	virtual void Uninit()				{ for (auto& c : m_Components) c->Uninit(); }
-	virtual void FixedUpdate(float dt)	{ for (auto& c : m_Components) c->FixedUpdate(dt); }
-	virtual void Update(float dt)		{ for (auto& c : m_Components) c->Update(dt); }
+	virtual void FixedUpdate(float dt)	{ for (auto& c : m_Components) c->FixedUpdate(dt); FlushRemoveComponents();}
+	virtual void Update(float dt)		{ for (auto& c : m_Components) c->Update(dt); FlushRemoveComponents();}
 	virtual void Draw()					{ for (auto& c : m_Components) c->Draw(); }
 
 	// ----- 破棄フラグ -----
@@ -59,7 +60,6 @@ public:
 		raw->OnAdded(); // AddComponent 時に呼ぶ関数
 		return raw;
 	}
-
 	// 非const版：書き換え可能な T* を返す
 	template<class T>
 	T* GetComponent() noexcept 
@@ -68,7 +68,6 @@ public:
 			if (auto p = dynamic_cast<T*>(c.get())) return p;
 		return nullptr;
 	}
-
 	// const版：読み取り専用の const T* を返す
 	template<class T>
 	const T* GetComponent() const noexcept
@@ -77,7 +76,6 @@ public:
 			if (auto p = dynamic_cast<const T*>(c.get())) return p;
 		return nullptr;
 	}
-
 	// コンポーネントの取得（ヘルパ）
 	template<class F> // callable の F 
 	void ForEachComponent(F&& f) // F&& : 転送参照（lvalueもrvalueも受け取れる万能な受け口？？）
@@ -86,6 +84,31 @@ public:
 		snapshot.reserve(m_Components.size());
 		for (auto& up : m_Components) if (up) snapshot.push_back(up.get()); // スナップショット（コピー）を取る
 		for (Component* c : snapshot) if (c) std::forward<F>(f) (c); //  f(c)... 関数 F を引数 c で呼ぶ （？）
+	}
+	// コンポーネント削除
+	bool RemoveComponent(Component* target)
+	{
+		if (!target) return false;
+
+		// Transform は削除禁止
+		if (target == GetComponent<TransformComponent>()) return false;
+
+		// 二重予約防止
+		for (auto* p : m_PendingRemove)
+			if (p == target) return false;
+
+		m_PendingRemove.push_back(target);
+		return true;
+	}
+	template<class T>
+	bool RemoveComponent()
+	{
+		static_assert(std::is_base_of_v<Component, T>, "T must inherit from Component");
+		if constexpr (std::is_same_v<T, TransformComponent>) return false;
+
+		if (auto* c = GetComponent<T>())
+			return RemoveComponent(static_cast<Component*>(c));
+		return false;
 	}
 
 	// Transform は必ず１つ存在（コンストラクタで付与）
@@ -98,6 +121,28 @@ public:
 	bool CompareTag(const std::string& tag) const { return m_Tag == tag; }
 	int PhysicsLayer() const { return m_PhysicsLayer; }
 	void SetPhysicsLayer(int layer) { m_PhysicsLayer = layer; }
+
+private:
+	// 実際に削除する関数
+	void FlushRemoveComponents()
+	{
+		if (m_PendingRemove.empty()) return;
+
+		for (Component* target : m_PendingRemove)
+		{
+			for (auto it = m_Components.begin(); it != m_Components.end(); it++)
+			{
+				if (it->get() == target)
+				{
+					(*it)->OnRemoved();
+					(*it)->m_pOwner = nullptr;
+					m_Components.erase(it);
+					break;
+				}
+			}
+		}
+		m_PendingRemove.clear();
+	}
 };
 
 #endif

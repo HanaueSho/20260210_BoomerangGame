@@ -123,9 +123,9 @@ void GameMainScene::Init()
 	// エネミー
 	EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
 	pEnemyObject->Init();
-	pEnemyObject = AddGameObject<EnemyObject>(1);
-	pEnemyObject->Init();
-	pEnemyObject->Transform()->SetPosition({ 0, 10, 80 });
+	//pEnemyObject = AddGameObject<EnemyObject>(1);
+	//pEnemyObject->Init();
+	//pEnemyObject->Transform()->SetPosition({ 0, 10, 80 });
 
 	// りんご-----
 	AppleObject* pApple = AddGameObject<AppleObject>(1);
@@ -361,7 +361,6 @@ void GameMainScene::CreateTents()
 
 void GameMainScene::CreateTrees()
 {
-
 	float radiusBase = 280.0f;
 
 	// n 角形を作る

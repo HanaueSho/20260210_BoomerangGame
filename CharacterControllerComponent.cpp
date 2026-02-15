@@ -507,7 +507,7 @@ void CharacterControllerComponent::BuildQueryOpt(QueryOptions& opt) const
 {
 	opt.isSimulate  = true;
 	opt.isTrigger   = false; // 通常 Trigger では止まらない
-	opt.isQueryOnly = false; // 他の QueryOnly には当たらない
+	opt.isQueryOnly = true; // 他の QueryOnly には当たらない（当てるにしてみるテスト）
 	opt.slop = 0.0f;
 }
 

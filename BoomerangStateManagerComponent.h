@@ -41,6 +41,9 @@ private:
 	float m_TurnRateApproach = 180.0f * 3.1415926535f / 180.0f;  // １フレーム当たりの旋回角
 	float m_TimerFlight = 0.0f;
 
+	// ----- Effect -----
+	float m_Timer = 0.0f;
+
 public:
 	// ライフサイクル
 	void Init() override;
@@ -74,6 +77,8 @@ private:
 	// ステート内部処理
 	void Throw(float dt);
 	void Back(float dt);
+	// エフェクト生成
+	void CreateEffect(float dt);
 };
 
 #endif

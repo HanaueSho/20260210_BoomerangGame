@@ -116,6 +116,7 @@ public:
 	const std::vector<Matrix4x4>& ModelMatrixes() const noexcept { return m_ModelPose; }
 	const std::vector<Matrix4x4>& LocalPoseOut()  const noexcept { return m_LocalPoseOut; }
 	int BoneCount() noexcept { return m_Skeleton ? (int)m_Skeleton->bones.size() : 0; }
+	bool IsBlending() const { return m_IsBlending; }
 
 	// ==================================================
 	// ----- ƒNƒŠƒbƒvÄ¶ -----

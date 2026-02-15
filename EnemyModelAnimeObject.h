@@ -35,7 +35,7 @@ private:
 	float m_SpeedParam = 0.0f;
 
 	// Type
-	Type m_Type = Type::Barrier;
+	Type m_Type = Type::Shot;
 
 public:
 	void Init() override;
@@ -57,6 +57,7 @@ public:
 	// ゲッター（これらを作るとエラーが出る）
 	const BoneManager& GetBoneManager() const { return *m_pBoneManager; }
 	const AnimatorController& GetAnimatorController() const { return *m_pController; }
+	Type GetType() const{ return m_Type; }
 };
 
 #endif

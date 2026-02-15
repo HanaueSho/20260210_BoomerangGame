@@ -13,6 +13,7 @@
 #include "RigidbodyComponent.h"
 #include "Renderer.h"
 #include "Texture.h"  // Texture::Load 既存
+#include "TargetStateManagerComponent.h"
 
 void TargetObject::Init()
 {
@@ -34,35 +35,27 @@ void TargetObject::Init()
 	ID3D11PixelShader* ps = nullptr;
 	ID3D11InputLayout* il = nullptr;
 	Renderer::CreateVertexShader(&vs, &il, "shader\\VS_Lit.cso");
-	Renderer::CreatePixelShader(&ps, "shader\\PS_Toon.cso");
+	Renderer::CreatePixelShader(&ps, "shader\\PS_TexUnlit.cso");
 	mat->SetVSPS(vs, ps, il, /*takeVS*/true, /*takePS*/true, /*takeIL*/true);
 
 	// テクスチャセット
-	ID3D11ShaderResourceView* srv = Texture::LoadAndRegisterKey("assets\\texture\\kirby.png");
+	ID3D11ShaderResourceView* srv = Texture::LoadAndRegisterKey("assets\\texture\\whiteTexture.png");
 	// サンプラーは Renderer::Init() で 0番に PSSetSamplers 済みなら null でも描ける
 	mat->SetMainTexture(srv, /*sampler*/nullptr, /*takeSrv*/false, /*takeSamp*/false);
 
 	// マテリアルセット
 	MaterialApp m{};
-	m.diffuse = Vector4(1, 1, 1, 1);
+	m.diffuse = Vector4(1, 0, 0, 0.5f);
 	m.ambient = Vector4(1, 1, 1, 1);
 	m.specular = Vector4(0, 0, 0, 1);
-	m.textureEnable = TRUE;
+	m.textureEnable = false;
 	mat->SetMaterial(m);
 
 	// 透明テクスチャの可能性が高いのでアルファブレンドに
-	mat->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Opaque);
+	mat->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Alpha);
 
 	// 4) MeshRenderer を追加（描画実行係）
 	auto* mr = AddComponent<MeshRendererComponent>();
-
-	// アウトラインマテリアル追加
-	auto* matOutline = AddComponent<MaterialComponent>();
-	Renderer::CreateVertexShader(&vs, &il, "shader\\VS_Outline.cso");
-	Renderer::CreatePixelShader(&ps, "shader\\PS_Outline.cso");
-	matOutline->SetVSPS(vs, ps, il, /*takeVS*/true, /*takePS*/true, /*takeIL*/true);
-	matOutline->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Opaque);
-	mr->SetOutlineMaterial(matOutline);
 
 	// 物理を働かせたいのでコライダーなどを設定
 	Collider* coll = AddComponent<Collider>();
@@ -75,6 +68,10 @@ void TargetObject::Init()
 	rigid->SetMass(1.0f);
 	rigid->ComputeSphereInertia(1);
 	rigid->SetBodyTypeKinematic();
+
+	// State
+	auto* state = AddComponent<TargetStateManagerComponent>();
+	state->Init();
 
 	// タグ設定
 	SetTag("Target");

@@ -23,6 +23,7 @@ public:
 
 	// ----- ライフサイクル -----
 	virtual void OnAdded() {}		// AddComponent時
+	virtual void OnRemoved() {}		// RemoveComponent時
 	virtual void Init() {}			// GameObject.Init()時
 	virtual void Uninit() {}		// GameObject破棄時
 

@@ -13,6 +13,9 @@
 
 #include "Manager.h"
 #include "Scene.h"
+#include "EffectObject.h"
+#include "EnemyStateManagerComponent.h"
+#include "TargetStateManagerComponent.h"
 
 namespace
 {
@@ -35,7 +38,7 @@ void BoomerangStateManagerComponent::Init()
 void BoomerangStateManagerComponent::Update(float dt)
 {
 	//printf("[size]: %d\n", (int)m_Targets.size());
-	printf("[BoomState]: %d\n", (int)m_State);
+	//printf("[BoomState]: %d\n", (int)m_State);
 	switch (m_State)
 	{
 	case State::Idle:
@@ -44,9 +47,11 @@ void BoomerangStateManagerComponent::Update(float dt)
 		break;
 	case State::Throw:
 		Throw(dt);
+		CreateEffect(dt);
 		break;
 	case State::Back:
 		Back(dt);
+		CreateEffect(dt);
 		break;
 	}
 }
@@ -73,6 +78,11 @@ void BoomerangStateManagerComponent::OnTriggerEnter(Collider* me, Collider* othe
 			m_IndexTargets++;
 			m_IsApproach = true; // これ false にするのはどうなん？
 
+			// TargetStateManager 側の処理
+			auto* stateTarget = other->Owner()->GetComponent<TargetStateManagerComponent>();
+			stateTarget->TakeDamage();
+
+			// StateChange
 			if (m_IndexTargets >= m_Targets.size()) ChangeStateBack();
 		}
 	}
@@ -108,6 +118,8 @@ void BoomerangStateManagerComponent::ChangeState(State newState)
 		// 背中にセット
 		SetSpine();
 		GetAimObject()->GetComponent<AimStateManagerComponent>()->SetIsAimming(false);
+		// サイズリセット
+		Owner()->Transform()->SetScale({ 1, 1, 1 });
 	}
 		break;
 	case State::Aim:
@@ -118,8 +130,6 @@ void BoomerangStateManagerComponent::ChangeState(State newState)
 		break;
 	case State::Throw:
 	{
-		// Target をコピー（ここでしなくても良くなりそう）
-		//m_Targets = GetAimObject()->GetComponent<AimStateManagerComponent>()->Targets();
 		if (m_Targets.size() < 1)
 		{
 			ChangeState(State::Idle); // 投げれない
@@ -137,6 +147,10 @@ void BoomerangStateManagerComponent::ChangeState(State newState)
 		m_IsApproach = false;
 		// インデックス初期化
 		m_IndexTargets = 0;
+
+		// サイズアップ
+		Owner()->Transform()->SetScale({2, 2, 2});
+
 	}
 		break;
 	case State::Back:
@@ -344,5 +358,17 @@ void BoomerangStateManagerComponent::Back(float dt)
 	{
 		ChangeState(State::Idle);
 	}
+}
 
+void BoomerangStateManagerComponent::CreateEffect(float dt)
+{
+	m_Timer += dt;
+
+	if (m_Timer > 0.2f)
+	{
+		m_Timer = 0.0f;
+		auto* pEffect = Manager::GetScene()->AddGameObject<EffectObject>(1);
+		pEffect->Init();
+		pEffect->Transform()->SetPosition(Owner()->Transform()->Position());
+	}
 }

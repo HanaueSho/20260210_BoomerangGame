@@ -12,7 +12,10 @@
 #include "EnemyModelAnimeObject.h"
 #include "CharacterControllerComponent.h"
 
-//#include "EnemyStateManagerComponent.h"
+#include "BoneManager.h"
+#include "TargetObject.h"
+#include "TargetStateManagerComponent.h"
+#include "EnemyStateManagerComponent.h"
 #include "Keyboard.h"
 
 void EnemyObject::Init()
@@ -40,10 +43,24 @@ void EnemyObject::Init()
 	rigid->SetGravityScale(1.0f);
 	rigid->SetRestitution(0.0f);
 	rigid->SetMass(1.0f);
-	rigid->SetBodyTypeKinematic();
+	rigid->SetBodyTypeStatic();
 
 	// CharacterController
 	auto* cc = AddComponent<CharacterControllerComponent>();
+
+	// EnemyStateManagerComponent
+	auto* state = AddComponent< EnemyStateManagerComponent>();
+	state->Init();
+	state->SetModelAnime(m_pModelAnimeObject);
+
+	// ----- ターゲット -----
+	GameObject* bone = m_pModelAnimeObject->GetBoneManager().GetBoneObject(0);
+	GameObject* target = Manager::GetScene()->AddGameObject<TargetObject>(1);
+	target->Init();
+	target->Transform()->SetParent(bone->Transform());
+	target->Transform()->SetPosition({ 0, 10, 0 });
+	auto* stateTarget = target->GetComponent<TargetStateManagerComponent>();
+	stateTarget->SetOwnerObject(this);
 
 	// タグ設定
 	SetTag("Enemy");
@@ -62,3 +79,6 @@ void EnemyObject::Update(float dt)
 	//if (Keyboard_IsKeyDownTrigger(KK_D4))
 	//	m_pModelAnimeObject->PlayAnimeDead();
 }
+
+
+

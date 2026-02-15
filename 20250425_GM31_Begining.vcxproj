@@ -183,9 +183,11 @@
     <ClCompile Include="DebugCount.cpp" />
     <ClCompile Include="DebugRenderer.cpp" />
     <ClCompile Include="DxDevice.cpp" />
+    <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyModelAnimeObject.cpp" />
     <ClCompile Include="EnemyObject.cpp" />
+    <ClCompile Include="EnemyStateManagerComponent.cpp" />
     <ClCompile Include="FenceObject.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -229,6 +231,7 @@
     <ClCompile Include="SphereObject.cpp" />
     <ClCompile Include="SwapChainManager.cpp" />
     <ClCompile Include="TargetObject.cpp" />
+    <ClCompile Include="TargetStateManagerComponent.cpp" />
     <ClCompile Include="TentObject.cpp" />
     <ClCompile Include="Texture.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -276,9 +279,11 @@
     <ClInclude Include="DebugRotateComponent.h" />
     <ClInclude Include="DistanceJointComponent.h" />
     <ClInclude Include="DxDevice.h" />
+    <ClInclude Include="EffectObject.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyModelAnimeObject.h" />
     <ClInclude Include="EnemyObject.h" />
+    <ClInclude Include="EnemyStateManagerComponent.h" />
     <ClInclude Include="FenceObject.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="Game.h" />
@@ -340,6 +345,7 @@
     <ClInclude Include="SpriteRendererComponent.h" />
     <ClInclude Include="SwapChainManager.h" />
     <ClInclude Include="TargetObject.h" />
+    <ClInclude Include="TargetStateManagerComponent.h" />
     <ClInclude Include="TentObject.h" />
     <ClInclude Include="Texture.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>

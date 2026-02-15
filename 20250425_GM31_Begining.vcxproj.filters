@@ -145,6 +145,12 @@
     <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Skydome">
       <UniqueIdentifier>{40f4ec8e-1add-42b4-8e79-d9ac59ea053c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\6.ゲームコンポーネント\TargetObject">
+      <UniqueIdentifier>{419ef1ad-80ba-4e5f-a5e7-f18ae463bdb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Target">
+      <UniqueIdentifier>{0421af27-67e9-4f84-b49f-8738135e7dcc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioSource.cpp">
@@ -333,9 +339,6 @@
     <ClCompile Include="EnemyModelAnimeObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="TargetObject.cpp">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
-    </ClCompile>
     <ClCompile Include="TreeObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Tree</Filter>
     </ClCompile>
@@ -350,6 +353,18 @@
     </ClCompile>
     <ClCompile Include="GameStage0Scene.cpp">
       <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectObject.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyStateManagerComponent.cpp">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\EnemyObject</Filter>
+    </ClCompile>
+    <ClCompile Include="TargetStateManagerComponent.cpp">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\TargetObject</Filter>
+    </ClCompile>
+    <ClCompile Include="TargetObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Target</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -632,9 +647,6 @@
     <ClInclude Include="AimStateManagerComponent.h">
       <Filter>ソース ファイル\6.ゲームコンポーネント\BoomerangObject</Filter>
     </ClInclude>
-    <ClInclude Include="TargetObject.h">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyObject.h">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Enemy</Filter>
     </ClInclude>
@@ -664,6 +676,18 @@
     </ClInclude>
     <ClInclude Include="GameStage0Scene.h">
       <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyStateManagerComponent.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\EnemyObject</Filter>
+    </ClInclude>
+    <ClInclude Include="TargetStateManagerComponent.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\TargetObject</Filter>
+    </ClInclude>
+    <ClInclude Include="TargetObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Target</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
