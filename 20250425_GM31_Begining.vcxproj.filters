@@ -31,9 +31,6 @@
     <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object">
       <UniqueIdentifier>{99863da6-5361-4be0-a4be-a01597025bf0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Component">
-      <UniqueIdentifier>{02e819a7-90e9-470f-b17a-c2c398bdfd19}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\1.フレームワーク">
       <UniqueIdentifier>{ee84dad4-79c7-470a-a8b6-f92c46fbd89f}</UniqueIdentifier>
     </Filter>
@@ -165,6 +162,9 @@
     </Filter>
     <Filter Include="ソース ファイル\6.ゲームコンポーネント\BulletObject">
       <UniqueIdentifier>{89d94471-70f7-4dc5-a5d2-e6ad63bee3d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Sprite">
+      <UniqueIdentifier>{886ad873-ca5e-4f64-bc87-14cb9588ad10}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -389,6 +389,15 @@
     </ClCompile>
     <ClCompile Include="PlayerHeartObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="AimSpriteObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="TargetSpriteObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="MarkSpriteObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -721,6 +730,15 @@
     </ClInclude>
     <ClInclude Include="PlayerHeartObject.h">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="AimSpriteObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="TargetSpriteObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="MarkSpriteObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

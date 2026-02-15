@@ -146,7 +146,9 @@ public:
 	// ‘æ‚Qˆø”Fheight
 	// ‘æ‚Rˆø”ForiginCenter
 	// --------------------------------------------------
-	static void CreateQuad	   (MeshFilterComponent* filter, const QuadParams& p = {});
+	static void CreateQuad	   (MeshFilterComponent* filter, const QuadParams& p = {}, bool for3d = false);
+	static void CreateQuad2D   (MeshFilterComponent* filter, const QuadParams& p = {}){ CreateQuad(filter, p, false); }
+	static void CreateQuad3D   (MeshFilterComponent* filter, const QuadParams& p = {}){ CreateQuad(filter, p, true); }
 	// --------------------------------------------------
 	// •½–ÊiXZj
 	// ‘æ‚Pˆø”Fwidth

@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AimObject.cpp" />
+    <ClCompile Include="AimSpriteObject.cpp" />
     <ClCompile Include="AimStateManagerComponent.cpp" />
     <ClCompile Include="AnimatorComponent.cpp" />
     <ClCompile Include="AppleGenerator.cpp" />
@@ -201,6 +202,7 @@
     <ClCompile Include="LightManager.cpp" />
     <ClCompile Include="LightObject.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MarkSpriteObject.cpp" />
     <ClCompile Include="Mnager.cpp" />
     <ClCompile Include="MeshFactory.cpp" />
     <ClCompile Include="ModelAnimeObject.cpp" />
@@ -234,6 +236,7 @@
     <ClCompile Include="SphereObject.cpp" />
     <ClCompile Include="SwapChainManager.cpp" />
     <ClCompile Include="TargetObject.cpp" />
+    <ClCompile Include="TargetSpriteObject.cpp" />
     <ClCompile Include="TargetStateManagerComponent.cpp" />
     <ClCompile Include="TentObject.cpp" />
     <ClCompile Include="Texture.cpp">
@@ -248,6 +251,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimObject.h" />
+    <ClInclude Include="AimSpriteObject.h" />
     <ClInclude Include="AimStateManagerComponent.h" />
     <ClInclude Include="AnimationClip.h" />
     <ClInclude Include="AnimatorComponent.h" />
@@ -305,6 +309,7 @@
     <ClInclude Include="LightObject.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Manager.h" />
+    <ClInclude Include="MarkSpriteObject.h" />
     <ClInclude Include="MaterialComponent.h" />
     <ClInclude Include="MathCommon.h" />
     <ClInclude Include="MathConversion.h" />
@@ -351,6 +356,7 @@
     <ClInclude Include="SpriteRendererComponent.h" />
     <ClInclude Include="SwapChainManager.h" />
     <ClInclude Include="TargetObject.h" />
+    <ClInclude Include="TargetSpriteObject.h" />
     <ClInclude Include="TargetStateManagerComponent.h" />
     <ClInclude Include="TentObject.h" />
     <ClInclude Include="Texture.h">

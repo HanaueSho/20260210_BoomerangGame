@@ -2,6 +2,7 @@
 	AimObject.cpp
 	20260212  hanaue sho
 	エイム中に敵に狙いをつけるオブジェクト
+	カメラを親として設定する
 */
 #include "AimObject.h"
 #include "ColliderComponent.h"
@@ -10,6 +11,7 @@
 #include "Scene.h"
 #include "Camera.h"
 #include "Keyboard.h"
+#include "AimSpriteObject.h"
 
 void AimObject::Init()
 {
@@ -31,6 +33,9 @@ void AimObject::Init()
 	GameObject* pCamera = Manager::GetScene()->GetGameObject<Camera>();
 	Transform()->SetParent(pCamera->Transform());
 
+	// エイムスプライト
+	m_pAimSprite = Manager::GetScene()->AddGameObject<AimSpriteObject>(2);
+	m_pAimSprite->Init();
 }
 
 void AimObject::Update(float dt)

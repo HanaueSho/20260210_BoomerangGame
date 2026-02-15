@@ -34,7 +34,7 @@ public:
 	}
 	static bool IsAimDownTrigger()
 	{
-		return Mouse_IsClick(MS_CLICK_LEFT);
+		return Mouse_IsClickTrigger(MS_CLICK_LEFT);
 	}
 	static bool IsThrowDown()
 	{

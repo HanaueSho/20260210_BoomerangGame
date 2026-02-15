@@ -9,6 +9,7 @@
 #include "GameObject.h"
 #include "Keyboard.h"
 #include "AimObject.h"
+#include "AimSpriteObject.h"
 #include "ColliderComponent.h"
 
 #include "Manager.h"
@@ -17,6 +18,8 @@
 #include "EnemyStateManagerComponent.h"
 #include "TargetStateManagerComponent.h"
 #include "BulletStateManagerComponent.h"
+#include "TargetObject.h"
+#include "MarkSpriteObject.h"
 
 namespace
 {
@@ -115,6 +118,7 @@ void BoomerangStateManagerComponent::ChangeState(State newState)
 	case State::Idle:
 		break;
 	case State::Aim:
+		dynamic_cast<AimObject*>(m_pAimObject)->GetAimSprite()->FadeOut();
 		break;
 	case State::Throw:
 		// É^Å[ÉQÉbÉgÉNÉäÉA
@@ -141,6 +145,7 @@ void BoomerangStateManagerComponent::ChangeState(State newState)
 	{
 		SetHand();
 		GetAimObject()->GetComponent<AimStateManagerComponent>()->SetIsAimming(true);
+		dynamic_cast<AimObject*>(m_pAimObject)->GetAimSprite()->FadeIn();
 	}
 		break;
 	case State::Throw:
@@ -214,6 +219,11 @@ void BoomerangStateManagerComponent::AddTarget()
 	}
 	// ç≈å„Ç…ìoò^
 	m_Targets.push_back(nearest);
+	if (auto* targetObject = dynamic_cast<TargetObject*>(nearest))
+	{
+		targetObject->GetMarkSprite()->FadeIn();
+	}
+
 }
 
 void BoomerangStateManagerComponent::SetHand()

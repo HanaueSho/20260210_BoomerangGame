@@ -1,22 +1,30 @@
 /*
-	polygon.cpp
-	20250423 hanaue sho
+    TargetSpriteObject.h
+    20260215  hanaue sho
 */
-#include "polygon.h"
+#include "TargetSpriteObject.h"
+
 #include "SpriteRendererComponent.h"
 #include "SpriteAnimationComponent.h"
+#include "MeshFilterComponent.h"
+#include "MeshFactory.h"
+#include "MaterialComponent.h"
+#include "MeshRendererComponent.h"
+#include "renderer.h"
+#include "texture.h"  // Texture::Load 既存
+#include "BillboardComponent.h"
 
-void Polygon2D::Init()
+void TargetSpriteObject::Init()
 {
     // 1) Transform（既に GameObject ctor で追加済み）を取得して初期姿勢を入れておく
     auto* tf = GetComponent<TransformComponent>();
-    tf->SetPosition({ 0,0,0 });
+    tf->SetPosition({ 0, 0, 0 });
     tf->SetScale({ 1,1,1 });
     tf->SetEulerAngles({ 0,0,0 });
 
     // 2) MeshFilter を追加して頂点バッファ（4頂点の矩形）を作る
     auto* mf = AddComponent<MeshFilterComponent>();
-    MeshFactory::CreateQuad2D(mf, { 200.0f, 200.0f, false });
+    MeshFactory::CreateQuad3D(mf, { 20.0f, 20.0f, true });
 
     // 3) Material を追加（シェーダ/テクスチャ/マテリアル）
     auto* mat = AddComponent<MaterialComponent>();
@@ -29,7 +37,7 @@ void Polygon2D::Init()
     mat->SetVSPS(vs, ps, il, /*takeVS*/true, /*takePS*/true, /*takeIL*/true);
 
     // 旧 Polygon2D と同じ kirby を使う
-    ID3D11ShaderResourceView* srv = Texture::LoadAndRegisterKey("assets\\texture\\effect_1.png");
+    ID3D11ShaderResourceView* srv = Texture::LoadAndRegisterKey("assets\\texture\\targetTexture_001.png");
     // サンプラーは Renderer::Init() で 0番に PSSetSamplers 済みなら null でも描ける
     mat->SetMainTexture(srv, /*sampler*/nullptr, /*takeSrv*/false, /*takeSamp*/false);
 
@@ -46,15 +54,46 @@ void Polygon2D::Init()
     auto* sr = AddComponent<SpriteRendererComponent>();
     sr->SetUI(true);
     sr->SetOnWorld(true);
-    sr->SetColor({ 1, 1, 1, 1.0f });
+    sr->SetColor({ 1, 1, 1, m_Alpha });
 
-    // SpriteAnimation
-    auto* sa = AddComponent<SpriteAnimationComponent>();
-    m_Clip.columns = 5;
-    m_Clip.rows = 1;
-    m_Clip.frameCount = 5;
-    m_Clip.fps = 10;
-    m_Clip.loopDefault = true;
-    sa->SetClip(&m_Clip);
+    // Billboard
+    auto* bb = AddComponent<BillboardComponent>();
+
 }
 
+void TargetSpriteObject::Update(float dt)
+{
+    GameObject::Update(dt);
+
+    switch (m_State)
+    {
+    case State::None:
+        break;
+    case State::FadeIn:
+    {
+        m_Timer += dt * m_Speed;
+        if (m_Timer > m_Time)
+        {
+            m_Timer = m_Time;
+            m_State = State::None;
+        }
+        m_Alpha = m_Timer / m_Time;
+        auto* sr = GetComponent<SpriteRendererComponent>();
+        sr->SetColor({ 1, 1, 1, m_Alpha });
+    }
+    break;
+    case State::FadeOut:
+    {
+        m_Timer -= dt * m_Speed;
+        if (m_Timer < 0)
+        {
+            m_Timer = 0;
+            m_State = State::None;
+        }
+        m_Alpha = m_Timer / m_Time;
+        auto* sr = GetComponent<SpriteRendererComponent>();
+        sr->SetColor({ 1, 1, 1, m_Alpha });
+    }
+    break;
+    }
+}

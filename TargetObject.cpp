@@ -14,6 +14,8 @@
 #include "Renderer.h"
 #include "Texture.h"  // Texture::Load 既存
 #include "TargetStateManagerComponent.h"
+#include "TargetSpriteObject.h"
+#include "MarkSpriteObject.h"
 
 void TargetObject::Init()
 {
@@ -73,7 +75,24 @@ void TargetObject::Init()
 	auto* state = AddComponent<TargetStateManagerComponent>();
 	state->Init();
 
+	// ターゲットスプライト
+	{
+		m_pTargetSpriteObject = Manager::GetScene()->AddGameObject<TargetSpriteObject>(2);
+		m_pTargetSpriteObject->Init();
+		m_pTargetSpriteObject->Transform()->SetParent(Transform());
+		float scale = 1.0f / 4.0f;
+		m_pTargetSpriteObject->Transform()->SetScale({ scale, scale, scale });
+		m_pTargetSpriteObject->Transform()->SetPosition({ 0, 5, 0 });
+	}
+	// マークオブジェクト
+	{
+		m_pMarkSpriteObject = Manager::GetScene()->AddGameObject<MarkSpriteObject>(2);
+		m_pMarkSpriteObject->Init();
+		m_pMarkSpriteObject->Transform()->SetParent(Transform());
+		float scale = 1.0f / 1.5f;
+		m_pMarkSpriteObject->Transform()->SetScale({ scale, scale, scale });
+	}
+
 	// タグ設定
 	SetTag("Target");
-
 }

@@ -20,7 +20,7 @@ template<class T> inline T Lerp(T a, T b, T t) { return a + (b - a) * t; }
 // --------------------------------------------------
 // 平面
 // --------------------------------------------------
-void MeshFactory::CreateQuad(MeshFilterComponent* filter, const QuadParams& p)
+void MeshFactory::CreateQuad(MeshFilterComponent* filter, const QuadParams& p, bool for3d)
 {
 	assert(filter);
 
@@ -31,12 +31,20 @@ void MeshFactory::CreateQuad(MeshFilterComponent* filter, const QuadParams& p)
 	float x0 = p.originCenter ? -hw : 0.0f;
 	float y0 = p.originCenter ? -hh : 0.0f;
 
-	// ----- 頂点データ作成（左上基準） -----
-	v[0].position = { x0		  , y0			 , 0.0f }; v[0].normal = { 0, 0, 1 }; v[0].diffuse = { 1, 1, 1, 1 }; v[0].texcoord = { 0, 0 };
-	v[1].position = { x0 + p.width, y0			 , 0.0f }; v[1].normal = { 0, 0, 1 }; v[1].diffuse = { 1, 1, 1, 1 }; v[1].texcoord = { 1, 0 };
-	v[2].position = { x0		  , y0 + p.height, 0.0f }; v[2].normal = { 0, 0, 1 }; v[2].diffuse = { 1, 1, 1, 1 }; v[2].texcoord = { 0, 1 };
-	v[3].position = { x0 + p.width, y0 + p.height, 0.0f }; v[3].normal = { 0, 0, 1 }; v[3].diffuse = { 1, 1, 1, 1 }; v[3].texcoord = { 1, 1 };
+	// 2D: 左上基準（y0 が上、y0+height が下）※Y+下
+	float yTop = y0;
+	float yBottom = y0 + p.height; 
+	// 3D: Y+上にしたいので、上下を入れ替える（鏡映ではない）
+	// ＝座標の符号反転ではなく「どちらを上として使うか」を変えるだけ
+	if (for3d)
+		std::swap(yTop, yBottom);
 
+	// ----- 頂点データ作成（左上基準） -----
+	v[0].position = { x0		  , yTop   , 0.0f }; v[0].normal = { 0, 0, 1 }; v[0].diffuse = { 1, 1, 1, 1 }; v[0].texcoord = { 0, 0 };
+	v[1].position = { x0 + p.width, yTop   , 0.0f }; v[1].normal = { 0, 0, 1 }; v[1].diffuse = { 1, 1, 1, 1 }; v[1].texcoord = { 1, 0 };
+	v[2].position = { x0		  , yBottom, 0.0f }; v[2].normal = { 0, 0, 1 }; v[2].diffuse = { 1, 1, 1, 1 }; v[2].texcoord = { 0, 1 };
+	v[3].position = { x0 + p.width, yBottom, 0.0f }; v[3].normal = { 0, 0, 1 }; v[3].diffuse = { 1, 1, 1, 1 }; v[3].texcoord = { 1, 1 };
+	
 	// ----- VB 作成 -----
 	D3D11_BUFFER_DESC bd{};
 	bd.Usage = D3D11_USAGE_DEFAULT;
@@ -49,7 +57,15 @@ void MeshFactory::CreateQuad(MeshFilterComponent* filter, const QuadParams& p)
 	if (FAILED(hr)) { assert(false && "CreateBuffer VB failed"); return; }
 
 	// ----- IB 作成 -----
-	uint32_t idx[6] = { 0, 1, 2, 2, 1, 3 };
+	uint32_t idx[6];
+	if (!for3d) {
+		uint32_t t[6] = { 0, 1, 2, 2, 1, 3 };
+		memcpy(idx, t, sizeof(idx));
+	}
+	else {
+		uint32_t t[6] = { 0, 2, 1, 2, 3, 1 }; // ★ 3D側だけ反転
+		memcpy(idx, t, sizeof(idx));
+	}
 	D3D11_BUFFER_DESC ibd{};
 	ibd.Usage = D3D11_USAGE_DEFAULT;
 	ibd.ByteWidth = sizeof(uint32_t) * 6;

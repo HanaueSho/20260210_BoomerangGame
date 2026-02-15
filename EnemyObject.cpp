@@ -53,7 +53,7 @@ void EnemyObject::Init()
 	state->Init();
 	state->SetModelAnime(m_pModelAnimeObject);
 
-	// ----- ターゲット -----
+	// ----- ターゲットオブジェクト -----
 	GameObject* bone = m_pModelAnimeObject->GetBoneManager().GetBoneObject(0);
 	GameObject* target = Manager::GetScene()->AddGameObject<TargetObject>(1);
 	target->Init();
@@ -61,6 +61,7 @@ void EnemyObject::Init()
 	target->Transform()->SetPosition({ 0, 10, 0 });
 	auto* stateTarget = target->GetComponent<TargetStateManagerComponent>();
 	stateTarget->SetOwnerObject(this);
+
 
 	// タグ設定
 	SetTag("Enemy");
