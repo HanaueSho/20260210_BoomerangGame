@@ -27,6 +27,7 @@ private:
 	float m_Distance = 30.0f;
 	float m_YawRadian   = 0.0f;
 	float m_PitchRadian = 1.0f;
+	float m_LookK = 14.0f; // ‘å‚«‚¢‚Ù‚Ç‘¬‚­’Ç]
 
 	// ----- Aim -----
 	Vector3 m_Offset = { 1.5f, 6.0f, -2.0f };

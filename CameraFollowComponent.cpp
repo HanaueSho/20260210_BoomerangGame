@@ -10,7 +10,6 @@
 
 void CameraFollowComponent::Update(float dt)
 {
-
 	switch (m_State)
 	{
 	case State::None:
@@ -22,9 +21,6 @@ void CameraFollowComponent::Update(float dt)
 		Aim(dt);
 		break;
 	}
-
-
-
 }
 
 void CameraFollowComponent::Follow(float dt)
@@ -67,8 +63,30 @@ void CameraFollowComponent::Follow(float dt)
 	position += diff * alpha;
 	Owner()->Transform()->SetPosition(position);
 
-	// Œü‚­
-	Owner()->Transform()->LookAt(targetPos);
+	// ----- ƒJƒƒ‰‰ñ“] -----
+	TransformComponent* camTf = Owner()->Transform();
+	Vector3 camPos = camTf->Position();
+
+	// ’Ž‹•ûŒü
+	Vector3 fwd = targetPos - camPos;
+	if (fwd.lengthSq() > 1e-8f)
+	{
+		fwd.normalize();
+		//	ƒ[ƒ‹ƒhã•ûŒü
+		const Vector3 up = { 0, 1, 0 };
+		// –Ú•W‰ñ“]
+		Quaternion qTarget = Quaternion::LookRotation(fwd, up);
+		// Œ»Ý‰ñ“]
+		Quaternion qCur = camTf->Rotation();
+
+		// dt ˆË‘¶‚Ì•âŠÔ
+		float t = 1.0f - expf(-m_LookK * dt);
+		if (t < 0.0f) t = 0.0f;
+		if (t > 1.0f) t = 1.0f;
+		Quaternion qNew = Quaternion::Slerp(qCur, qTarget, t);
+
+		camTf->SetRotation(qNew);
+	}
 }
 
 void CameraFollowComponent::Aim(float dt)

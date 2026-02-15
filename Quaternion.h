@@ -235,7 +235,49 @@ public:
 			return Quaternion::FromAxisAngle(axis, angle);
 		}
 	}
-	
+	// --------------------------------------------------
+	// 向きたい方向
+	// --------------------------------------------------
+	static Quaternion LookRotation(const Vector3& forward, const Vector3& up = Vector3(0, 1, 0))
+	{
+		Vector3 f = forward;
+		if (f.lengthSq() < 1e-8f)
+		{
+			return Quaternion::Identity();
+		}
+		f.normalize();
+
+		Vector3 u = up;
+		if (u.lengthSq() < 1e-8f) u = Vector3(0, 1, 0);
+		u.normalize();
+
+		// forward と up が平行に近い場合は right が作れないので回避
+		const float d = Vector3::Dot(f, u);
+		if (fabsf(d) > 0.999f)
+		{
+			// f に平行でない up を選ぶ
+			u = (fabsf(f.y) < 0.9f) ? Vector3(0, 1, 0) : Vector3(1, 0, 0);
+		}
+
+		Vector3 r = Vector3::Cross(u, f);
+		if (r.lengthSq() < 1e-8f)
+		{
+			u = Vector3(1, 0, 0);
+			r = Vector3::Cross(u, f);
+			if (r.lengthSq() < 1e-8f) return Quaternion::Identity();
+		}
+		r.normalize();
+
+		// 直交化した up
+		Vector3 u2 = Vector3::Cross(f, r); u2.normalize();
+
+		// 行ベクトル流儀
+		Matrix4x4 m = {}; m.identity();
+		m.m[0][0] = r.x;  m.m[0][1] = r.y;  m.m[0][2] = r.z;
+		m.m[1][0] = u2.x; m.m[1][1] = u2.y; m.m[1][2] = u2.z;
+		m.m[2][0] = f.x;  m.m[2][1] = f.y;  m.m[2][2] = f.z;
+		return Quaternion::FromMatrix(m);
+	}
 	// ==================================================
 	// ----- 回転適用 -----
 	// ==================================================

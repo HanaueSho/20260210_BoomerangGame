@@ -422,7 +422,7 @@ void CharacterControllerComponent::UpdateGrounded()
 
 
 	// 足元チェック（本当はpose指定Queryが欲しい）
-	const Vector3 pos0 = m_pTransform->Position();
+	const Vector3 pos0 = m_pTransform->Position(); 
 	const Vector3 down = Vector3(0, -m_Settings.groundProbe, 0);
 
 	m_pTransform->SetPosition(pos0 + down);

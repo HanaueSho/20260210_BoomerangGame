@@ -62,7 +62,7 @@ void PlayerObject::Uninit()
 void PlayerObject::Update(float gameDt, float realDt)
 {
 	GameObject::Update(gameDt, realDt);
-	
+
 }
 
 GameObject* PlayerObject::GetBoneObject(int index)

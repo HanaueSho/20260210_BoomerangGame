@@ -17,42 +17,69 @@ namespace
 	// BoneTrack からローカル行列を作る
 	Vector3 SampleTranslation(const BoneTrack& track, float time)
 	{
-		if (track.translationKeys.empty()) return Vector3(0, 0, 0);
+		const auto& keys = track.translationKeys;
+		if (keys.empty()) return Vector3(0, 0, 0);
+		if (keys.size() == 1) return keys[0].value;
 
-		// とりあえず time以下で最大のキーを探す
-		const TranslationKey* prev = &track.translationKeys[0];
-		for (size_t i = 1; i < track.translationKeys.size(); i++)
-		{
-			if (track.translationKeys[i].time > time) break;
-			prev = &track.translationKeys[i];
-		}
-		return prev->value;
+		// prev index
+		size_t iPrev = 0;
+		while (iPrev + 1 < keys.size() && keys[iPrev + 1].time <= time)
+			iPrev++;
+		size_t iNext = (iPrev + 1 < keys.size()) ? (iPrev + 1) : iPrev;
+
+		const auto& k0 = keys[iPrev];
+		const auto& k1 = keys[iNext];
+		if (iNext == iPrev || (k1.time - k0.time) <= 1e-8f)
+			return k0.value;
+
+		float a = (time - k0.time) / (k1.time - k0.time);
+		a = Vector3::Clamp(a, 0.0f, 1.0f);
+		return Vector3::Lerp(k0.value, k1.value, a);
 	}
 	Quaternion SampleRotation(const BoneTrack& track, float time)
 	{
-		if (track.rotationKeys.empty()) return Quaternion::Identity();
+		const auto& keys = track.rotationKeys;
+		if (keys.empty()) return Quaternion::Identity();
+		if (keys.size() == 1) return keys[0].value.normalized();
 
-		// とりあえず time以下で最大のキーを探す
-		const RotationKey* prev = &track.rotationKeys[0];
-		for (size_t i = 1; i < track.rotationKeys.size(); i++)
-		{
-			if (track.rotationKeys[i].time > time) break;
-			prev = &track.rotationKeys[i];
-		}
-		return prev->value;
+		size_t iPrev = 0;
+		while (iPrev + 1 < keys.size() && keys[iPrev + 1].time <= time)
+			iPrev++;
+		size_t iNext = (iPrev + 1 < keys.size()) ? (iPrev + 1) : iPrev;
+
+		const auto& k0 = keys[iPrev];
+		const auto& k1 = keys[iNext];
+		Quaternion q0 = k0.value.normalized();
+		Quaternion q1 = k1.value.normalized();
+
+		if (iNext == iPrev || (k1.time - k0.time) <= 1e-8f)
+			return q0;
+
+		float a = (time - k0.time) / (k1.time - k0.time);
+		a = Vector3::Clamp(a, 0.0f, 1.0f);
+
+		return Quaternion::NlerpShortest(q0, q1, a);
 	}
 	Vector3 SampleScale(const BoneTrack& track, float time)
 	{
-		if (track.scaleKeys.empty()) return Vector3(1, 1, 1);
+		const auto& keys = track.scaleKeys;
+		if (keys.empty()) return Vector3(1, 1, 1);
+		if (keys.size() == 1) return keys[0].value;
 
-		// とりあえず time以下で最大のキーを探す
-		const ScaleKey* prev = &track.scaleKeys[0];
-		for (size_t i = 1; i < track.scaleKeys.size(); i++)
-		{
-			if (track.scaleKeys[i].time > time) break;
-			prev = &track.scaleKeys[i];
-		}
-		return prev->value;
+		// prev index
+		size_t iPrev = 0;
+		while (iPrev + 1 < keys.size() && keys[iPrev + 1].time <= time)
+			iPrev++;
+		size_t iNext = (iPrev + 1 < keys.size()) ? (iPrev + 1) : iPrev;
+
+		const auto& k0 = keys[iPrev];
+		const auto& k1 = keys[iNext];
+		if (iNext == iPrev || (k1.time - k0.time) <= 1e-8f)
+			return k0.value;
+
+		float a = (time - k0.time) / (k1.time - k0.time);
+		a = Vector3::Clamp(a, 0.0f, 1.0f);
+		return Vector3::Lerp(k0.value, k1.value, a);
 	}
 	// ※現在未使用
 	void ExtractBindTRS(const Matrix4x4& M, Vector3& outT, Matrix4x4& outR, Vector3& outS)
