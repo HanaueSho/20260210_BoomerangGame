@@ -151,6 +151,21 @@
     <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Target">
       <UniqueIdentifier>{0421af27-67e9-4f84-b49f-8738135e7dcc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Bullet">
+      <UniqueIdentifier>{bf5215d9-0ff8-41b6-89e9-5f1d0f7395ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Effect">
+      <UniqueIdentifier>{e39bc91c-b774-4508-b42c-f4d684b1ff53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Other">
+      <UniqueIdentifier>{318d8bbd-9f73-4239-b4a7-9f678f6455c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Field">
+      <UniqueIdentifier>{8229624c-3987-4419-ae66-3db83fc67c45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\6.ゲームコンポーネント\BulletObject">
+      <UniqueIdentifier>{89d94471-70f7-4dc5-a5d2-e6ad63bee3d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioSource.cpp">
@@ -158,9 +173,6 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>ソース ファイル\1.フレームワーク\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
@@ -179,9 +191,6 @@
     </ClCompile>
     <ClCompile Include="Mouse.cpp">
       <Filter>ソース ファイル\1.フレームワーク\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
     </ClCompile>
     <ClCompile Include="polygon.cpp">
       <Filter>ソース ファイル\Polygone</Filter>
@@ -240,12 +249,6 @@
     <ClCompile Include="LightManager.cpp">
       <Filter>ソース ファイル\1.フレームワーク\Component\Light</Filter>
     </ClCompile>
-    <ClCompile Include="LightObject.cpp">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Field.cpp">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
-    </ClCompile>
     <ClCompile Include="DebugRenderer.cpp">
       <Filter>ソース ファイル\1.フレームワーク\Renderer</Filter>
     </ClCompile>
@@ -264,14 +267,8 @@
     <ClCompile Include="SkinMatrixProviderComponent.cpp">
       <Filter>ソース ファイル\1.フレームワーク\Model</Filter>
     </ClCompile>
-    <ClCompile Include="SandbagObject.cpp">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
-    </ClCompile>
     <ClCompile Include="AppleObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\PrimitiveObject</Filter>
-    </ClCompile>
-    <ClCompile Include="NorenObject.cpp">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
     </ClCompile>
     <ClCompile Include="SphereObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\PrimitiveObject</Filter>
@@ -290,9 +287,6 @@
     </ClCompile>
     <ClCompile Include="ModelAnimeObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\PrimitiveObject</Filter>
-    </ClCompile>
-    <ClCompile Include="AppleGenerator.cpp">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
     </ClCompile>
     <ClCompile Include="PlayerStateIdle.cpp">
       <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
@@ -354,9 +348,6 @@
     <ClCompile Include="GameStage0Scene.cpp">
       <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="EffectObject.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyStateManagerComponent.cpp">
       <Filter>ソース ファイル\6.ゲームコンポーネント\EnemyObject</Filter>
     </ClCompile>
@@ -365,6 +356,39 @@
     </ClCompile>
     <ClCompile Include="TargetObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Target</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="AppleGenerator.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="LightObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="NorenObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="SandbagObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletStateManagerComponent.cpp">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\BulletObject</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHeartObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -449,12 +473,6 @@
     <ClInclude Include="Scene.h">
       <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Field.h">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
-    </ClInclude>
     <ClInclude Include="modelRenderer.h">
       <Filter>ソース ファイル\Polygone</Filter>
     </ClInclude>
@@ -463,9 +481,6 @@
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>ソース ファイル\1.フレームワーク\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
     </ClInclude>
     <ClInclude Include="MathCommon.h">
       <Filter>ソース ファイル\3.汎用ヘルパ</Filter>
@@ -524,9 +539,6 @@
     <ClInclude Include="LightManager.h">
       <Filter>ソース ファイル\1.フレームワーク\Component\Light</Filter>
     </ClInclude>
-    <ClInclude Include="LightObject.h">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
-    </ClInclude>
     <ClInclude Include="DebugRenderer.h">
       <Filter>ソース ファイル\1.フレームワーク\Renderer</Filter>
     </ClInclude>
@@ -566,12 +578,6 @@
     <ClInclude Include="ColliderPose.h">
       <Filter>ソース ファイル\1.フレームワーク\PhysicsSystem</Filter>
     </ClInclude>
-    <ClInclude Include="SandbagObject.h">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="NorenObject.h">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
-    </ClInclude>
     <ClInclude Include="PlayroomScene.h">
       <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
     </ClInclude>
@@ -583,9 +589,6 @@
     </ClInclude>
     <ClInclude Include="CubeObject.h">
       <Filter>ソース ファイル\5.ゲームオブジェクト\PrimitiveObject</Filter>
-    </ClInclude>
-    <ClInclude Include="AppleGenerator.h">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object</Filter>
     </ClInclude>
     <ClInclude Include="SelfDestroyComponent.h">
       <Filter>ソース ファイル\2.汎用コンポーネント</Filter>
@@ -677,9 +680,6 @@
     <ClInclude Include="GameStage0Scene.h">
       <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="EffectObject.h">
-      <Filter>ソース ファイル\5.ゲームオブジェクト</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyStateManagerComponent.h">
       <Filter>ソース ファイル\6.ゲームコンポーネント\EnemyObject</Filter>
     </ClInclude>
@@ -688,6 +688,39 @@
     </ClInclude>
     <ClInclude Include="TargetObject.h">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Target</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="AppleGenerator.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="LightObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="NorenObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="SandbagObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletStateManagerComponent.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\BulletObject</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHeartObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -13,7 +13,7 @@
 #include "Manager.h"
 #include "Scene.h"
 #include "BoneManager.h"
-
+#include "PlayerHeartObject.h"
 
 void PlayerObject::Init()
 {
@@ -43,6 +43,11 @@ void PlayerObject::Init()
 	state->Init();
 	state->SetModelAnime(m_pModelAnimeObject);
 	state->SetStateInitial(PlayerStateId::Idle);
+
+	// HeartObject
+	auto* heart = Manager::GetScene()->AddGameObject<PlayerHeartObject>(1);
+	heart->Init();
+	heart->Transform()->SetParent(Transform());
 
 	// ƒŒƒCƒ„[
 	SetPhysicsLayer(31);

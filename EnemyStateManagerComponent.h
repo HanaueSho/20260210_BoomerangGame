@@ -45,6 +45,8 @@ private:
 
 	// ----- Shot -----
 	float m_ShotTimer = 0.0f;
+	float m_ShotTuneTimer = 0.0f;
+	bool  m_IsShot = false;
 
 public:
 	// ライフサイクル

@@ -16,6 +16,7 @@
 #include "EffectObject.h"
 #include "EnemyStateManagerComponent.h"
 #include "TargetStateManagerComponent.h"
+#include "BulletStateManagerComponent.h"
 
 namespace
 {
@@ -81,6 +82,20 @@ void BoomerangStateManagerComponent::OnTriggerEnter(Collider* me, Collider* othe
 			// TargetStateManager 側の処理
 			auto* stateTarget = other->Owner()->GetComponent<TargetStateManagerComponent>();
 			stateTarget->TakeDamage();
+
+			// StateChange
+			if (m_IndexTargets >= m_Targets.size()) ChangeStateBack();
+		}
+		if (other->Owner()->Tag() == "Bullet")
+		{
+			// ターゲット以外なら終わり
+			if (other->Owner() != m_Targets[m_IndexTargets]) break;
+
+			m_IndexTargets++;
+
+			// bullet 処理
+			auto* bullet = other->Owner()->GetComponent<BulletStateManagerComponent>();
+			bullet->DestroyThis();
 
 			// StateChange
 			if (m_IndexTargets >= m_Targets.size()) ChangeStateBack();

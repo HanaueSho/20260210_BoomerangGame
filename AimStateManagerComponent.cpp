@@ -29,6 +29,11 @@ void AimStateManagerComponent::OnTriggerEnter(Collider* me, Collider* other)
 			printf("「Targetにあたりました」\n");
 			m_Targets.push_back(other->Owner());
 		}
+		if (other->Owner()->Tag() == "Bullet")
+		{
+			printf("「Bulletにあたりました」\n");
+			m_Targets.push_back(other->Owner());
+		}
 	}
 }
 
@@ -43,6 +48,11 @@ void AimStateManagerComponent::OnTriggerExit(Collider* me, Collider* other)
 		if (other->Owner()->Tag() == "Target")
 		{
 			printf("「Targetから外れました」\n");
+			m_Targets.erase(std::remove(m_Targets.begin(), m_Targets.end(), other->Owner()), m_Targets.end());
+		}
+		if (other->Owner()->Tag() == "Bullet")
+		{
+			printf("「Bulletから外れました」\n");
 			m_Targets.erase(std::remove(m_Targets.begin(), m_Targets.end(), other->Owner()), m_Targets.end());
 		}
 	}

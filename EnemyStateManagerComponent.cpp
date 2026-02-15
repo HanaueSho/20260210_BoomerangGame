@@ -10,6 +10,8 @@
 #include "Scene.h"
 #include "PlayerObject.h"
 #include "ColliderComponent.h"
+#include "BulletObject.h"
+#include "BulletStateManagerComponent.h"
 
 void EnemyStateManagerComponent::Init()
 {
@@ -147,6 +149,9 @@ void EnemyStateManagerComponent::ChangeState(State newState)
 		{
 			m_pModelAnime->PlayAnimeAttack();
 			m_pModelAnime->SetSpeedAnime(2.0f);
+			// UŒ‚¶¬
+			m_ShotTuneTimer = 0.0f;
+			m_IsShot = false;
 		}
 	}
 		break;
@@ -217,9 +222,28 @@ void EnemyStateManagerComponent::Attack(float dt)
 		break;
 	case Type::Shot:
 	{
+		// Œü‚«
+		Vector3 vect = m_pPlayerObject->Transform()->Position() - Owner()->Transform()->Position();
+		m_pController->SetMoveInput(vect.normalized());
+		m_ShotTuneTimer += dt;
+
+		// UŒ‚¶¬
+		if (m_ShotTuneTimer > 0.6f && m_IsShot == false)
+		{
+			Vector3 vect = m_pPlayerObject->Transform()->Position() - Owner()->Transform()->Position();
+			auto* bullet = Manager::GetScene()->AddGameObject<BulletObject>(1);
+			bullet->Init();
+			bullet->Transform()->SetPosition(Owner()->Transform()->Position());
+			bullet->GetComponent<BulletStateManagerComponent>()->SetVect(vect.normalized());
+
+			m_IsShot = true;
+		}
+		// ‘JˆÚ
 		auto animator = m_pModelAnime->GetComponent<AnimatorComponent>();
 		if (!animator->IsBlending())
+		{
 			ChangeState(State::Idle);
+		}
 	}
 		break;
 	case Type::ShotAndBarrier:

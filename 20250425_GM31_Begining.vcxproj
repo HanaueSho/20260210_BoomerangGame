@@ -171,6 +171,8 @@
     <ClCompile Include="BoneManager.cpp" />
     <ClCompile Include="BoomerangObject.cpp" />
     <ClCompile Include="BoomerangStateManagerComponent.cpp" />
+    <ClCompile Include="BulletObject.cpp" />
+    <ClCompile Include="BulletStateManagerComponent.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="CameraFollowComponent.cpp" />
@@ -214,6 +216,7 @@
     <ClCompile Include="NorenObject.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerHeartObject.cpp" />
     <ClCompile Include="PlayerObject.cpp" />
     <ClCompile Include="PlayerStateAim.cpp" />
     <ClCompile Include="PlayerStateIdle.cpp" />
@@ -263,6 +266,8 @@
     <ClInclude Include="BoneObject.h" />
     <ClInclude Include="BoomerangObject.h" />
     <ClInclude Include="BoomerangStateManagerComponent.h" />
+    <ClInclude Include="BulletObject.h" />
+    <ClInclude Include="BulletStateManagerComponent.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="CameraFollowComponent.h" />
@@ -320,6 +325,7 @@
     <ClInclude Include="NorenObject.h" />
     <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerHeartObject.h" />
     <ClInclude Include="PlayerObject.h" />
     <ClInclude Include="PlayerStateAim.h" />
     <ClInclude Include="PlayerStateIdle.h" />
