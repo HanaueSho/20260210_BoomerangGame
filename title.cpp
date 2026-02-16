@@ -41,7 +41,4 @@ void Title::Update(float gameDt, float realDt)
 		//Manager::SetScene<PlayroomScene>();
 	}
 
-	if (Input::Pad(0).IsDown(PadButton::A))
-		printf("%f\n", Input::Pad(0).LX());
-
 }

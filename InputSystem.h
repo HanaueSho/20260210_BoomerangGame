@@ -6,6 +6,7 @@
 #define INPUTSYSTEM_H_
 #include "Keyboard.h"
 #include "Mouse.h"
+#include "Input.h"
 #include "Vector3.h"
 
 class InputSystem
@@ -13,37 +14,47 @@ class InputSystem
 private:
 	static Vector3 m_Input;
 public:
+	// 移動キー入力
 	static bool IsMoveDown()
 	{
-		return Keyboard_IsKeyDown(KK_A) ||
-			   Keyboard_IsKeyDown(KK_D) ||
-			   Keyboard_IsKeyDown(KK_W) ||
-			   Keyboard_IsKeyDown(KK_S) ; 
+		return Keyboard_IsKeyDown(KK_A)  ||
+			   Keyboard_IsKeyDown(KK_D)  ||
+			   Keyboard_IsKeyDown(KK_W)  ||
+			   Keyboard_IsKeyDown(KK_S)  ||
+			  Input::Pad(0).LX() != 0.0f ||
+			  Input::Pad(0).LY() != 0.0f; 
 	}
+	// ジャンプキー入力
 	static bool IsJumpDown()
 	{
 		return Keyboard_IsKeyDown(KK_SPACE);
 	}
+	// ジャンプキー入力された瞬間
 	static bool IsJumpDownTrigger()
 	{
 		return Keyboard_IsKeyDownTrigger(KK_SPACE);
 	}
+	// エイムキー入力
 	static bool IsToAimDown()
 	{
 		return Mouse_IsClick(MS_CLICK_RIGHT);
 	}
+	// エイムキー入力された瞬間
 	static bool IsAimDownTrigger()
 	{
 		return Mouse_IsClickTrigger(MS_CLICK_LEFT);
 	}
+	// 投擲キー入力
 	static bool IsThrowDown()
 	{
 		return Mouse_IsClick(MS_CLICK_LEFT);
 	}
+	// 投擲キー入力が終わった瞬間
 	static bool IsThrowUp()
 	{
 		return Mouse_IsClickUp(MS_CLICK_RIGHT);
 	}
+	// 移動キーの入力値取得
 	static const Vector3& GetInputMove()
 	{
 		m_Input = { 0, 0, 0 };
@@ -55,8 +66,24 @@ public:
 			m_Input.z += 1;
 		if (Keyboard_IsKeyDown(KK_S))
 			m_Input.z += -1;
+
+		if (Input::Pad(0).IsConnected())
+		{
+			m_Input.x = Input::Pad(0).LX();
+			m_Input.z = Input::Pad(0).LY();
+		}
+
 		return m_Input;
 	}
+	// カメラ入力値の取得
+	static Vector3 GetInputMoveCamera()
+	{
+		Vector3 out = {0.0f, 0.0f, 0.0f};
+		out.x = Input::Pad(0).RX();
+		out.y = Input::Pad(0).RY();
+		return out;
+	}
+
 };
 
 #endif

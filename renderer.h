@@ -367,6 +367,11 @@ private:
 	static DebugRenderer* m_pDebugRenderer;
 
 	// ==================================================
+	// ----- 描画補間係数 -----
+	// ==================================================
+	static float s_RenderAlpha;
+
+	// ==================================================
 	// ※　一旦放置（将来的に使う）　※
 	// ==================================================
 	static D3D_FEATURE_LEVEL       m_FeatureLevel;
@@ -429,6 +434,13 @@ public:
 	// デバッグレンダラー
 	// ==================================================
 	static DebugRenderer* GetDebugRenderer() { return m_pDebugRenderer; }
+
+	// ==================================================
+	// ----- 描画補間係数 -----
+	// ==================================================
+	static void  SetRenderAlpha(float a) { s_RenderAlpha = a; }
+	static float RenderAlpha() { return s_RenderAlpha; }
+
 private:
 	// ==================================================
 	// ----- 内部ユーティリティ -----

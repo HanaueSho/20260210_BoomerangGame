@@ -52,6 +52,7 @@ ComPtr<ID3D11RasterizerState>   Renderer::m_RS_NoCull;
 ComPtr<ID3D11RasterizerState>   Renderer::m_RS_WireFrame;
 ComPtr<ID3D11RasterizerState>   Renderer::m_RS_ShadowCaster;
 DebugRenderer*					Renderer::m_pDebugRenderer;
+float							Renderer::s_RenderAlpha;
 
 // ==================================================
 // ¦ •ú’u ¦

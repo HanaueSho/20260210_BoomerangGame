@@ -75,6 +75,9 @@ void CharacterControllerComponent::FixedUpdate(float fixedDt)
 {
 	if (!m_pTransform || !m_pCapsuleCollider || !m_pPhysicsSystem) return;
 
+	// 物理ステップ開始
+	m_pTransform->PhysicsStepBegin();
+
 	// 更新前の位置
 	Vector3 prevPos = m_pTransform->Position();
 	m_WasGrounded = m_Grounded; // 接地検出用
@@ -128,6 +131,10 @@ void CharacterControllerComponent::FixedUpdate(float fixedDt)
 
 	// ----- 向き関係処理 -----
 	UpdateFacing(fixedDt);
+
+
+	// 物理ステップ終了
+	m_pTransform->PhysicsStepEnd();
 }
 
 // ==================================================

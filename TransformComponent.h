@@ -36,7 +36,13 @@ protected:
     mutable Matrix4x4 m_WorldInv{}; // 逆ワールド行列のキャッシュ
     mutable bool m_LocalDirty = true; // 何か変更があったか（CB更新や階層伝搬の最適化に使える）
     mutable bool m_WorldDirty = true; // 何か変更があったか（CB更新や階層伝搬の最適化に使える）
-
+    // --------------------------------------------------
+    // Phesics の前の位置
+    // これは描画用の行列を作るのに使う
+    // --------------------------------------------------
+    mutable Vector3 m_PhysPrevPos{};
+    mutable Vector3 m_PhysCurrPos{};
+    mutable bool    m_HasPhysSnap = false;
 public:
     // ==================================================
     // ----- コンストラクタ -----
@@ -204,6 +210,23 @@ public:
     {
         const_cast<TransformComponent*>(this)->WorldMatrix(); // ここで再計算している（？）
         return m_WorldInv;
+    }
+    // --------------------------------------------------
+    // 描画用行列取得（遅延再計算）
+    // MeshRenderer で呼ぶ
+    // --------------------------------------------------
+    Matrix4x4 WorldMatrixForRender(float alpha) const
+    {
+        // まず通常のWorldを確定
+        const Matrix4x4& world = WorldMatrix();
+
+        // そのコピーを作って、平行移動だけ差し替える
+        Matrix4x4 out = world;
+        Vector3 rp = RenderPosition(alpha);
+        out.m[3][0] = rp.x;
+        out.m[3][1] = rp.y;
+        out.m[3][2] = rp.z;
+        return out;
     }
     
     // --------------------------------------------------
@@ -419,7 +442,35 @@ public:
         Quaternion qW = Quaternion::LookAt(Position(), target, up);
         SetRotation(qW.normalized());
     }
-    
+
+    // ==================================================
+    // ----- Phsics の位置 -----
+    // ==================================================
+    // --------------------------------------------------
+    // Phesics の前の位置
+    // これは描画用の行列を作るのに使う
+    // CharacterControllerComponent で呼ぶ
+    // --------------------------------------------------
+    void PhysicsStepBegin() 
+    {
+        m_PhysPrevPos = Position();
+        if (!m_HasPhysSnap)
+        {
+            m_PhysCurrPos = m_PhysPrevPos;
+            m_HasPhysSnap = true;
+        }
+    }
+    void PhysicsStepEnd()
+    {
+        m_PhysCurrPos = Position();
+    }
+    Vector3 RenderPosition(float alpha) const
+    {
+        if (!m_HasPhysSnap) return Position();
+        alpha = Vector3::Clamp(alpha, 0.0f, 1.0f);
+        return Vector3::Lerp(m_PhysPrevPos, m_PhysCurrPos, alpha);
+    }
+
     // ==================================================
     // ----- ライフサイクル -----
     // ==================================================

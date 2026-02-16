@@ -13,6 +13,7 @@
 #include "Mouse.h"
 #include "Keyboard.h"
 #include "Input.h"
+#include "Renderer.h"
 #include <thread>
 #include <chrono>
 
@@ -157,6 +158,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			steps++;
 		}
 		lastPhysSteps = steps;
+
+		// •`‰æ•âŠÔŒW”ŒvZ
+		float alpha = (float)(accumulator / fixedDt);
+		alpha = std::clamp(alpha, 0.0f, 1.0f);
+		Renderer::SetRenderAlpha(alpha);
 
 		// ==================================================
 		// ----- ƒQ[ƒ€XVA•`‰æ -----
