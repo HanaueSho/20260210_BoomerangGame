@@ -33,6 +33,7 @@
 #include "BoomerangStateManagerComponent.h"
 #include "Camera.h"
 #include "ColliderComponent.h"
+#include "EnemyModelAnimeObject.h"
 
 // Audio
 #include "AudioSource.h"
@@ -73,7 +74,6 @@ void GameStage0Scene::Init()
 		Polygon2D* pPolygon = AddGameObject<Polygon2D>(2);
 		pPolygon->Init();
 		pPolygon->Transform()->SetPosition({ 0, 0, 0 });
-
 	}
 
 	// プレイヤー -----
@@ -108,6 +108,26 @@ void GameStage0Scene::Init()
 	// 木
 	CreateTrees();
 
+	// テント
+	CreateTents();
+
+
+	// エネミー
+	for (int i = 0; i < 1; i++)
+	{
+		EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
+		pEnemyObject->SetType(Type::Melee);
+		pEnemyObject->Init();
+		pEnemyObject->Transform()->SetPosition({ 30.0f * i, 10, 50.0f  });
+	}
+	for (int i = 0; i < 0; i++)
+	{
+		EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
+		pEnemyObject->SetType(Type::Shot);
+		pEnemyObject->Init();
+		pEnemyObject->Transform()->SetPosition({ 30.0f * i, 10, 80.0f   });
+	}
+
 	// ライト関係
 	LightApp light = {};
 	light.enable = 1;
@@ -139,6 +159,24 @@ void GameStage0Scene::Update(float gameDt, float realDt)
 	if (Keyboard_IsKeyDownTrigger(KK_ENTER))
 	{
 		Manager::SetScene<Result>();
+	}
+
+	m_SpawnTimer += gameDt;
+	if (m_SpawnTimer > 9910.0f)
+	{
+		m_SpawnTimer = 0.0f;
+		{
+			EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
+			pEnemyObject->SetType(Type::Melee);
+			pEnemyObject->Init();
+			pEnemyObject->Transform()->SetPosition({ 30 , 10, 50.0f });
+		}
+		{
+			EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
+			pEnemyObject->SetType(Type::Shot);
+			pEnemyObject->Init();
+			pEnemyObject->Transform()->SetPosition({ 30 , 10, 80.0f });
+		}
 	}
 
 }

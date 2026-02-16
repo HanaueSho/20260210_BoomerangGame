@@ -70,6 +70,18 @@ bool InputGamepad::RtPressed(float threshold) const
 	return (m_Rt >= threshold) && (m_RtPrev < threshold);
 }
 
+bool InputGamepad::LtReleased(float threshold) const
+{
+	if (!m_Connected) return false;
+	return (m_Lt < threshold) && (m_LtPrev >= threshold);
+}
+
+bool InputGamepad::RtReleased(float threshold) const
+{
+	if (!m_Connected) return false;
+	return (m_Rt < threshold) && (m_RtPrev >= threshold);
+}
+
 void InputGamepad::SetVibration(float leftMotor01, float rightMotor01)
 {
 	if (!m_Connected) return;

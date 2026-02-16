@@ -100,14 +100,14 @@ void GameMainScene::Init()
 	follow->SetTargetObject(pPlayer);
 	psm->SetCameraObject(pCamera);
 
+	// メッシュフィールド
+	Field* pField = AddGameObject<Field>(1);
+	pField->Init();
+	pField->Transform()->SetPosition({ -500, -5, -500 });
+
 	// スカイドーム
 	SkydomeObject* pSkydome = AddGameObject<SkydomeObject>(1);
 	pSkydome->Init();
-	//pSkydome->Transform()->SetParent(pPlayer->Transform());
-
-	//// サンドバッグ
-	//SandbagObject* pSandbag = AddGameObject<SandbagObject>(1);
-	//pSandbag->Init();
 
 	//// ノレン
 	//NorenObject* pNoren = AddGameObject<NorenObject>(1);
@@ -256,10 +256,6 @@ void GameMainScene::Init()
 	light.direction = Vector4(0.3f, -1.0f, 0.0f, 0.0f).normalized();
 	Renderer::SetLight(light);
 
-	// メッシュフィールド
-	Field* pField = AddGameObject<Field>(1);
-	pField->Init();
-	pField->Transform()->SetPosition({ -500, -5, -500 });
 
 	// シェーダー関係
 	ToonApp toon = MakeToon(ToonPreset::GravityRush2Like);
@@ -281,7 +277,7 @@ void GameMainScene::Update(float gameDt, float realDt)
 {
 	Scene::Update(gameDt, realDt);
 
-	if (Keyboard_IsKeyDownTrigger(KK_ENTER))
+	if (Keyboard_IsKeyDownTrigger(KK_ENTER) || Input::Pad(0).IsPressed(PadButton::START))
 	{
 		Manager::SetScene<Result>();
 	}

@@ -6,6 +6,7 @@
 #include "ColliderComponent.h"
 #include "Keyboard.h"
 
+
 void AimStateManagerComponent::Init()
 {
 	Component::Init();
@@ -18,6 +19,14 @@ void AimStateManagerComponent::Update(float dt)
 
 	//if (Keyboard_IsKeyDown(KK_D1))
 	//	Owner()->Transform()->SetParentKeepWorld(nullptr);
+
+	// Target タグ以外を取り除く
+	m_Targets.erase(remove_if(m_Targets.begin(), m_Targets.end(),
+		[](const GameObject* go) {return go == nullptr || go->Tag() != "Target"; }
+		),
+		m_Targets.end()
+	);
+
 }
 
 void AimStateManagerComponent::OnTriggerEnter(Collider* me, Collider* other)
@@ -26,13 +35,13 @@ void AimStateManagerComponent::OnTriggerEnter(Collider* me, Collider* other)
 	{
 		if (other->Owner()->Tag() == "Target")
 		{
-			printf("「Targetにあたりました」\n");
+			//printf("「Targetにあたりました」\n");
 			m_Targets.push_back(other->Owner());
 		}
 		if (other->Owner()->Tag() == "Bullet")
 		{
-			printf("「Bulletにあたりました」\n");
-			m_Targets.push_back(other->Owner());
+			//printf("「Bulletにあたりました」\n");
+			//m_Targets.push_back(other->Owner());
 		}
 	}
 }
@@ -47,13 +56,13 @@ void AimStateManagerComponent::OnTriggerExit(Collider* me, Collider* other)
 	{
 		if (other->Owner()->Tag() == "Target")
 		{
-			printf("「Targetから外れました」\n");
+			//printf("「Targetから外れました」\n");
 			m_Targets.erase(std::remove(m_Targets.begin(), m_Targets.end(), other->Owner()), m_Targets.end());
 		}
 		if (other->Owner()->Tag() == "Bullet")
 		{
-			printf("「Bulletから外れました」\n");
-			m_Targets.erase(std::remove(m_Targets.begin(), m_Targets.end(), other->Owner()), m_Targets.end());
+			//printf("「Bulletから外れました」\n");
+			//m_Targets.erase(std::remove(m_Targets.begin(), m_Targets.end(), other->Owner()), m_Targets.end());
 		}
 	}
 }

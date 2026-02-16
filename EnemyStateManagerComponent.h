@@ -66,6 +66,20 @@ public:
 	{
 		m_pModelAnime = model;
 		m_ModelAnimeType = model->GetType();
+		if (m_ModelAnimeType == Type::Melee)
+		{
+			SetSettings(0);
+			m_pModelAnime->SetSpeedAnime(1.0f);
+		}
+		else if (m_ModelAnimeType == Type::Shot)
+		{
+			SetSettings(3);
+			m_pModelAnime->SetSpeedAnime(1.5f);
+		}
+	}
+	void SetTargetObject(GameObject* go)
+	{
+		m_pTargetObject = go;
 	}
 
 	// CharacterControllerComponent

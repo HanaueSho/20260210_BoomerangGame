@@ -20,6 +20,8 @@
 #include "BulletStateManagerComponent.h"
 #include "TargetObject.h"
 #include "MarkSpriteObject.h"
+#include "Camera.h"
+#include "CameraFollowComponent.h"
 
 namespace
 {
@@ -80,7 +82,7 @@ void BoomerangStateManagerComponent::OnTriggerEnter(Collider* me, Collider* othe
 			if (other->Owner() != m_Targets[m_IndexTargets]) break;
 
 			m_IndexTargets++;
-			m_IsApproach = true; // これ false にするのはどうなん？
+			m_IsApproach = false; // これ false にするのはどうなん？
 
 			// TargetStateManager 側の処理
 			auto* stateTarget = other->Owner()->GetComponent<TargetStateManagerComponent>();
@@ -88,6 +90,13 @@ void BoomerangStateManagerComponent::OnTriggerEnter(Collider* me, Collider* othe
 
 			// StateChange
 			if (m_IndexTargets >= m_Targets.size()) ChangeStateBack();
+
+			// ヒットストップ
+			Manager::AddHitStop(0.06f);
+
+			// シェイク
+			auto* camera = Manager::GetScene()->GetGameObject<Camera>();
+			camera->GetComponent<CameraFollowComponent>()->Shake(0.2f, 1.0f);
 		}
 		if (other->Owner()->Tag() == "Bullet")
 		{
@@ -102,6 +111,7 @@ void BoomerangStateManagerComponent::OnTriggerEnter(Collider* me, Collider* othe
 
 			// StateChange
 			if (m_IndexTargets >= m_Targets.size()) ChangeStateBack();
+
 		}
 	}
 		break;
@@ -189,6 +199,8 @@ void BoomerangStateManagerComponent::SetPlayerObject(GameObject* player)
 // ターゲット追加
 void BoomerangStateManagerComponent::AddTarget()
 {
+	if (m_Targets.size() >= m_MaxTargetsNum) return;
+
 	// とりあえずターゲットを持ってくる
 	std::vector<GameObject*> targets = m_pAimObject->GetComponent<AimStateManagerComponent>()->Targets();
 	if ((int)targets.size() < 1) return;
@@ -207,7 +219,10 @@ void BoomerangStateManagerComponent::AddTarget()
 	float distMin = FLT_MAX;
 	for (int i = 0; i < (int)targets.size(); i++)
 	{
-		Vector3 targetPosition = targets[i]->Transform()->Position(); // target の位置
+		if (!targets[i]) return; // nullチェック
+		if (!targets[i]->Transform()) return; // nullチェック
+
+ 		Vector3 targetPosition = targets[i]->Transform()->Position(); // target の位置
 		Vector3 vectToTarget = targetPosition - aimPos; // aim の始点から target へのベクトル
 		Vector3 pointOnAxis = Vector3::Dot(axis, vectToTarget) * axis; // 軸上の最近接点
 		float dist = (targetPosition - pointOnAxis).length();
@@ -244,6 +259,12 @@ void BoomerangStateManagerComponent::SetSpine()
 
 void BoomerangStateManagerComponent::Throw(float dt)
 {
+	// ----- null チェック -----
+	if (!m_Targets[m_IndexTargets])
+	{
+		m_IndexTargets++; // 強制的に次のターゲットにする
+		if (m_IndexTargets >= m_Targets.size()) ChangeStateBack();
+	}
 	// ----- 飛翔処理 -----
 	if (m_IsApproach)
 	{
@@ -300,7 +321,7 @@ void BoomerangStateManagerComponent::Throw(float dt)
 		Owner()->Transform()->SetPosition(position);
 		// 時間更新
 		m_TimerFlight += dt;
-		if (m_TimerFlight > 1.0f)
+		if (m_TimerFlight > m_FlightTime)
 		{
 			m_TimerFlight = 0.0f;
 			m_IsApproach = true;

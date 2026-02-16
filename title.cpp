@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "GameMainScene.h"
 #include "PlayroomScene.h"
+#include "GameStage0Scene.h"
 
 
 void Title::Init()
@@ -34,9 +35,10 @@ void Title::Uninit()
 void Title::Update(float gameDt, float realDt)
 {
 	Scene::Update(gameDt, realDt);
-	if (Keyboard_IsKeyDownTrigger(KK_ENTER))
+	if (Keyboard_IsKeyDownTrigger(KK_ENTER) || Input::Pad(0).IsPressed(PadButton::START))
 	{
-		Manager::SetScene<GameMainScene>();
+		Manager::SetScene<GameStage0Scene>();
+		//Manager::SetScene<GameMainScene>();
 		//Manager::SetScene<Game>();
 		//Manager::SetScene<PlayroomScene>();
 	}

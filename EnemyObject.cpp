@@ -29,6 +29,7 @@ void EnemyObject::Init()
 
 	// ModelAnimeObject
 	m_pModelAnimeObject = Manager::GetScene()->AddGameObject<EnemyModelAnimeObject>(1);
+	m_pModelAnimeObject->SetType(m_Type);
 	m_pModelAnimeObject->Init();
 	m_pModelAnimeObject->Transform()->SetParent(this->Transform());
 
@@ -62,6 +63,7 @@ void EnemyObject::Init()
 	auto* stateTarget = target->GetComponent<TargetStateManagerComponent>();
 	stateTarget->SetOwnerObject(this);
 
+	state->SetTargetObject(target);
 
 	// ƒ^ƒOÝ’è
 	SetTag("Enemy");
@@ -80,6 +82,4 @@ void EnemyObject::Update(float gameDt, float realDt)
 	//if (Keyboard_IsKeyDownTrigger(KK_D4))
 	//	m_pModelAnimeObject->PlayAnimeDead();
 }
-
-
 

@@ -31,14 +31,16 @@ private:
 	Vector3 m_OffsetHandRotation = { -0.29f, 3.23f, 4.23f };  // 手首オフセット
 	// ----- Aim -----
 	GameObject* m_pAimObject = nullptr;
+	int m_MaxTargetsNum = 5;
 	// ----- Throw -----
 	std::vector<GameObject*> m_Targets{};
 	int m_IndexTargets = 0; // Targets のインデックス
 	bool m_IsApproach = false;
+	float m_FlightTime = 0.2f;
 	Vector3 m_MoveDir = {0, 0, 0}; // 現在進行方向
-	float m_Speed = 100.0f; // 飛翔速度
+	float m_Speed = 150.0f; // 飛翔速度
 	float m_TurnRateFlight   = 30.0f; // １フレーム当たりの旋回角
-	float m_TurnRateApproach = 180.0f * 3.1415926535f / 180.0f;  // １フレーム当たりの旋回角
+	float m_TurnRateApproach = 240.0f * 3.1415926535f / 180.0f;  // １フレーム当たりの旋回角
 	float m_TimerFlight = 0.0f;
 
 	// ----- Effect -----

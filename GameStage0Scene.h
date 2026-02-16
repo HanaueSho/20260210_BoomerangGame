@@ -9,6 +9,7 @@
 class GameStage0Scene : public Scene
 {
 private:
+	float m_SpawnTimer = 0.0f;
 
 public:
 	void Init() override;

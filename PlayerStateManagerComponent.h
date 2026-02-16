@@ -72,6 +72,7 @@ public:
 		if (!m_CurrentState) return;
 		m_CurrentState->FixedUpdate(*this, fixedDt);
 	}
+	UpdateClock Clock() const noexcept override { return UpdateClock::Real; }
 
 	// ----- 初期化セッター -----
 	// ステートの初期化

@@ -27,32 +27,32 @@ public:
 	// ジャンプキー入力
 	static bool IsJumpDown()
 	{
-		return Keyboard_IsKeyDown(KK_SPACE);
+		return Keyboard_IsKeyDown(KK_SPACE) || Input::Pad(0).IsDown(PadButton::A);
 	}
 	// ジャンプキー入力された瞬間
 	static bool IsJumpDownTrigger()
 	{
-		return Keyboard_IsKeyDownTrigger(KK_SPACE);
+		return Keyboard_IsKeyDownTrigger(KK_SPACE) || Input::Pad(0).IsPressed(PadButton::A);
 	}
-	// エイムキー入力
+	// エイム開始キー入力
 	static bool IsToAimDown()
 	{
-		return Mouse_IsClick(MS_CLICK_RIGHT);
+		return Mouse_IsClick(MS_CLICK_RIGHT) || Input::Pad(0).RtDown();
 	}
-	// エイムキー入力された瞬間
-	static bool IsAimDownTrigger()
+	// ターゲットキー入力された瞬間
+	static bool IsTargetDownTrigger()
 	{
-		return Mouse_IsClickTrigger(MS_CLICK_LEFT);
+		return Mouse_IsClickTrigger(MS_CLICK_LEFT) || Input::Pad(0).LtPressed();
 	}
 	// 投擲キー入力
 	static bool IsThrowDown()
 	{
-		return Mouse_IsClick(MS_CLICK_LEFT);
+		return Mouse_IsClick(MS_CLICK_LEFT) || Input::Pad(0).LtDown();
 	}
 	// 投擲キー入力が終わった瞬間
 	static bool IsThrowUp()
 	{
-		return Mouse_IsClickUp(MS_CLICK_RIGHT);
+		return Mouse_IsClickUp(MS_CLICK_RIGHT) || Input::Pad(0).RtReleased();
 	}
 	// 移動キーの入力値取得
 	static const Vector3& GetInputMove()
@@ -82,6 +82,19 @@ public:
 		out.x = Input::Pad(0).RX();
 		out.y = Input::Pad(0).RY();
 		return out;
+	}
+	// AnyKey
+	static bool AnyKeyDown()
+	{
+		return
+			Input::Pad(0).IsDown(PadButton::A) ||
+			Input::Pad(0).IsDown(PadButton::B) ||
+			Input::Pad(0).IsDown(PadButton::X) ||
+			Input::Pad(0).IsDown(PadButton::Y) ||
+			Input::Pad(0).IsDown(PadButton::LB) ||
+			Input::Pad(0).IsDown(PadButton::RB) ||
+			Input::Pad(0).LtDown() ||
+			Input::Pad(0).RtDown();
 	}
 
 };

@@ -12,12 +12,14 @@
 #include "ColliderComponent.h"
 #include "BulletObject.h"
 #include "BulletStateManagerComponent.h"
+#include "TargetObject.h"
+#include "MarkSpriteObject.h"
+#include "TargetSpriteObject.h"
 
 void EnemyStateManagerComponent::Init()
 {
 	m_pController = Owner()->GetComponent<CharacterControllerComponent>();
 	m_pPlayerObject = Manager::GetScene()->GetGameObject<PlayerObject>();
-	SetSettings(0);
 }
 
 void EnemyStateManagerComponent::Update(float dt)
@@ -169,6 +171,13 @@ void EnemyStateManagerComponent::ChangeState(State newState)
 		col->SetOffsetPosition({ 0, 5, 0.0f });
 		Rigidbody* rigid = Owner()->GetComponent<Rigidbody>();
 		rigid->SetBodyTypeDynamic();
+
+		// É^ÉOïœçX
+		m_pTargetObject->SetTag("TargetDead");
+
+		// UI è¡ãé
+		dynamic_cast<TargetObject*>(m_pTargetObject)->GetMarkSprite()->RequestDestroy();
+		dynamic_cast<TargetObject*>(m_pTargetObject)->GetTargetSprite()->RequestDestroy();
 
 		break;
 	}

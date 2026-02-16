@@ -82,6 +82,8 @@ public:
 	bool RtDown(float threshold = 0.5f) const { return m_Rt >= threshold; }
 	bool LtPressed(float threshold = 0.5f) const;
 	bool RtPressed(float threshold = 0.5f) const;
+	bool LtReleased(float threshold = 0.5f) const;
+	bool RtReleased(float threshold = 0.5f) const;
 
 	// ----- スティック(-1..1) -----
 	float LX() const { return m_Lx; }

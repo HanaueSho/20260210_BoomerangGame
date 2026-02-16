@@ -21,7 +21,7 @@ private:
 	SpriteClip m_Clip;
 	float m_Timer = 0.0f;
 	float m_Time  = 1.0f;
-	float m_Speed = 5.0f;
+	float m_Speed = 8.0f;
 	float m_Alpha = 0.0f;
 
 public:
