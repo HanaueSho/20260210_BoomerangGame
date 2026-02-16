@@ -6,6 +6,7 @@
 #include "manager.h"
 #include "renderer.h"
 #include "keyboard.h"
+#include "Input.h"
 #include "result.h"
 
 // object
@@ -297,8 +298,6 @@ void GameMainScene::Update(float gameDt, float realDt)
 	{
 		Manager::AddHitStop(0.06f);
 	}
-
-
 }
 
 void GameMainScene::Draw()

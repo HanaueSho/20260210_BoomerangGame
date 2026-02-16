@@ -1,41 +1,32 @@
+/*
+	Input.cpp
+	20260216  hanaue sho
+	外部入力をまとめて一意に管理するクラス
+*/
+#include "Input.h"
 
-#include "main.h"
-#include "input.h"
-
-
-BYTE Input::m_OldKeyState[256];
-BYTE Input::m_KeyState[256];
-
+std::array<InputGamepad, Input::MAX_PADS> Input::s_Pads = {
+	InputGamepad(0),
+	InputGamepad(1),
+	InputGamepad(2),
+	InputGamepad(3),
+};
 
 void Input::Init()
 {
-
-	memset( m_OldKeyState, 0, 256 );
-	memset( m_KeyState, 0, 256 );
-
-}
-
-void Input::Uninit()
-{
-
-
+	// 今後キーボードなどのInitを呼ぶ
 }
 
 void Input::Update()
 {
-
-	memcpy( m_OldKeyState, m_KeyState, 256 );
-
-	GetKeyboardState( m_KeyState );
-
+	for (auto& pad : s_Pads)
+	{
+		pad.Update();
+	}
 }
 
-bool Input::GetKeyPress(BYTE KeyCode)
+const InputGamepad& Input::Pad(int playerIndex)
 {
-	return (m_KeyState[KeyCode] & 0x80);
-}
-
-bool Input::GetKeyTrigger(BYTE KeyCode)
-{
-	return ((m_KeyState[KeyCode] & 0x80) && !(m_OldKeyState[KeyCode] & 0x80));
+	const int index = ClampPadIndex(playerIndex);
+	return s_Pads[index];
 }

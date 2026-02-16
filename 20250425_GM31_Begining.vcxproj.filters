@@ -399,6 +399,9 @@
     <ClCompile Include="MarkSpriteObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
     </ClCompile>
+    <ClCompile Include="InputGamepad.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vector3.h">
@@ -739,6 +742,9 @@
     </ClInclude>
     <ClInclude Include="MarkSpriteObject.h">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="InputGamepad.h">
+      <Filter>ソース ファイル\1.フレームワーク\Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

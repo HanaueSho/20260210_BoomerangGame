@@ -17,7 +17,7 @@ void EnemyStateManagerComponent::Init()
 {
 	m_pController = Owner()->GetComponent<CharacterControllerComponent>();
 	m_pPlayerObject = Manager::GetScene()->GetGameObject<PlayerObject>();
-	SetSettings(3);
+	SetSettings(0);
 }
 
 void EnemyStateManagerComponent::Update(float dt)
@@ -143,7 +143,7 @@ void EnemyStateManagerComponent::ChangeState(State newState)
 			// ƒxƒNƒgƒ‹•Û‘¶
 			Vector3 vect = m_pPlayerObject->Transform()->Position() - Owner()->Transform()->Position();
 			m_AttackVect = vect.normalized();
-			SetSettings(3);
+			SetSettings(2);
 		}
 		else if (m_ModelAnimeType == Type::Shot)
 		{

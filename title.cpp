@@ -9,6 +9,7 @@
 #include "Polygon.h"
 #include "Camera.h"
 #include "Keyboard.h"
+#include "Input.h"
 #include "Game.h"
 #include "GameMainScene.h"
 #include "PlayroomScene.h"
@@ -39,4 +40,8 @@ void Title::Update(float gameDt, float realDt)
 		//Manager::SetScene<Game>();
 		//Manager::SetScene<PlayroomScene>();
 	}
+
+	if (Input::Pad(0).IsDown(PadButton::A))
+		printf("%f\n", Input::Pad(0).LX());
+
 }

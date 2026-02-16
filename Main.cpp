@@ -12,6 +12,7 @@
 #include "Manager.h"
 #include "Mouse.h"
 #include "Keyboard.h"
+#include "Input.h"
 #include <thread>
 #include <chrono>
 
@@ -85,6 +86,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	AudioSystem::Init();
 	Mouse_Initialize(GetWindow());
 	Keyboard_Initialize();
+	Input::Init();
 	Manager::Init();
 
 	// デバッグウィンドウ生成
@@ -163,6 +165,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		const float clearColor[4] = { 0.1f, 0.3f, 0.5f, 1.0f };
 		g_Swap.Clear(clearColor);
 
+		Input::Update();
 		Manager::Update(gameDt, realDt);
 		Manager::Draw();
 

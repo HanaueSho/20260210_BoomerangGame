@@ -35,7 +35,7 @@ private:
 	float m_SpeedParam = 0.0f;
 
 	// Type
-	Type m_Type = Type::Shot;
+	Type m_Type = Type::Melee;
 
 public:
 	void Init() override;
