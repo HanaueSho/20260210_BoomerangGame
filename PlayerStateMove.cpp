@@ -53,6 +53,17 @@ void PlayerStateMove::Update(PlayerStateManagerComponent& manager, float dt)
 		if (manager.GetBoomerang()->IsStateIdle())
 			manager.ChangeState(PlayerStateId::Aim);
 	}
+	// キック遷移
+	if (InputSystem::IsKickTrigger())
+	{
+		manager.ChangeState(PlayerStateId::Kick);
+	}
+	// プッシュ遷移
+	if (InputSystem::IsPushTrigger())
+	{
+		manager.ChangeState(PlayerStateId::Push);
+	}
+
 }
 
 void PlayerStateMove::FixedUpdate(PlayerStateManagerComponent& manager, float fixedDt)

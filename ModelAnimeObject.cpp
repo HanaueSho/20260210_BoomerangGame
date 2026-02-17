@@ -43,6 +43,10 @@ void ModelAnimeObject::Init()
 	m_ClipJumpAir = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_JumpAir.fbx", m_Skeleton, 0);
 	m_ClipAim   = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Aim.fbx", m_Skeleton, 0);
 	m_ClipThrow = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Throw.fbx", m_Skeleton, 0);
+	m_ClipDamage = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Damage.fbx", m_Skeleton, 0);
+	m_ClipDead	 = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Dead.fbx", m_Skeleton, 0);
+	m_ClipPush	 = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Push.fbx", m_Skeleton, 0);
+	m_ClipKick	 = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Kick.fbx", m_Skeleton, 0);
 	assert(m_ClipIdle.duration > 0.0f);
 	assert(!m_ClipIdle.tracks.empty());
 	animator->SetSkeleton(&m_Skeleton);
@@ -127,6 +131,7 @@ void ModelAnimeObject::Update(float gameDt, float realDt)
 {
 	GameObject::Update(gameDt, realDt);
 
+	// アニメーター処理
 	auto* animator = GetComponent<AnimatorComponent>();
 	auto* provider = GetComponent<SkinMatrixProviderComponent>();
 	if (m_pProvider->IsAniamtion())
@@ -143,43 +148,9 @@ void ModelAnimeObject::Update(float gameDt, float realDt)
 		m_pBoneManager->UpdateFromPhysics(&provider->UsePhysicsBoneMask());
 	}
 
+	// 点滅処理
+	BlinkColor(gameDt);
 
-	//if (Keyboard_IsKeyDownTrigger(KK_D1))
-	//{
-	//	auto animator = GetComponent<AnimatorComponent>();
-	//	animator->CrossFadeFromCurrentPose(&m_ClipIdle, 1.0f, true);
-	//	animator->SetSpeed(1.0f);
-	//}
-	//if (Keyboard_IsKeyDownTrigger(KK_D2))
-	//{
-	//	auto animator = GetComponent<AnimatorComponent>();
-	//	animator->CrossFadeFromCurrentPose(&m_ClipWalk, 1.0f, true);
-	//	animator->SetSpeed(1.3f);
-	//}
-	//if (Keyboard_IsKeyDownTrigger(KK_D3))
-	//{
-	//	auto animator = GetComponent<AnimatorComponent>();
-	//	animator->CrossFadeFromCurrentPose(&m_ClipRun, 1.0f, true);
-	//	animator->SetSpeed(1.8f);
-	//}
-	//if (Keyboard_IsKeyDownTrigger(KK_D4))
-	//{
-	//	auto animator = GetComponent<AnimatorComponent>();
-	//	animator->CrossFadeFromCurrentPose(&m_ClipJump, 0.2f, false);
-	//	animator->SetSpeed(1.0f);
-	//}
-	/*if (Keyboard_IsKeyDown(KK_O))
-	{
-		m_SpeedParam -= 1.0f * dt; if (m_SpeedParam < 0.0f) m_SpeedParam = 0.0f;
-		auto animator = GetComponent<AnimatorComponent>();
-		animator->SetBlendParam(m_SpeedParam);
-	}
-	if (Keyboard_IsKeyDown(KK_P))
-	{
-		m_SpeedParam += 1.0f * dt; if (m_SpeedParam > 1.0f) m_SpeedParam = 1.0f;
-		auto animator = GetComponent<AnimatorComponent>();
-		animator->SetBlendParam(m_SpeedParam);
-	}*/
 }
 
 void ModelAnimeObject::SetIsLocomotion(bool b)
@@ -197,6 +168,7 @@ void ModelAnimeObject::SetSpeedAnime(float speed)
 	auto animator = GetComponent<AnimatorComponent>();
 	animator->SetSpeed(speed);
 }
+
 void ModelAnimeObject::PlayAnimeIdle()
 {
 	auto animator = GetComponent<AnimatorComponent>();
@@ -207,23 +179,108 @@ void ModelAnimeObject::PlayAnimeJump()
 	auto animator = GetComponent<AnimatorComponent>();
 	animator->CrossFadeFromCurrentPose(&m_ClipJump, 0.2f, false);
 }
-
 void ModelAnimeObject::PlayAnimeJumpAir()
 {
 	auto animator = GetComponent<AnimatorComponent>();
 	animator->CrossFadeFromCurrentPose(&m_ClipJumpAir, 0.1f, false);
 }
-
 void ModelAnimeObject::PlayAnimeAim()
 {
 	auto animator = GetComponent<AnimatorComponent>();
 	animator->CrossFadeFromCurrentPose(&m_ClipAim, 0.1f, false);
 }
-
 void ModelAnimeObject::PlayAnimeThrow()
 {
 	auto animator = GetComponent<AnimatorComponent>();
 	animator->CrossFadeFromCurrentPose(&m_ClipThrow, 0.1f, false);
+}
+void ModelAnimeObject::PlayAnimeDamage()
+{
+	auto animator = GetComponent<AnimatorComponent>();
+	animator->CrossFadeFromCurrentPose(&m_ClipDamage, 0.1f, false);
+}
+void ModelAnimeObject::PlayAnimeDead()
+{
+	auto animator = GetComponent<AnimatorComponent>();
+	animator->CrossFadeFromCurrentPose(&m_ClipDead, 0.1f, false);
+}
+void ModelAnimeObject::PlayAnimePush()
+{
+	auto animator = GetComponent<AnimatorComponent>();
+	animator->CrossFadeFromCurrentPose(&m_ClipPush, 0.1f, false);
+}
+void ModelAnimeObject::PlayAnimeKick()
+{
+	auto animator = GetComponent<AnimatorComponent>();
+	animator->CrossFadeFromCurrentPose(&m_ClipKick, 0.1f, false);
+}
+// 色変える処理
+void ModelAnimeObject::SetMaterialColorDefault()
+{
+	MaterialApp m{};
+	m.diffuse = Vector4(1, 1, 1, 1);
+	m.ambient = Vector4(1, 1, 1, 1);
+	m.textureEnable = true;
+	auto* mr = GetComponent<MeshRendererComponent>();
+	const int slotCount = GetComponent<MeshFilterComponent>()->MaterialSlotCount();
+	for (int slot = 0; slot < slotCount; slot++)
+	{
+		MaterialComponent* mat = mr->GetMaterialSlot(slot);
+		mat->SetMaterial(m);
+	}
+}
+void ModelAnimeObject::SetMaterialColorRed()
+{
+	MaterialApp m{};
+	m.diffuse = Vector4(1, 0, 0, 1);
+	m.ambient = Vector4(1, 1, 1, 1);
+	m.textureEnable = true;
+	auto* mr = GetComponent<MeshRendererComponent>();
+	const int slotCount = GetComponent<MeshFilterComponent>()->MaterialSlotCount();
+	for (int slot = 0; slot < slotCount; slot++)
+	{
+		MaterialComponent* mat = mr->GetMaterialSlot(slot);
+		mat->SetMaterial(m);
+	}
+}
+void ModelAnimeObject::StartBlinkColor()
+{
+	m_IsBlink = true;
+}
+
+void ModelAnimeObject::BlinkColor(float gameDt)
+{
+	if (!m_IsBlink) return;
+
+	m_BlinkTimer += gameDt; // 時間経過
+	m_BlinkIntervalTimer += gameDt; // インターバル経過
+	if (m_BlinkIntervalTimer > m_BlinkInterval)
+	{
+		m_BlinkIntervalTimer = 0.0f; // タイマーリセット
+		m_BlinkInterval += m_BlinkAdditionalTime; // インターバル増加
+
+		// 点滅
+		if (m_IsBlinkRed)
+		{
+			m_IsBlinkRed = false;
+			SetMaterialColorDefault();
+		}
+		else
+		{
+			m_IsBlinkRed = true;
+			SetMaterialColorRed();
+		}
+	}
+
+	// 終了判定
+	if (m_BlinkTimer > 4.5f)
+	{
+		m_IsBlink = false;
+		m_BlinkTimer = 0.0f;
+		m_BlinkIntervalTimer = 0.0f;
+		m_BlinkInterval = 0.0f;
+		SetMaterialColorDefault();
+	}
 }
 
 void ModelAnimeObject::SetupBones()

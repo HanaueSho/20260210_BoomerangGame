@@ -15,6 +15,7 @@
 #include "Texture.h"  // Texture::Load 既存
 
 #include "BulletStateManagerComponent.h"
+#include "EnemyAttackObject.h"
 
 void BulletObject::Init()
 {
@@ -65,6 +66,11 @@ void BulletObject::Init()
 
 	// BulletStateManagerComponent
 	auto* state = AddComponent<BulletStateManagerComponent>();
+
+	// EnemyAttackObject
+	auto* attack = Manager::GetScene()->AddGameObject<EnemyAttackObject>(1);
+	attack->Init();
+	attack->Transform()->SetParent(Transform());
 
 	// ターゲットにしちゃう
 	SetTag("Bullet");

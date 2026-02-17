@@ -33,7 +33,7 @@ void main(in VS_OUT IN, out float4 outDiffuse : SV_Target)
     // ----- ƒAƒ‹ƒxƒhì¬ -----
     float4 texColor = (MatTextureEnable != 0) ? MainTex.Sample(MainSamp, IN.TexCoord) : float4(1, 1, 1, 1);
     float3 albedo    = BuildAlbedo(texColor.rgb, IN.Color.rgb);
-    float alpha      = texColor.a * IN.Color.a;
+    float alpha      = texColor.a * IN.Color.a * MatDiffuse.a;
     
     // ----- ŠgUŒõ‚Ì–¾‚é‚³‚Ìì¬ -----
     float3 normal = normalize(IN.WorldNormal);

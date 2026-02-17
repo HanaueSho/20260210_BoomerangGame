@@ -14,10 +14,13 @@
 #include "SkinMatrixProviderComponent.h"
 #include "AnimatorController.h"
 #include "BoneManager.h"
+#include "EnemyAttackObject.h"
+#include "DamageComponent.h"
 
 #include "Keyboard.h"
 
 #include "Texture.h"
+#include "ModelAnimeObject.h"
 
 void EnemyModelAnimeObject::Init()
 {
@@ -146,6 +149,15 @@ void EnemyModelAnimeObject::Init()
 	matOutline->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Opaque);
 	mr->SetOutlineMaterial(matOutline);
 
+	// EnemyAttackObject
+	if (m_Type == Type::Melee)
+	{
+		m_pAttackObject = Manager::GetScene()->AddGameObject<EnemyAttackObject>(1);
+		m_pAttackObject->Init();
+		m_pAttackObject->Transform()->SetParent(Transform());
+		m_pAttackObject->Transform()->SetScale({2, 2, 2});
+		m_pAttackObject->GetComponent<DamageComponent>()->SetActive(false);
+	}
 
 
 }
@@ -217,6 +229,5 @@ void EnemyModelAnimeObject::PlayAnimeDead()
 
 void EnemyModelAnimeObject::SetupBones()
 {
-	
-}
 
+}

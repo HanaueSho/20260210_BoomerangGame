@@ -17,8 +17,13 @@
 #include "PlayerStateJump.h"
 #include "PlayerStateAim.h"
 #include "PlayerStateThrow.h"
+#include "PlayerStateDamage.h"
+#include "PlayerStateDead.h"
+#include "PlayerStatePush.h"
+#include "PlayerStateKick.h"
 #include "ModelAnimeObject.h"
 #include "CameraFollowComponent.h"
+#include "HealthComponent.h"
 
 
 enum class PlayerStateId
@@ -28,6 +33,10 @@ enum class PlayerStateId
 	Jump, // ジャンプ
 	Aim,  // 狙う
 	Throw,  // 投げる
+	Damage, // ダメージ
+	Dead,  // 死亡
+	Push,  // プッシュ
+	Kick,  // キック
 };
 
 class PlayerStateManagerComponent : public Component
@@ -42,6 +51,10 @@ private:
 	PlayerStateJump m_StateJump;
 	PlayerStateAim  m_StateAim;
 	PlayerStateThrow  m_StateThrow;
+	PlayerStateDamage m_StateDamage;
+	PlayerStateDead  m_StateDead;
+	PlayerStatePush  m_StatePush;
+	PlayerStateKick  m_StateKick;
 
 	// カメラ
 	GameObject* m_pCamera = nullptr;
@@ -52,6 +65,10 @@ private:
 	// コンポーネントポインタ
 	CharacterControllerComponent* m_pController = nullptr;
 	BoomerangStateManagerComponent* m_pBoomerang = nullptr;
+
+	// 無敵関係
+	bool m_IsInvinsible = false;
+	float m_TimerInvinsible = 0.0f; // 無敵タイマー
 	
 public:
 	// ----- ライフライクル -----
@@ -65,6 +82,14 @@ public:
 		if (!m_CurrentState) return;
 		m_CurrentState->Update(*this, dt);
 		//DebugPrintfState();
+
+		// ----- 無敵 -----
+		ConsumeTimeInvinsible(dt);
+
+		// ----- 死亡判定 -----
+		if (Owner()->GetComponent<HealthComponent>()->CheckDead())
+			ChangeState(PlayerStateId::Dead);
+
 	}
 	void FixedUpdate(float fixedDt) override
 	{
@@ -102,6 +127,15 @@ public:
 		bool success = ChangeState(newState);
 		if (success) SetStateId(id);
 	}
+	void ChangeStateDamage() // ダメージ
+	{
+		if (m_IsInvinsible) return; // 無敵は戻る
+		if (m_CurrentId == PlayerStateId::Dead) return; // 既に死んでいたら戻る
+		ChangeState(PlayerStateId::Damage);
+	}
+
+	// ----- セッター -----
+	void SetInvinsible(bool b) { m_IsInvinsible = b; }
 
 	// ----- ゲッター -----
 	CharacterControllerComponent* GetCC() { return m_pController; }
@@ -115,7 +149,6 @@ public:
 	{
 		return m_pCamera->Transform()->Right();
 	}
-
 
 	// カメラ制御
 	void SetCameraStateFollow()
@@ -131,7 +164,8 @@ public:
 		follow->SetStateAim();
 	}
 
-private:	
+private:
+	// ----- StateChange 関係 -----
 	PlayerStateInterface* ResolveStateId(PlayerStateId id)
 	{
 		switch (id)
@@ -146,6 +180,14 @@ private:
 			return &m_StateAim;
 		case PlayerStateId::Throw:
 			return &m_StateThrow;
+		case PlayerStateId::Damage:
+			return &m_StateDamage;
+		case PlayerStateId::Dead:
+			return &m_StateDead;
+		case PlayerStateId::Push:
+			return &m_StatePush;
+		case PlayerStateId::Kick:
+			return &m_StateKick;
 
 		default:
 			assert(false && "Unknown PlayerStateId");
@@ -189,11 +231,39 @@ private:
 		case PlayerStateId::Aim:
 			printf("[PlayerState]: Aim\n");
 			break;
+		case PlayerStateId::Throw:
+			printf("[PlayerState]: Throw\n");
+			break;
+		case PlayerStateId::Damage:
+			printf("[PlayerState]: Damage\n");
+			break;
+		case PlayerStateId::Dead:
+			printf("[PlayerState]: Dead\n");
+			break;
+		case PlayerStateId::Push:
+			printf("[PlayerState]: Push\n");
+			break;
+		case PlayerStateId::Kick:
+			printf("[PlayerState]: Kick\n");
+			break;
 		default:
 			printf("[PlayerState]: NoState\n");
 			return;
 		}
 	}
+
+	// ----- 無敵時間消費 -----
+	void ConsumeTimeInvinsible(float gameDt)
+	{
+		if (!m_IsInvinsible) return;
+		m_TimerInvinsible += gameDt;
+		if (m_TimerInvinsible > 5.0f)
+		{
+			m_TimerInvinsible = 0.0f;
+			m_IsInvinsible = false; // 無敵解除
+		}
+	}
+
 };
 
 #endif

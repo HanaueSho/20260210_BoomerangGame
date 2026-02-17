@@ -14,6 +14,7 @@
 #include "Scene.h"
 #include "BoneManager.h"
 #include "PlayerHeartObject.h"
+#include "HealthComponent.h"
 
 void PlayerObject::Init()
 {
@@ -48,6 +49,10 @@ void PlayerObject::Init()
 	auto* heart = Manager::GetScene()->AddGameObject<PlayerHeartObject>(1);
 	heart->Init();
 	heart->Transform()->SetParent(Transform());
+	heart->SetOwnerPlayer(this);
+
+	// HealthComponent
+	auto* health = AddComponent<HealthComponent>();
 
 	// ƒŒƒCƒ„[
 	SetPhysicsLayer(31);

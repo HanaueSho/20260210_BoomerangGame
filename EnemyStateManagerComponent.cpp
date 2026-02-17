@@ -15,6 +15,7 @@
 #include "TargetObject.h"
 #include "MarkSpriteObject.h"
 #include "TargetSpriteObject.h"
+#include "DamageComponent.h"
 
 void EnemyStateManagerComponent::Init()
 {
@@ -101,6 +102,11 @@ void EnemyStateManagerComponent::ChangeState(State newState)
 	case State::Ready:
 		break;
 	case State::Attack:
+		if (m_ModelAnimeType == Type::Melee)
+		{
+			// UŒ‚”»’è–³Œø‰»
+			m_pModelAnime->GetAttackObject()->GetComponent<DamageComponent>()->SetActive(false);
+		}
 		break;
 	case State::Dead:
 		break;
@@ -146,6 +152,9 @@ void EnemyStateManagerComponent::ChangeState(State newState)
 			Vector3 vect = m_pPlayerObject->Transform()->Position() - Owner()->Transform()->Position();
 			m_AttackVect = vect.normalized();
 			SetSettings(2);
+
+			// UŒ‚”»’è—LŒø‰»
+			m_pModelAnime->GetAttackObject()->GetComponent<DamageComponent>()->SetActive(true);
 		}
 		else if (m_ModelAnimeType == Type::Shot)
 		{

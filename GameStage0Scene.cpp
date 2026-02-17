@@ -26,6 +26,7 @@
 #include "FenceObject.h"
 #include "TreeObject.h"
 #include "SkydomeObject.h"
+#include "EnemyAttackObject.h"
 
 // Component
 #include "CameraFollowComponent.h"
@@ -108,10 +109,6 @@ void GameStage0Scene::Init()
 	// 木
 	CreateTrees();
 
-	// テント
-	CreateTents();
-
-
 	// エネミー
 	for (int i = 0; i < 1; i++)
 	{
@@ -144,6 +141,9 @@ void GameStage0Scene::Init()
 	outline.outlineWidth = 0.05f;
 	outline.outlineColor = Vector3(0.0f, 0.0f, 0.0f);
 	Renderer::SetOutline(outline);
+
+	auto* attack = AddGameObject<EnemyAttackObject>(1);
+	attack->Init();
 
 }
 

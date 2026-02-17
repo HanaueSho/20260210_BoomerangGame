@@ -1,7 +1,7 @@
 /*
 	PlayerStateThrow.cpp
 	20260210  hanaue sho
-	プレイヤー待機中の処理
+	プレイヤー投げる中の処理
 */
 #include "PlayerStateThrow.h"
 #include "PlayerStateManagerComponent.h"

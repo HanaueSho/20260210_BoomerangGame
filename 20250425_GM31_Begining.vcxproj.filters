@@ -166,6 +166,12 @@
     <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Sprite">
       <UniqueIdentifier>{886ad873-ca5e-4f64-bc87-14cb9588ad10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\6.ゲームコンポーネント\DamageObject">
+      <UniqueIdentifier>{dc4b8908-7cfc-4329-b707-2d271c828de8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\6.ゲームコンポーネント\Health">
+      <UniqueIdentifier>{17fbfb4e-cb10-4ad0-9e5c-3b1164c01638}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioSource.cpp">
@@ -401,6 +407,21 @@
     </ClCompile>
     <ClCompile Include="InputGamepad.cpp">
       <Filter>ソース ファイル\1.フレームワーク\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateDamage.cpp">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateDead.cpp">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStateKick.cpp">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStatePush.cpp">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyAttackObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -745,6 +766,27 @@
     </ClInclude>
     <ClInclude Include="InputGamepad.h">
       <Filter>ソース ファイル\1.フレームワーク\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateDamage.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateDead.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStatePush.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateKick.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\PlayerObject\StatePattern\Staes</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAttackObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageComponent.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\DamageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthComponent.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\Health</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

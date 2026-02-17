@@ -37,6 +37,9 @@ private:
 	// Type
 	Type m_Type = Type::Shot;
 
+	// EnemyAttackObject
+	GameObject* m_pAttackObject = nullptr;
+
 public:
 	void Init() override;
 	void Uninit() override;
@@ -59,6 +62,7 @@ public:
 	const AnimatorController& GetAnimatorController() const { return *m_pController; }
 	Type GetType() const{ return m_Type; }
 	void SetType(Type type) { m_Type = type; };
+	GameObject* GetAttackObject() const { return m_pAttackObject; }
 };
 
 #endif

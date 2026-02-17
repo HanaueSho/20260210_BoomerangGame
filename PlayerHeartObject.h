@@ -9,10 +9,13 @@
 class PlayerHeartObject : public GameObject
 {
 private:
-
+	GameObject* m_pOwnerPlayer = nullptr;
 
 public:
 	void Init() override;
+
+	void SetOwnerPlayer(GameObject* player) { m_pOwnerPlayer = player; }
+	GameObject* GetOwnerPlayer() { return m_pOwnerPlayer; }
 
 };
 

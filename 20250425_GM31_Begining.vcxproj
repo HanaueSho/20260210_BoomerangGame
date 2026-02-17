@@ -188,6 +188,7 @@
     <ClCompile Include="DxDevice.cpp" />
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyAttackObject.cpp" />
     <ClCompile Include="EnemyModelAnimeObject.cpp" />
     <ClCompile Include="EnemyObject.cpp" />
     <ClCompile Include="EnemyStateManagerComponent.cpp" />
@@ -227,9 +228,13 @@
     <ClCompile Include="PlayerHeartObject.cpp" />
     <ClCompile Include="PlayerObject.cpp" />
     <ClCompile Include="PlayerStateAim.cpp" />
+    <ClCompile Include="PlayerStateDamage.cpp" />
+    <ClCompile Include="PlayerStateDead.cpp" />
     <ClCompile Include="PlayerStateIdle.cpp" />
     <ClCompile Include="PlayerStateJump.cpp" />
+    <ClCompile Include="PlayerStateKick.cpp" />
     <ClCompile Include="PlayerStateMove.cpp" />
+    <ClCompile Include="PlayerStatePush.cpp" />
     <ClCompile Include="PlayerStateThrow.cpp" />
     <ClCompile Include="PlayroomScene.cpp" />
     <ClCompile Include="polygon.cpp" />
@@ -289,6 +294,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="ContactManifold.h" />
     <ClInclude Include="CubeObject.h" />
+    <ClInclude Include="DamageComponent.h" />
     <ClInclude Include="DebugCount.h" />
     <ClInclude Include="DebugRenderer.h" />
     <ClInclude Include="DebugRotateComponent.h" />
@@ -296,6 +302,7 @@
     <ClInclude Include="DxDevice.h" />
     <ClInclude Include="EffectObject.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyAttackObject.h" />
     <ClInclude Include="EnemyModelAnimeObject.h" />
     <ClInclude Include="EnemyObject.h" />
     <ClInclude Include="EnemyStateManagerComponent.h" />
@@ -305,6 +312,7 @@
     <ClInclude Include="GameMainScene.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameStage0Scene.h" />
+    <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="HingeJointComponent.h" />
     <ClInclude Include="Input.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -345,11 +353,15 @@
     <ClInclude Include="PlayerHeartObject.h" />
     <ClInclude Include="PlayerObject.h" />
     <ClInclude Include="PlayerStateAim.h" />
+    <ClInclude Include="PlayerStateDamage.h" />
+    <ClInclude Include="PlayerStateDead.h" />
     <ClInclude Include="PlayerStateIdle.h" />
     <ClInclude Include="PlayerStateInterface.h" />
     <ClInclude Include="PlayerStateJump.h" />
+    <ClInclude Include="PlayerStateKick.h" />
     <ClInclude Include="PlayerStateManagerComponent.h" />
     <ClInclude Include="PlayerStateMove.h" />
+    <ClInclude Include="PlayerStatePush.h" />
     <ClInclude Include="PlayerStateThrow.h" />
     <ClInclude Include="PlayroomScene.h" />
     <ClInclude Include="polygon.h" />

@@ -54,6 +54,17 @@ public:
 	{
 		return Mouse_IsClickUp(MS_CLICK_RIGHT) || Input::Pad(0).RtReleased();
 	}
+	// キックキー入力
+	static bool IsKickTrigger()
+	{
+		return Keyboard_IsKeyDownTrigger(KK_E) || Input::Pad(0).IsPressed(PadButton::B);
+	}
+	// プッシュキー入力
+	static bool IsPushTrigger()
+	{
+		return Keyboard_IsKeyDownTrigger(KK_Q) || Input::Pad(0).IsPressed(PadButton::X);
+	}
+
 	// 移動キーの入力値取得
 	static const Vector3& GetInputMove()
 	{

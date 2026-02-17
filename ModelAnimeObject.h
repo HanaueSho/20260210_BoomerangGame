@@ -21,12 +21,24 @@ private:
 	AnimationClip m_ClipJumpAir;
 	AnimationClip m_ClipAim;
 	AnimationClip m_ClipThrow;
+	AnimationClip m_ClipDamage;
+	AnimationClip m_ClipDead;
+	AnimationClip m_ClipPush;
+	AnimationClip m_ClipKick;
 	Skeleton m_Skeleton;
 	AnimatorController* m_pController = nullptr;
 	BoneManager* m_pBoneManager = nullptr;
 	SkinMatrixProviderComponent* m_pProvider = nullptr;
 
-	float m_SpeedParam = 0.0f;
+	float m_SpeedParam = 0.0f; // アニメーターの再生速度パラム
+
+	// Blink 処理
+	bool  m_IsBlink = false;
+	float m_BlinkTimer = 0.0f; // 合計時間タイマー
+	float m_BlinkInterval = 0.0f; // インターバル
+	float m_BlinkIntervalTimer = 0.0f; // インターバルタイマー
+	float m_BlinkAdditionalTime = 0.02f; // 毎回追加分
+	bool  m_IsBlinkRed = false;
 
 public:
 	void Init() override;
@@ -42,7 +54,15 @@ public:
 	void PlayAnimeJumpAir();
 	void PlayAnimeAim();
 	void PlayAnimeThrow();
+	void PlayAnimeDamage();
+	void PlayAnimeDead();
+	void PlayAnimePush();
+	void PlayAnimeKick();
 
+	// 色を変える
+	void SetMaterialColorDefault();
+	void SetMaterialColorRed();
+	void StartBlinkColor();
 
 	// 骨のセット
 	void SetupBones();
@@ -50,6 +70,9 @@ public:
 	// ゲッター（これらを作るとエラーが出る）
 	const BoneManager& GetBoneManager() const { return *m_pBoneManager; }
 	const AnimatorController& GetAnimatorController() const { return *m_pController; }
+
+private:
+	void BlinkColor(float gameDt);
 };
 
 #endif
