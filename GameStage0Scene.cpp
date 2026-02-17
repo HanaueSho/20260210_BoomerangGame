@@ -28,6 +28,8 @@
 #include "SkydomeObject.h"
 #include "EnemyAttackObject.h"
 #include "FadeSpriteObject.h"
+#include "ResultSpriteObject.h"
+#include "WarpSceneObject.h"
 
 // Component
 #include "CameraFollowComponent.h"
@@ -35,7 +37,9 @@
 #include "BoomerangStateManagerComponent.h"
 #include "Camera.h"
 #include "ColliderComponent.h"
-#include "EnemyModelAnimeObject.h"
+#include "EnemyModelAnimeObject.h""
+#include "WarpSceneComponent.h""
+#include "EnemyStateManagerComponent.h"
 
 // Audio
 #include "AudioSource.h"
@@ -73,9 +77,6 @@ void GameStage0Scene::Init()
 		Camera* pCamera = AddGameObject<Camera>(0);
 		pCamera->Init();
 
-		Polygon2D* pPolygon = AddGameObject<Polygon2D>(2);
-		pPolygon->Init();
-		pPolygon->Transform()->SetPosition({ 0, 0, 0 });
 	}
 
 	// プレイヤー -----
@@ -104,27 +105,32 @@ void GameStage0Scene::Init()
 	SkydomeObject* pSkydome = AddGameObject<SkydomeObject>(1);
 	pSkydome->Init();
 
+	// フェード
+	auto* fade = AddGameObject<FadeSpriteObject>(2);
+	fade->Init();
+	fade->FadeOut();
+
+	// ワープ
+	auto* warp = AddGameObject<WarpSceneObject>(1);
+	warp->Init();
+	warp->Transform()->SetPosition({ 0, 0, -400 });
+	warp->GetComponent<WarpSceneComponent>()->SetType(WarpSceneComponent::Type::Main);
+
+	// リザルト
+	m_pResultSprite = AddGameObject<ResultSpriteObject>(2);
+	m_pResultSprite->Init();
+
 	// 柵
 	CreateFences();
 
 	// 木
 	CreateTrees();
 
-	// エネミー
-	for (int i = 0; i < 1; i++)
-	{
-		EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
-		pEnemyObject->SetType(Type::Melee);
-		pEnemyObject->Init();
-		pEnemyObject->Transform()->SetPosition({ 30.0f * i, 10, 50.0f  });
-	}
-	for (int i = 0; i < 0; i++)
-	{
-		EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
-		pEnemyObject->SetType(Type::Shot);
-		pEnemyObject->Init();
-		pEnemyObject->Transform()->SetPosition({ 30.0f * i, 10, 80.0f   });
-	}
+	// エネミー（最初の一体目）
+	m_pEnemyMeleeFirst = AddGameObject<EnemyObject>(1);
+	m_pEnemyMeleeFirst->SetType(Type::Melee);
+	m_pEnemyMeleeFirst->Init();
+	m_pEnemyMeleeFirst->Transform()->SetPosition({ 30.0f, 10, 50.0f  });
 
 	// ライト関係
 	LightApp light = {};
@@ -142,8 +148,6 @@ void GameStage0Scene::Init()
 	outline.outlineWidth = 0.05f;
 	outline.outlineColor = Vector3(0.0f, 0.0f, 0.0f);
 	Renderer::SetOutline(outline);
-
-
 }
 
 void GameStage0Scene::Uninit()
@@ -157,32 +161,127 @@ void GameStage0Scene::Update(float gameDt, float realDt)
 
 	if (Keyboard_IsKeyDownTrigger(KK_ENTER))
 	{
-		Manager::SetScene<Result>();
+		Manager::SetScene<GameMainScene>();
 	}
 
-	m_SpawnTimer += gameDt;
-	if (m_SpawnTimer > 9910.0f)
+	switch (m_State)
 	{
-		m_SpawnTimer = 0.0f;
+	case State::First:
+		if (m_pEnemyMeleeFirst->GetComponent<EnemyStateManagerComponent>()->GetState() == EnemyStateManagerComponent::State::Dead)
 		{
-			EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
-			pEnemyObject->SetType(Type::Melee);
-			pEnemyObject->Init();
-			pEnemyObject->Transform()->SetPosition({ 30 , 10, 50.0f });
+			ChangeState(State::Second);
 		}
+		break;
+	case State::Second:
+		if (m_pEnemyShotSecond->GetComponent<EnemyStateManagerComponent>()->GetState() == EnemyStateManagerComponent::State::Dead)
 		{
-			EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
-			pEnemyObject->SetType(Type::Shot);
-			pEnemyObject->Init();
-			pEnemyObject->Transform()->SetPosition({ 30 , 10, 80.0f });
+			ChangeState(State::Third);
 		}
+		break;
+	case State::Third:
+	{
+		bool isClear = true;
+		for (int i = 0; i < 3; i++)
+		{
+			if (m_pEnemyMeleeThird[i]->GetComponent<EnemyStateManagerComponent>()->GetState() != EnemyStateManagerComponent::State::Dead)
+			{
+				isClear = false;
+				break;
+			}
+			if (m_pEnemyShotThird[i]->GetComponent<EnemyStateManagerComponent>()->GetState() != EnemyStateManagerComponent::State::Dead)
+			{
+				isClear = false;
+				break;
+			}
+		}
+		if (isClear) ChangeState(State::GameClear);
+	}
+		break;
+	case State::GameClear:
+		m_ClearTimer += realDt;
+		if (m_ClearTimer > 3.0f)
+		{
+			auto* warp = GetGameObject<WarpSceneObject>();
+			warp->GetComponent<WarpSceneComponent>()->ChangeScene(); // フェード
+		}
+		break;
+	case State::GameOver:
+		m_ClearTimer += realDt;
+		if (m_ClearTimer > 3.0f)
+		{
+			auto* warp = GetGameObject<WarpSceneObject>();
+			warp->GetComponent<WarpSceneComponent>()->ChangeScene(); // フェード
+		}
+		break;
 	}
 
+	auto* player = GetGameObject<PlayerObject>();
+	if (player->GetComponent<PlayerStateManagerComponent>()->GetStateId() == PlayerStateId::Dead)
+	{
+		ChangeState(State::GameOver);
+	}
 }
 
 void GameStage0Scene::Draw()
 {
 	Scene::Draw();
+}
+
+void GameStage0Scene::ChangeState(State newState)
+{
+	// 終了処理
+	switch (m_State)
+	{
+	case State::First:
+		break;
+	case State::Second:
+		break;
+	case State::Third:
+		break;
+	case State::GameClear:
+		break;
+	case State::GameOver:
+		break;
+	}
+
+	m_State = newState;
+	// 開始処理
+	switch (m_State)
+	{
+	case State::First:
+		break;
+	case State::Second:
+	{
+		m_pEnemyShotSecond = AddGameObject<EnemyObject>(1);
+		m_pEnemyShotSecond->SetType(Type::Melee);
+		m_pEnemyShotSecond->Init();
+		m_pEnemyShotSecond->Transform()->SetPosition({ 30.0f, 10, 50.0f });
+	}
+		break;
+	case State::Third:
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			m_pEnemyMeleeThird[i] = AddGameObject<EnemyObject>(1);
+			m_pEnemyMeleeThird[i]->SetType(Type::Melee);
+			m_pEnemyMeleeThird[i]->Init();
+			m_pEnemyMeleeThird[i]->Transform()->SetPosition({ 30.0f, 10, 50.0f + 20 * i });
+			m_pEnemyShotThird[i] = AddGameObject<EnemyObject>(1);
+			m_pEnemyShotThird[i]->SetType(Type::Shot);
+			m_pEnemyShotThird[i]->Init();
+			m_pEnemyShotThird[i]->Transform()->SetPosition({ -30.0f + 20 * i, 10, 50.0f + 20 * i });
+		}
+	}
+		break;
+	case State::GameClear:
+		m_pResultSprite->SetType(ResultSpriteObject::Type::Success);
+		m_pResultSprite->FadeIn();
+		break;
+	case State::GameOver:
+		m_pResultSprite->SetType(ResultSpriteObject::Type::Failed);
+		m_pResultSprite->FadeIn();
+	break;
+	}
 }
 
 void GameStage0Scene::CreateFences()
@@ -208,34 +307,32 @@ void GameStage0Scene::CreateFences()
 		pFence->Transform()->RotateAxis({ 0, 1, 0 }, -rad + myPI / 2.0f);
 	}
 
-	// 横断
-	for (int i = 0; i < 7; i++)
+	// 横置き
+	for (int i = 0; i < 4; i++)
 	{
-		float rad = -myPI / 4.0f;
-		float x = cosf(rad) * i * 30;
-		float z = sinf(rad) * i * -30;
+		float x = 50 + 20.0f * i;
+		float z = 50;
 		Vector3 position = { x, -5, z };
 
 		FenceObject* pFence = AddGameObject<FenceObject>(1);
 		pFence->Init();
 		pFence->Transform()->SetPosition(position);
 		pFence->Transform()->SetScale(scale);
-		pFence->Transform()->RotateAxis({ 0, 1, 0 }, -myPI / 4.0f);
+		pFence->Transform()->RotateAxis({ 0, 1, 0 }, 0);
 		pFence->GetComponent<Collider>()->SetBox({ 6, 0.5f, 5 });
 		pFence->GetComponent<Collider>()->SetOffsetPosition({ 0, 0.0f, 0 });
 	}
-	for (int i = 1; i < 7; i++)
+	for (int i = 1; i < 4; i++)
 	{
-		float rad = -myPI / 4.0f;
-		float x = cosf(rad) * i * -30;
-		float z = sinf(rad) * i * 30;
+		float x = -50 - 20.0f * i;
+		float z = -50;
 		Vector3 position = { x, -5, z };
 
 		FenceObject* pFence = AddGameObject<FenceObject>(1);
 		pFence->Init();
 		pFence->Transform()->SetPosition(position);
 		pFence->Transform()->SetScale(scale);
-		pFence->Transform()->RotateAxis({ 0, 1, 0 }, -myPI / 4.0f);
+		pFence->Transform()->RotateAxis({ 0, 1, 0 }, 0);
 		pFence->GetComponent<Collider>()->SetBox({ 6, 0.5f, 5 });
 		pFence->GetComponent<Collider>()->SetOffsetPosition({ 0, 0.0f, 0 });
 	}

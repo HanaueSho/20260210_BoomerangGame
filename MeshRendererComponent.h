@@ -65,9 +65,10 @@ public:
 		m_pMaterialBase->Bind();
 
 		// world 行列を Renderer に
-		const Matrix4x4& worldMatrix = m_pTransform->WorldMatrixForRender(Renderer::RenderAlpha());
-		//const Matrix4x4& worldMatrix = m_pTransform->WorldMatrix(); // 旧呼び出し
-		const Matrix4x4& worldMatrixInv = worldMatrix.Inverse(); // 今はここで再計算
+		//const Matrix4x4& worldMatrix = m_pTransform->WorldMatrixForRender(Renderer::RenderAlpha());
+		const Matrix4x4& worldMatrix = m_pTransform->WorldMatrix(); // 旧呼び出し
+		//const Matrix4x4& worldMatrixInv = worldMatrix.Inverse(); // 今はここで再計算
+		const Matrix4x4& worldMatrixInv = m_pTransform->WorldMatrixInv(); // 今はここで再計算
 		Renderer::SetObject(worldMatrix, worldMatrixInv);
 
 		// 近傍ポイントライトを更新

@@ -68,6 +68,7 @@ public:
 	GameObject* GetAimObject() { return m_pAimObject; }
 	int GetTargetsSize() const { return (int)m_Targets.size(); }
 	bool IsStateIdle() const  { return m_State == State::Idle; }
+	bool IsStateAim() const { return m_State == State::Aim; }
 
 	// ターゲット追加
 	void AddTarget();

@@ -24,6 +24,7 @@
 #include "ModelAnimeObject.h"
 #include "CameraFollowComponent.h"
 #include "HealthComponent.h"
+#include "PlayerObject.h"
 
 
 enum class PlayerStateId
@@ -132,6 +133,8 @@ public:
 		if (m_IsInvinsible) return; // 無敵は戻る
 		if (m_CurrentId == PlayerStateId::Dead) return; // 既に死んでいたら戻る
 		ChangeState(PlayerStateId::Damage);
+		// ヘルス
+		dynamic_cast<PlayerObject*>(Owner())->TakeDamage();
 	}
 
 	// ----- セッター -----
@@ -149,6 +152,7 @@ public:
 	{
 		return m_pCamera->Transform()->Right();
 	}
+	PlayerStateId GetStateId() { return m_CurrentId; }
 
 	// カメラ制御
 	void SetCameraStateFollow()

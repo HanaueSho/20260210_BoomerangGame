@@ -11,7 +11,6 @@
 #include "Scene.h"
 #include "Camera.h"
 
-
 class BillboardComponent : public Component
 {
 public:

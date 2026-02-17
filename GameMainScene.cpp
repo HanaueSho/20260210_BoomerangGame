@@ -8,6 +8,7 @@
 #include "keyboard.h"
 #include "Input.h"
 #include "result.h"
+#include "Random.h"
 
 // object
 #include "Polygon.h"
@@ -17,6 +18,7 @@
 #include "LightObject.h"
 #include "ModelObject.h"
 #include "AppleObject.h"
+#include "BoxObject.h"
 #include "PlayerObject.h"
 #include "SandbagObject.h"
 #include "NorenObject.h"
@@ -31,6 +33,8 @@
 #include "WarpSceneObject.h"
 #include "SignboardObject.h"
 #include "DecoySwitchObject.h"
+#include "OperateSpriteObject.h"
+#include "RockObject.h"
 
 // Component
 #include "CameraFollowComponent.h"
@@ -76,11 +80,6 @@ void GameMainScene::Init()
 		// 2Dカメラ
 		Camera* pCamera = AddGameObject<Camera>(0);
 		pCamera->Init();
-
-		Polygon2D* pPolygon = AddGameObject<Polygon2D>(2);
-		pPolygon->Init();
-		pPolygon->Transform()->SetPosition({ 0, 0, 0 });
-
 	}
 
 	// プレイヤー -----
@@ -102,6 +101,7 @@ void GameMainScene::Init()
 
 	// メッシュフィールド
 	Field* pField = AddGameObject<Field>(1);
+	pField->SetHeight(0);
 	pField->Init();
 	pField->Transform()->SetPosition({ -500, -5, -500 });
 
@@ -114,14 +114,23 @@ void GameMainScene::Init()
 	fade->Init();
 	fade->FadeOut();
 
-	auto* warp = AddGameObject<WarpSceneObject>(1);
-	warp->Init();
-	warp->Transform()->SetPosition({180, 0, -50});
-	warp->GetComponent<WarpSceneComponent>()->SetType(WarpSceneComponent::Type::Stage1);
+	// ワープ
+	{
+		auto* warp = AddGameObject<WarpSceneObject>(1);
+		warp->Init();
+		warp->Transform()->SetPosition({ 180, 0, -50 });
+		warp->GetComponent<WarpSceneComponent>()->SetType(WarpSceneComponent::Type::Stage0);
+	}
+	{
+		auto* warp = AddGameObject<WarpSceneObject>(1);
+		warp->Init();
+		warp->Transform()->SetPosition({ 160, 0, -80 });
+		warp->GetComponent<WarpSceneComponent>()->SetType(WarpSceneComponent::Type::Stage1);
+	}
 
-	auto* decoySwitch = AddGameObject<DecoySwitchObject>(1);
-	decoySwitch->Init();
-	decoySwitch->Transform()->SetPosition({ -100, 0, -50 });
+	//auto* decoySwitch = AddGameObject<DecoySwitchObject>(1);
+	//decoySwitch->Init();
+	//decoySwitch->Transform()->SetPosition({ -100, 0, -50 });
 
 	//// ノレン
 	//NorenObject* pNoren = AddGameObject<NorenObject>(1);
@@ -140,6 +149,15 @@ void GameMainScene::Init()
 
 	// 木
 	CreateTrees();
+
+	// りんご
+	CreateApples();
+
+	// 箱
+	CreateBoxes();
+
+	// 岩
+	CreateRockes();
 
 	// ライト関係
 	LightApp light = {};
@@ -183,20 +201,32 @@ void GameMainScene::Draw()
 
 void GameMainScene::CreateSignboards()
 {
-	// 案内看板
+	// 案内板
 	{
 		auto* signboard = AddGameObject<SignboardObject>(1);
 		signboard->Init();
-		signboard->Transform()->SetPosition({ -70, -3, -40 });
-		signboard->Transform()->SetEulerAngles({ 3.141592f / 2 * 3, 3.141592f / 3 * 3.5f , 0 });
+		signboard->Transform()->SetPosition({ 0, -3, -120 });
+		signboard->Transform()->SetEulerAngles({ 3.141592f / 2 * 3, 3.141592f , 0 });
+
+		auto* sprite = AddGameObject<OperateSpriteObject>(1);
+		sprite->Init();
+		sprite->SetTypeTexture(OperateSpriteObject::Type::Movement);
+		sprite->Transform()->SetPosition({ 0, 15, -120 });
+		sprite->Transform()->SetEulerAngles({ 0, 0 , 0 });
 	}
 
 	// 攻撃チュートリアル
 	{
 		auto* signboard = AddGameObject<SignboardObject>(1);
 		signboard->Init();
-		signboard->Transform()->SetPosition({ 0, -3, -120 });
-		signboard->Transform()->SetEulerAngles({ 3.141592f / 2 * 3, 3.141592f , 0 });
+		signboard->Transform()->SetPosition({ -70, -3, -40 });
+		signboard->Transform()->SetEulerAngles({ 3.141592f / 2 * 3, 3.141592f / 3 * 3.5f , 0 });
+
+		auto* sprite = AddGameObject<OperateSpriteObject>(1);
+		sprite->Init();
+		sprite->SetTypeTexture(OperateSpriteObject::Type::Throw);
+		sprite->Transform()->SetPosition({ -70, 15, -40 });
+		sprite->Transform()->SetEulerAngles({ 0, 3.141592f / 3 * 0.5f, 0 });
 	}
 
 	// ステージ０
@@ -205,6 +235,12 @@ void GameMainScene::CreateSignboards()
 		signboard->Init();
 		signboard->Transform()->SetPosition({ 190, -3, -50 });
 		signboard->Transform()->SetEulerAngles({ 3.141592f / 2 * 3, 3.141592f / 2 * 3 , 0 });
+
+		auto* sprite = AddGameObject<OperateSpriteObject>(1);
+		sprite->Init();
+		sprite->SetTypeTexture(OperateSpriteObject::Type::Stage1);
+		sprite->Transform()->SetPosition({ 190, 20, -50 });
+		sprite->Transform()->SetEulerAngles({ 0, 3.141592f / 2 * 1, 0 });
 	}
 	 
 	// ステージ１
@@ -213,6 +249,12 @@ void GameMainScene::CreateSignboards()
 		signboard->Init();
 		signboard->Transform()->SetPosition({ 170, -3, -80 });
 		signboard->Transform()->SetEulerAngles({ 3.141592f / 2 * 3, 3.141592f / 2 * 3 , 0 });
+
+		auto* sprite = AddGameObject<OperateSpriteObject>(1);
+		sprite->Init();
+		sprite->SetTypeTexture(OperateSpriteObject::Type::Stage2);
+		sprite->Transform()->SetPosition({ 170, 20, -80 });
+		sprite->Transform()->SetEulerAngles({ 0, 3.141592f / 2 * 1, 0 });
 	}
 
 }
@@ -330,5 +372,82 @@ void GameMainScene::CreateTrees()
 			pTree->Transform()->SetScale(scale);
 			pTree->Transform()->RotateAxis({ 0, 1, 0 }, Random::RandomRange(0.0f, 6.0f));
 		}
+	}
+}
+
+void GameMainScene::CreateApples()
+{
+	// スタートから左へ
+	{
+		Vector3 position = { 0, 3, -150 };
+		Vector3 vect = { -1, 0, 1 }; vect.normalize();
+		for (int i = 0; i < 10; i++)
+		{
+			Vector3 scale = { 2, 2, 2 };
+			float random = Random::Random01() * 0.5f;
+			scale.x += random;
+			scale.y += random;
+			scale.z += random;
+			position += vect * 10.0f;
+			auto* apple = AddGameObject<AppleObject>(1);
+			apple->Init();
+			apple->Transform()->SetPosition(position);
+			apple->Transform()->SetScale(scale);
+		}
+	}
+
+	// スタートから右へ
+	{
+		Vector3 position = { 100, 5, 0 };
+		for (int i = 0; i < 20; i++)
+		{
+			Vector3 scale = { 2, 2, 2 };
+			float random = Random::Random01() * 0.5f;
+			scale.x += random;
+			scale.y += random;
+			scale.z += random;
+			position.x += random;
+			position.z += random;
+			auto* apple = AddGameObject<AppleObject>(1);
+			apple->Init();
+			apple->Transform()->SetPosition(position);
+			apple->Transform()->SetScale(scale);
+		}
+	}
+}
+
+void GameMainScene::CreateBoxes()
+{
+	// 奥の方
+	{
+		Vector3 position = { 100, 5, 0 };
+		Vector3 vect = { -1, 0, 1 }; vect.normalize();
+		for (int i = 0; i < 10; i++)
+		{
+			Vector3 scale = { 8, 8, 8 };
+			float random = Random::Random01() * 3.0f;
+			scale.x += random;
+			scale.y += random;
+			scale.z += random;
+			position.x += random;
+			position.z += random;
+			auto* box = AddGameObject<BoxObject>(1);
+			box->Init();
+			box->Transform()->SetPosition(position);
+			box->Transform()->SetScale(scale);
+		}
+	}
+}
+
+void GameMainScene::CreateRockes()
+{
+	// 奥の方
+	{
+		Vector3 position = { 100, -6, 0 };
+		Vector3 scale = { 100, 6, 100 };
+		auto* rock = AddGameObject<RockObject>(1);
+		rock->Init();
+		rock->Transform()->SetPosition(position);
+		rock->Transform()->SetScale(scale);
 	}
 }

@@ -7,6 +7,7 @@
 #include "renderer.h"
 #include "keyboard.h"
 #include "result.h"
+#include "GameMainScene.h"
 
 // object
 #include "Polygon.h"
@@ -28,6 +29,8 @@
 #include "SkydomeObject.h"
 #include "EnemyAttackObject.h"
 #include "FadeSpriteObject.h"
+#include "ResultSpriteObject.h"
+#include "WarpSceneObject.h"
 
 // Component
 #include "CameraFollowComponent.h"
@@ -36,6 +39,7 @@
 #include "Camera.h"
 #include "ColliderComponent.h"
 #include "EnemyModelAnimeObject.h"
+#include "WarpSceneComponent.h"
 
 // Audio
 #include "AudioSource.h"
@@ -72,10 +76,6 @@ void GameStage1Scene::Init()
 		// 2Dカメラ
 		Camera* pCamera = AddGameObject<Camera>(0);
 		pCamera->Init();
-
-		Polygon2D* pPolygon = AddGameObject<Polygon2D>(2);
-		pPolygon->Init();
-		pPolygon->Transform()->SetPosition({ 0, 0, 0 });
 	}
 
 	// プレイヤー -----
@@ -97,6 +97,7 @@ void GameStage1Scene::Init()
 
 	// メッシュフィールド
 	Field* pField = AddGameObject<Field>(1);
+	pField->SetHeight(2.0f);
 	pField->Init();
 	pField->Transform()->SetPosition({ -500, -5, -500 });
 
@@ -104,27 +105,34 @@ void GameStage1Scene::Init()
 	SkydomeObject* pSkydome = AddGameObject<SkydomeObject>(1);
 	pSkydome->Init();
 
+	// フェード
+	auto* fade = AddGameObject<FadeSpriteObject>(2);
+	fade->Init();
+	fade->FadeOut();
+
+	// ワープ
+	auto* warp = AddGameObject<WarpSceneObject>(1);
+	warp->Init();
+	warp->Transform()->SetPosition({ 0, 0, 80 });
+	warp->GetComponent<WarpSceneComponent>()->SetType(WarpSceneComponent::Type::Main);
+
+	// リザルト
+	m_pResultSprite = AddGameObject<ResultSpriteObject>(2);
+	m_pResultSprite->Init();
+
 	// 柵
 	CreateFences();
 
 	// 木
 	CreateTrees();
 
-	// エネミー
-	for (int i = 0; i < 1; i++)
-	{
-		EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
-		pEnemyObject->SetType(Type::Melee);
-		pEnemyObject->Init();
-		pEnemyObject->Transform()->SetPosition({ 30.0f * i, 10, 50.0f });
-	}
-	for (int i = 0; i < 0; i++)
-	{
-		EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
-		pEnemyObject->SetType(Type::Shot);
-		pEnemyObject->Init();
-		pEnemyObject->Transform()->SetPosition({ 30.0f * i, 10, 80.0f });
-	}
+	auto* apple = AddGameObject<AppleObject>(1);
+	apple->Init();
+	apple->Transform()->SetPosition({ 0, 3, -130 });
+	apple->Transform()->SetScale({ 10, 10, 10 });
+	apple->GetComponent<Rigidbody>()->SetMass(50);
+	apple->GetComponent<Rigidbody>()->ComputeSphereInertia(10);
+	apple->SetPhysicsLayer(31);
 
 	// ライト関係
 	LightApp light = {};
@@ -142,8 +150,6 @@ void GameStage1Scene::Init()
 	outline.outlineWidth = 0.05f;
 	outline.outlineColor = Vector3(0.0f, 0.0f, 0.0f);
 	Renderer::SetOutline(outline);
-
-
 }
 
 void GameStage1Scene::Uninit()
@@ -157,7 +163,25 @@ void GameStage1Scene::Update(float gameDt, float realDt)
 
 	if (Keyboard_IsKeyDownTrigger(KK_ENTER))
 	{
-		Manager::SetScene<Result>();
+		Manager::SetScene<GameMainScene>();
+	}
+
+	switch (m_State)
+	{
+	
+	case State::None:
+	{
+		
+	}
+	break;
+	case State::GameClear:
+		m_ClearTimer += realDt;
+		if (m_ClearTimer > 3.0f)
+		{
+			auto* warp = GetGameObject<WarpSceneObject>();
+			warp->GetComponent<WarpSceneComponent>()->ChangeScene(); // フェード
+		}
+		break;
 	}
 }
 
@@ -166,31 +190,81 @@ void GameStage1Scene::Draw()
 	Scene::Draw();
 }
 
+void GameStage1Scene::ChangeState(State newState)
+{
+	// 終了処理
+	switch (m_State)
+	{
+	case State::None:
+		break;
+	case State::GameClear:
+		break;
+	}
+
+	m_State = newState;
+	// 開始処理
+	switch (m_State)
+	{
+	case State::None:
+		break;
+	case State::GameClear:
+		m_pResultSprite->SetType(ResultSpriteObject::Type::Success);
+		m_pResultSprite->FadeIn();
+		break;
+	}
+}
+
 void GameStage1Scene::CreateFences()
 {
 	float s = 2;
 	Vector3 scale = { s, s, s };
 
-	float radius = 200.0f;
-
-	// n 角形を作る
-	const int numVertex = 8 * 6;
-	for (int i = 0; i < numVertex; i++)
+	// 長方形を作る
+	for (int i = 0; i < 5; i++)
 	{
-		float rad = myPI * 2.0f / numVertex * i;
-		float x = cosf(rad) * radius;
-		float z = sinf(rad) * radius;
-		Vector3 position = { x, -5, z };
+		float x = -50 + 25 * i;
+		Vector3 position = { x, -5, -180.0f };
 
 		FenceObject* pFence = AddGameObject<FenceObject>(1);
 		pFence->Init();
 		pFence->Transform()->SetPosition(position);
 		pFence->Transform()->SetScale(scale);
-		pFence->Transform()->RotateAxis({ 0, 1, 0 }, -rad + myPI / 2.0f);
+		pFence->Transform()->RotateAxis({ 0, 1, 0 }, 0);
 	}
+	for (int i = 0; i < 5; i++)
+	{
+		float x = -50 + 25 * i;
+		Vector3 position = { x, -5, 100.0f };
 
+		FenceObject* pFence = AddGameObject<FenceObject>(1);
+		pFence->Init();
+		pFence->Transform()->SetPosition(position);
+		pFence->Transform()->SetScale(scale);
+		pFence->Transform()->RotateAxis({ 0, 1, 0 }, 0);
+	}
+	for (int i = 0; i < 12; i++)
+	{
+		float z = -180 + 25 * i;
+		Vector3 position = { -50, -5, z };
+
+		FenceObject* pFence = AddGameObject<FenceObject>(1);
+		pFence->Init();
+		pFence->Transform()->SetPosition(position);
+		pFence->Transform()->SetScale(scale);
+		pFence->Transform()->RotateAxis({ 0, 1, 0 }, myPI / 2);
+	}
+	for (int i = 0; i < 12; i++)
+	{
+		float z = -180 + 25 * i;
+		Vector3 position = { 50, -5, z };
+
+		FenceObject* pFence = AddGameObject<FenceObject>(1);
+		pFence->Init();
+		pFence->Transform()->SetPosition(position);
+		pFence->Transform()->SetScale(scale);
+		pFence->Transform()->RotateAxis({ 0, 1, 0 }, myPI / 2);
+	}
 }
-
 void GameStage1Scene::CreateTents()
 {
 	TentObject* pTent = AddGameObject<TentObject>(1);
@@ -203,7 +277,6 @@ void GameStage1Scene::CreateTents()
 
 void GameStage1Scene::CreateTrees()
 {
-
 	float radiusBase = 280.0f;
 
 	// n 角形を作る

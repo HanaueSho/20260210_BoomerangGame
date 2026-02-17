@@ -3,6 +3,7 @@
 #include "scene.h"
 #include "game.h"
 #include "title.h"
+#include "GameMainScene.h"
 
 Scene* Manager::m_pScene = nullptr;
 Scene* Manager::m_pSceneNext = nullptr;
@@ -14,6 +15,7 @@ void Manager::Init()
 {
 	//m_pScene = new Game();
 	m_pScene = new Title();
+	//m_pScene = new GameMainScene();
 	m_pScene->Init();
 }
 void Manager::Uninit()

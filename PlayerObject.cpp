@@ -15,6 +15,8 @@
 #include "BoneManager.h"
 #include "PlayerHeartObject.h"
 #include "HealthComponent.h"
+#include "HealthSpriteObject.h"
+#include "HelpSpriteObject.h"
 
 void PlayerObject::Init()
 {
@@ -54,6 +56,19 @@ void PlayerObject::Init()
 	// HealthComponent
 	auto* health = AddComponent<HealthComponent>();
 
+	// HelpSpriteObject
+	auto* help = Manager::GetScene()->AddGameObject<HelpSpriteObject>(1);
+	help->Init();
+
+	// HealthSprite
+	for (int i = 0; i < 6; i++)
+	{
+		m_pHealthSprite[i] = Manager::GetScene()->AddGameObject<HealthSpriteObject>(2);
+		m_pHealthSprite[i]->Init();
+		m_pHealthSprite[i]->Transform()->SetPosition({50 + 30.0f * i, 50, 0});
+	}
+
+
 	// ÉåÉCÉÑÅ[
 	SetPhysicsLayer(31);
 	SetTag("Player");
@@ -61,6 +76,11 @@ void PlayerObject::Init()
 
 void PlayerObject::Uninit()
 {
+	for (int i = 0; i < 6; i++)
+	{
+		if (m_pHealthSprite[i])
+			m_pHealthSprite[i]->Uninit();
+	}
 	GameObject::Uninit();
 }
 
@@ -68,6 +88,18 @@ void PlayerObject::Update(float gameDt, float realDt)
 {
 	GameObject::Update(gameDt, realDt);
 
+}
+
+void PlayerObject::TakeDamage()
+{
+	if (m_pHealthSprite[m_IndexHealth])
+	{
+		m_pHealthSprite[m_IndexHealth]->RequestDestroy();
+		m_pHealthSprite[m_IndexHealth] = nullptr;
+	}
+	m_IndexHealth--;
+	if (m_IndexHealth < 0)
+		m_IndexHealth = 0;
 }
 
 GameObject* PlayerObject::GetBoneObject(int index)

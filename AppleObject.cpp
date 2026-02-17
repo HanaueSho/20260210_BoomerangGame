@@ -58,12 +58,12 @@ void AppleObject::Init()
 	auto* mr = AddComponent<MeshRendererComponent>();
 
 	// アウトラインマテリアル追加
-	auto* matOutline = AddComponent<MaterialComponent>();
-	Renderer::CreateVertexShader(&vs, &il, "shader\\VS_Outline.cso");
-	Renderer::CreatePixelShader(&ps, "shader\\PS_Outline.cso");
-	matOutline->SetVSPS(vs, ps, il, /*takeVS*/true, /*takePS*/true, /*takeIL*/true);
-	matOutline->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Opaque);
-	mr->SetOutlineMaterial(matOutline);
+	//auto* matOutline = AddComponent<MaterialComponent>();
+	//Renderer::CreateVertexShader(&vs, &il, "shader\\VS_Outline.cso");
+	//Renderer::CreatePixelShader(&ps, "shader\\PS_Outline.cso");
+	//matOutline->SetVSPS(vs, ps, il, /*takeVS*/true, /*takePS*/true, /*takeIL*/true);
+	//matOutline->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Opaque);
+	//mr->SetOutlineMaterial(matOutline);
 
 	// 物理を働かせたいのでコライダーなどを設定
 	Collider* coll = AddComponent<Collider>();
@@ -73,11 +73,12 @@ void AppleObject::Init()
 	Rigidbody* rigid = AddComponent<Rigidbody>();
 	rigid->SetGravityScale(1.0f);
 	rigid->SetRestitution(0.0f);
-	rigid->SetMass(1.0f);
+	rigid->SetMass(3.0f);
 	rigid->ComputeSphereInertia(1);
 
 	// レイヤーセット
 	SetPhysicsLayer(1);
+	SetTag("Apple");
 }
 
 void AppleObject::Update(float gameDt, float realDt)

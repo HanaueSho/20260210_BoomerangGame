@@ -181,14 +181,20 @@
     <Filter Include="ソース ファイル\6.ゲームコンポーネント\Warp">
       <UniqueIdentifier>{d336092c-e9a7-42e2-9bdf-c2f0dac962d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Signboard">
-      <UniqueIdentifier>{ffbd6ca3-b152-4bb4-98d5-870124d47d77}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\6.ゲームコンポーネント\Switch">
       <UniqueIdentifier>{2d1d31b0-8281-4ed8-a172-405a23afda47}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Switch">
       <UniqueIdentifier>{fbb77649-1d7e-4d9f-9ca4-e7915e3ecd85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Box">
+      <UniqueIdentifier>{83f2069f-f3ef-407c-8361-7d83624181ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Rock">
+      <UniqueIdentifier>{597c4cff-4699-4999-a854-7762bacbde1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Skydome\Signboard">
+      <UniqueIdentifier>{ffbd6ca3-b152-4bb4-98d5-870124d47d77}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -445,7 +451,7 @@
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="SignboardObject.cpp">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Signboard</Filter>
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Skydome\Signboard</Filter>
     </ClCompile>
     <ClCompile Include="WarpSceneObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\WarpObject</Filter>
@@ -458,6 +464,24 @@
     </ClCompile>
     <ClCompile Include="DecoySwitchObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Switch</Filter>
+    </ClCompile>
+    <ClCompile Include="OperateSpriteObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthSpriteObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultSpriteObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Box</Filter>
+    </ClCompile>
+    <ClCompile Include="RockObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="HelpSpriteObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -837,7 +861,7 @@
       <Filter>ソース ファイル\6.ゲームコンポーネント\Warp</Filter>
     </ClInclude>
     <ClInclude Include="SignboardObject.h">
-      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Signboard</Filter>
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Skydome\Signboard</Filter>
     </ClInclude>
     <ClInclude Include="GameStage1Scene.h">
       <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
@@ -847,6 +871,24 @@
     </ClInclude>
     <ClInclude Include="DecoySwitchObject.h">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Switch</Filter>
+    </ClInclude>
+    <ClInclude Include="OperateSpriteObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthSpriteObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultSpriteObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Box</Filter>
+    </ClInclude>
+    <ClInclude Include="RockObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Rock</Filter>
+    </ClInclude>
+    <ClInclude Include="HelpSpriteObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

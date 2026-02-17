@@ -18,6 +18,7 @@ class WarpSceneComponent : public Component
 public:
 	enum class Type
 	{
+		Main,
 		Stage0,
 		Stage1,
 	};
@@ -34,6 +35,8 @@ public:
 			auto* fade = Manager::GetScene()->GetGameObject<FadeSpriteObject>();
 			if (fade->EndFadeIn())
 			{
+				if (m_Type == Type::Main)
+					Manager::SetScene<GameMainScene>();
 				if (m_Type == Type::Stage0)
 					Manager::SetScene<GameStage0Scene>();
 				if (m_Type == Type::Stage1)
@@ -47,15 +50,22 @@ public:
 		{
 			if (InputSystem::IsWarpSceneTrigger())
 			{
-				auto* fade = Manager::GetScene()->GetGameObject<FadeSpriteObject>();
-				fade->FadeIn();
-				m_IsFadeChangeScene = true;
+				ChangeScene();
 			}
+		}
+		if (other->Owner()->Tag() == "Apple")
+		{
+			ChangeScene();
 		}
 	}
 
+	void ChangeScene() 
+	{
+		auto* fade = Manager::GetScene()->GetGameObject<FadeSpriteObject>();
+		fade->FadeIn();
+		m_IsFadeChangeScene = true;
+	}
 	void SetType(Type type) { m_Type = type; }
-
 };
 
 #endif

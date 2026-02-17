@@ -172,6 +172,7 @@
     <ClCompile Include="BoneManager.cpp" />
     <ClCompile Include="BoomerangObject.cpp" />
     <ClCompile Include="BoomerangStateManagerComponent.cpp" />
+    <ClCompile Include="BoxObject.cpp" />
     <ClCompile Include="BulletObject.cpp" />
     <ClCompile Include="BulletStateManagerComponent.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -201,6 +202,8 @@
     <ClCompile Include="GameManagerObject.cpp" />
     <ClCompile Include="GameStage0Scene.cpp" />
     <ClCompile Include="GameStage1Scene.cpp" />
+    <ClCompile Include="HealthSpriteObject.cpp" />
+    <ClCompile Include="HelpSpriteObject.cpp" />
     <ClCompile Include="Input.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -227,6 +230,7 @@
     <ClCompile Include="modelRenderer.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="NorenObject.cpp" />
+    <ClCompile Include="OperateSpriteObject.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerHeartObject.cpp" />
@@ -244,6 +248,8 @@
     <ClCompile Include="polygon.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Result.cpp" />
+    <ClCompile Include="ResultSpriteObject.cpp" />
+    <ClCompile Include="RockObject.cpp" />
     <ClCompile Include="SandbagObject.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SignboardObject.cpp" />
@@ -287,6 +293,7 @@
     <ClInclude Include="BoneObject.h" />
     <ClInclude Include="BoomerangObject.h" />
     <ClInclude Include="BoomerangStateManagerComponent.h" />
+    <ClInclude Include="BoxObject.h" />
     <ClInclude Include="BulletObject.h" />
     <ClInclude Include="BulletStateManagerComponent.h" />
     <ClInclude Include="Camera.h" />
@@ -324,6 +331,8 @@
     <ClInclude Include="GameStage0Scene.h" />
     <ClInclude Include="GameStage1Scene.h" />
     <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="HealthSpriteObject.h" />
+    <ClInclude Include="HelpSpriteObject.h" />
     <ClInclude Include="HingeJointComponent.h" />
     <ClInclude Include="Input.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -359,6 +368,7 @@
     <ClInclude Include="modelRenderer.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="NorenObject.h" />
+    <ClInclude Include="OperateSpriteObject.h" />
     <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerHeartObject.h" />
@@ -380,7 +390,9 @@
     <ClInclude Include="Random.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Result.h" />
+    <ClInclude Include="ResultSpriteObject.h" />
     <ClInclude Include="RigidbodyComponent.h" />
+    <ClInclude Include="RockObject.h" />
     <ClInclude Include="SandbagObject.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SelfDestroyComponent.h" />

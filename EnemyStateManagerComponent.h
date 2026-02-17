@@ -56,10 +56,10 @@ public:
 
 	// State チェンジ
 	void ChangeState(State newState);
-	void ChangeStateIdle() { ChangeState(State::Idle); }
-	void ChangeStateReady() { ChangeState(State::Ready); }
+	void ChangeStateIdle()   { ChangeState(State::Idle); }
+	void ChangeStateReady()  { ChangeState(State::Ready); }
 	void ChangeStateAttack() { ChangeState(State::Attack); }
-	void ChangeStateDead() { ChangeState(State::Dead); }
+	void ChangeStateDead()   { ChangeState(State::Dead); }
 
 	// セッター
 	void SetModelAnime(EnemyModelAnimeObject* model)
@@ -93,6 +93,9 @@ public:
 
 	// ダメージ処理
 	void Damage();
+
+	// ゲッター
+	State GetState() { return m_State; }
 
 private:
 	void ChaseToPlayer(float dt);

@@ -32,6 +32,9 @@ private:
 	void CreateFences();
 	void CreateTents();
 	void CreateTrees();
+	void CreateApples();
+	void CreateBoxes();
+	void CreateRockes();
 };
 
 #endif

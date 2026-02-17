@@ -15,8 +15,12 @@
 
 class Field : public GameObject
 {
+private:
+	float m_Height = 2.0f;
 public:
 	void Init() override;
+
+	void SetHeight(float h) { m_Height = h; }
 };
 
 #endif

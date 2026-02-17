@@ -1,13 +1,20 @@
 /*
-	field.cpp
-	20250514 hanaue sho
+	RockObject.cpp
+	20260218  hanaue sho
 */
-#include "field.h"
-#include "ColliderComponent.h"
-#include "RigidbodyComponent.h"
-#include "Random.h"
+#include "RockObject.h"
 
-void Field::Init()
+#include "ColliderComponent.h"
+#include "TransformComponent.h"
+#include "MeshFilterComponent.h"
+#include "MeshFactory.h"
+#include "MaterialComponent.h"
+#include "MeshRendererComponent.h"
+#include "RigidbodyComponent.h"
+#include "Renderer.h"
+#include "Texture.h"  // Texture::Load 既存
+
+void RockObject::Init()
 {
 	// 1) Transform（既に GameObject ctor で追加済み）を取得して初期姿勢を入れておく
 	auto* tf = GetComponent<TransformComponent>();
@@ -16,11 +23,8 @@ void Field::Init()
 	tf->SetEulerAngles({ 0,0,0 });
 
 	// 2) MeshFilter を追加して頂点バッファ（4頂点の矩形）を作る
-	std::vector<float> heights;
-	for (int i = 0; i < 100 * 100; i++) heights.push_back(0.0f);
-	for (int i = 0; i < 100 * 100; i++) if (i % 1 == 0) heights[i] = Random::RandomRangeStepped(0.0f, m_Height, 0.1f);
 	auto* mf = AddComponent<MeshFilterComponent>();
-	MeshFactory::CreateMeshField(mf, { 100, 100, 20.0f, 20.0f, heights, true});
+	MeshFactory::CreateCube(mf, { {1, 1, 1} });
 
 	// 3) Material を追加（シェーダ/テクスチャ/マテリアル）
 	auto* mat = AddComponent<MaterialComponent>();
@@ -29,17 +33,19 @@ void Field::Init()
 	ID3D11PixelShader* ps = nullptr;
 	ID3D11InputLayout* il = nullptr;
 	Renderer::CreateVertexShader(&vs, &il, "shader\\VS_Lit.cso");
-	Renderer::CreatePixelShader(&ps, "shader\\PS_PixelLit.cso");
+	Renderer::CreatePixelShader(&ps, "shader\\PS_Toon.cso");
 	mat->SetVSPS(vs, ps, il, /*takeVS*/true, /*takePS*/true, /*takeIL*/true);
 
-	// 旧 Polygon2D と同じ kirby を使う
-	ID3D11ShaderResourceView* srv = Texture::LoadAndRegisterKey("assets\\texture\\ground.png");
+	// テクスチャセット
+	ID3D11ShaderResourceView* srv = Texture::LoadAndRegisterKey("assets\\texture\\rock.png");
 	// サンプラーは Renderer::Init() で 0番に PSSetSamplers 済みなら null でも描ける
 	mat->SetMainTexture(srv, /*sampler*/nullptr, /*takeSrv*/false, /*takeSamp*/false);
 
+	// マテリアルセット
 	MaterialApp m{};
 	m.diffuse = Vector4(1, 1, 1, 1);
 	m.ambient = Vector4(1, 1, 1, 1);
+	m.specular = Vector4(0, 0, 0, 1);
 	m.textureEnable = TRUE;
 	mat->SetMaterial(m);
 
@@ -47,21 +53,26 @@ void Field::Init()
 	mat->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Opaque);
 
 	// 4) MeshRenderer を追加（描画実行係）
-	AddComponent<MeshRendererComponent>();
+	auto* mr = AddComponent<MeshRendererComponent>();
 
-	// 当たり判定追加
+	// アウトラインマテリアル追加
+	auto* matOutline = AddComponent<MaterialComponent>();
+	Renderer::CreateVertexShader(&vs, &il, "shader\\VS_Outline.cso");
+	Renderer::CreatePixelShader(&ps, "shader\\PS_Outline.cso");
+	matOutline->SetVSPS(vs, ps, il, /*takeVS*/true, /*takePS*/true, /*takeIL*/true);
+	matOutline->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Opaque);
+	mr->SetOutlineMaterial(matOutline);
+
+	// 物理を働かせたいのでコライダーなどを設定
 	Collider* coll = AddComponent<Collider>();
-	coll->SetMeshField(100, 100, 20.0f, 20.0f, heights);
-	//coll->SetSphere(1);
+	coll->SetBox({ 0.5f, 0.5f, 0.5f });
 	coll->SetModeSimulate();
 
-	// Rigidbody
 	Rigidbody* rigid = AddComponent<Rigidbody>();
-	rigid->AddForce({ 0, 500, 0 });
-	rigid->SetMass(5);
-	rigid->ComputeBoxInertia({ 1, 1, 1 });
-	rigid->SetBodyType(Rigidbody::BodyType::Static);
-	//rigid->ComputeSphereInertia(1);
+	rigid->SetGravityScale(1.0f);
+	rigid->SetRestitution(0.0f);
+	rigid->SetMass(1.0f);
+	rigid->ComputeBoxInertia({ 0.5f, 0.5f, 0.5f });
+	rigid->SetBodyTypeStatic(); // static
 
 }
-

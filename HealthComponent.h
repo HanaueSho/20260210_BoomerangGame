@@ -9,7 +9,7 @@
 class HealthComponent : public Component
 {
 private:
-	int m_Health = 5;
+	int m_Health = 6;
 
 public:
 	void TakeDamage()

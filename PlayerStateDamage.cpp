@@ -7,6 +7,7 @@
 #include "PlayerStateManagerComponent.h"
 #include "Component.h"
 #include "InputSystem.h"
+#include "BoomerangStateManagerComponent.h"
 
 void PlayerStateDamage::Enter(PlayerStateManagerComponent& manager)
 {
@@ -27,6 +28,10 @@ void PlayerStateDamage::Enter(PlayerStateManagerComponent& manager)
 
 	// “_–Åˆ—
 	manager.GetModelAnime()->StartBlinkColor();
+
+	// ƒu[ƒƒ‰ƒ“‚Ìˆ—
+	if (manager.GetBoomerang()->IsStateAim())
+		manager.GetBoomerang()->ChangeStateIdle();
 }
 
 void PlayerStateDamage::Update(PlayerStateManagerComponent& manager, float dt)
