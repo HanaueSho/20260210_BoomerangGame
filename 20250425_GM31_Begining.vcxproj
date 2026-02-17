@@ -192,10 +192,12 @@
     <ClCompile Include="EnemyModelAnimeObject.cpp" />
     <ClCompile Include="EnemyObject.cpp" />
     <ClCompile Include="EnemyStateManagerComponent.cpp" />
+    <ClCompile Include="FadeSpriteObject.cpp" />
     <ClCompile Include="FenceObject.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMainScene.cpp" />
+    <ClCompile Include="GameManagerObject.cpp" />
     <ClCompile Include="GameStage0Scene.cpp" />
     <ClCompile Include="Input.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -259,6 +261,7 @@
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="TreeObject.cpp" />
     <ClCompile Include="Triangle.cpp" />
+    <ClCompile Include="WarpSceneObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AimObject.h" />
@@ -306,10 +309,12 @@
     <ClInclude Include="EnemyModelAnimeObject.h" />
     <ClInclude Include="EnemyObject.h" />
     <ClInclude Include="EnemyStateManagerComponent.h" />
+    <ClInclude Include="FadeSpriteObject.h" />
     <ClInclude Include="FenceObject.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMainScene.h" />
+    <ClInclude Include="GameManagerObject.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameStage0Scene.h" />
     <ClInclude Include="HealthComponent.h" />
@@ -397,6 +402,8 @@
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vector4.h" />
+    <ClInclude Include="WarpSceneComponent.h" />
+    <ClInclude Include="WarpSceneObject.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\common.hlsl">

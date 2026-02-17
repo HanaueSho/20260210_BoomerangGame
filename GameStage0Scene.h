@@ -9,6 +9,9 @@
 class GameStage0Scene : public Scene
 {
 private:
+	bool m_IsFadeChangeScene = false;
+
+	// ƒXƒ|[ƒ“ŠÖŒW
 	float m_SpawnTimer = 0.0f;
 
 public:

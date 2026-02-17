@@ -64,6 +64,11 @@ public:
 	{
 		return Keyboard_IsKeyDownTrigger(KK_Q) || Input::Pad(0).IsPressed(PadButton::X);
 	}
+	// ワープシーンキー入力
+	static bool IsWarpSceneTrigger()
+	{
+		return Keyboard_IsKeyDownTrigger(KK_E) || Input::Pad(0).IsPressed(PadButton::Y);
+	}
 
 	// 移動キーの入力値取得
 	static const Vector3& GetInputMove()

@@ -35,6 +35,10 @@ void EnemyModelAnimeObject::Init()
 	auto* mf = AddComponent<MeshFilterComponent>();
 	switch (m_Type)
 	{
+	case Type::Decoy:
+		m_Skeleton = ModelLoader::BuildSkeletonFromFile("assets\\model\\enemy2_001.fbx");
+		ModelLoader::LoadSkinnedMeshFromFile(mf, "assets\\model\\enemy2_001.fbx", m_Skeleton, srvs, true);
+		break;
 	case Type::Melee:
 		m_Skeleton = ModelLoader::BuildSkeletonFromFile("assets\\model\\enemy0_001.fbx");
 		ModelLoader::LoadSkinnedMeshFromFile(mf, "assets\\model\\enemy0_001.fbx", m_Skeleton, srvs, true);
@@ -56,6 +60,10 @@ void EnemyModelAnimeObject::Init()
 	auto* animator = AddComponent<AnimatorComponent>();
 	switch (m_Type)
 	{
+	case Type::Decoy:
+		m_ClipIdle = ModelLoader::BuildAnimationClipFromFile("assets\\model\\enemy2_001_Idle.fbx", m_Skeleton, 0);
+		m_ClipDead = ModelLoader::BuildAnimationClipFromFile("assets\\model\\enemy0_001_Dead.fbx", m_Skeleton, 0);
+		break;
 	case Type::Melee:
 		m_ClipIdle   = ModelLoader::BuildAnimationClipFromFile("assets\\model\\enemy0_001_Idle.fbx", m_Skeleton, 0);
 		m_ClipReady  = ModelLoader::BuildAnimationClipFromFile("assets\\model\\enemy0_001_Ready.fbx", m_Skeleton, 0);

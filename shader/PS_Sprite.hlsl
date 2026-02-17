@@ -8,7 +8,7 @@
 void main(in VS_OUT IN, out float4 outDiffuse : SV_Target)
 {
     // とりあえずテクスチャ×色
-    outDiffuse = (MatTextureEnable != 0) ? MainTex.Sample(MainSamp, IN.TexCoord) : float4(1, 1, 1, 1);
+    outDiffuse = (MatTextureEnable != 0) ? MainTex.Sample(MainSamp, IN.TexCoord) : MatDiffuse;
     outDiffuse *= IN.Color;
     outDiffuse.rgb *= outDiffuse.a; // これ要る？（ないと縁が汚くなるみたい）
 }

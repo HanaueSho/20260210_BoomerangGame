@@ -9,7 +9,6 @@
 class GameMainScene : public Scene
 {
 private:
-
 public:
 	void Init() override;
 	void Uninit() override;

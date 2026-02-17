@@ -76,6 +76,11 @@ public:
 			SetSettings(3);
 			m_pModelAnime->SetSpeedAnime(1.5f);
 		}
+		else if (m_ModelAnimeType == Type::Decoy)
+		{
+			SetSettings(3);
+			m_pModelAnime->SetSpeedAnime(1.0f);
+		}
 	}
 	void SetTargetObject(GameObject* go)
 	{

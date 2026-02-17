@@ -27,6 +27,7 @@
 #include "TreeObject.h"
 #include "SkydomeObject.h"
 #include "EnemyAttackObject.h"
+#include "FadeSpriteObject.h"
 
 // Component
 #include "CameraFollowComponent.h"
@@ -142,8 +143,6 @@ void GameStage0Scene::Init()
 	outline.outlineColor = Vector3(0.0f, 0.0f, 0.0f);
 	Renderer::SetOutline(outline);
 
-	auto* attack = AddGameObject<EnemyAttackObject>(1);
-	attack->Init();
 
 }
 

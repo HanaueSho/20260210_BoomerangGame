@@ -27,6 +27,8 @@
 #include "FenceObject.h"
 #include "TreeObject.h"
 #include "SkydomeObject.h"
+#include "FadeSpriteObject.h"
+#include "WarpSceneObject.h"
 
 // Component
 #include "CameraFollowComponent.h"
@@ -78,19 +80,6 @@ void GameMainScene::Init()
 
 	}
 
-	LightObject* pLightObject = AddGameObject<LightObject>(1);
-	pLightObject->Init();
-	pLightObject->Transform()->SetPosition({ 4, 0, -4 });
-	/*pLightObject = AddGameObject<LightObject>(1);
-	pLightObject->Init();
-	pLightObject->Transform()->SetPosition({ -7, 0, 8 });
-	pLightObject = AddGameObject<LightObject>(1);
-	pLightObject->Init();
-	pLightObject->Transform()->SetPosition({ -7, 0, -8 });
-	pLightObject = AddGameObject<LightObject>(1);
-	pLightObject->Init();
-	pLightObject->Transform()->SetPosition({ -7, 0, 0 });*/
-
 	// プレイヤー -----
 	PlayerObject* pPlayer = AddGameObject<PlayerObject>(1);
 	pPlayer->Init();
@@ -99,6 +88,14 @@ void GameMainScene::Init()
 	auto* follow = pCamera->GetComponent<CameraFollowComponent>();
 	follow->SetTargetObject(pPlayer);
 	psm->SetCameraObject(pCamera);
+
+	// ブーメラン
+	BoomerangObject* pBoomerang = AddGameObject<BoomerangObject>(1);
+	pBoomerang->Init();
+	auto* state = pBoomerang->GetComponent<BoomerangStateManagerComponent>();
+	state->SetPlayerObject(pPlayer);
+	state->ChangeStateIdle();
+	psm->SetBoomerangObject(pBoomerang); // Player Setter
 
 	// メッシュフィールド
 	Field* pField = AddGameObject<Field>(1);
@@ -109,135 +106,20 @@ void GameMainScene::Init()
 	SkydomeObject* pSkydome = AddGameObject<SkydomeObject>(1);
 	pSkydome->Init();
 
+	// フェード
+	auto* fade = AddGameObject<FadeSpriteObject>(2);
+	fade->Init();
+	fade->FadeOut();
+
 	//// ノレン
 	//NorenObject* pNoren = AddGameObject<NorenObject>(1);
 	//pNoren->Init();
 
-	// ブーメラン
-	BoomerangObject* pBoomerang = AddGameObject<BoomerangObject>(1);
-	pBoomerang->Init();
-	auto* state = pBoomerang->GetComponent<BoomerangStateManagerComponent>();
-	state->SetPlayerObject(pPlayer);
-	state->ChangeStateIdle();
-	psm->SetBoomerangObject(pBoomerang); // Player Setter
+	auto* warp = AddGameObject<WarpSceneObject>(1);
+	warp->Init();
 
-	// エネミー
-	EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
-	pEnemyObject->Init();
-	//pEnemyObject = AddGameObject<EnemyObject>(1);
-	//pEnemyObject->Init();
-	//pEnemyObject->Transform()->SetPosition({ 0, 10, 80 });
-
-	// りんご-----
-	AppleObject* pApple = AddGameObject<AppleObject>(1);
-	pApple->Init();
-	pApple->Transform()->SetPosition({ 3, -3, 3 });
-	pApple->Transform()->SetEulerAngles({ 0, 0, 0 });
-
-	AppleObject* pApple0;
-	AppleObject* pAppleEx = pApple;
-	for (int x = 0; x < 4; x++)
-	{
-		for (int z = 0; z < 2; z++)
-		{
-			for (int y = 0; y < 1; y++)
-			{
-				pApple0 = AddGameObject<AppleObject>(1);
-				pApple0->Init();
-				pApple0->Transform()->SetPosition({ -6.0f + x * 2.0f, y * 1.0f, -8.0f + z * 2.0f });
-
-				//auto* djc = pPlayer0->AddComponent<DistanceJointComponent>();
-				//djc->SetOtherObject(pPlayer);
-				//djc->SetRestLength(3.0f);
-				//djc->SetMode(DistanceJointComponent::DistanceJointMode::Rope);
-				//djc->RegisterToPhysicsSystem();
-				//pPlayer = pPlayer0;
-			}
-		}
-	}
-
-	// エネミー -----
-	Enemy* pEnemy = AddGameObject<Enemy>(1);
-	pEnemy->Init();
-	pEnemy->Transform()->SetPosition({ 5, 3, 0 });
-	pEnemy->Transform()->SetEulerAngles({ 0, 0, 0 });
-	pEnemy->GetComponent<Rigidbody>()->SetRestitution(0.0f);
-	pEnemy->GetComponent<Rigidbody>()->SetBodyTypeDynamic();
-	pEnemy->GetComponent<Collider>()->SetOffsetPosition({ 2, 0, 0 });
-	pEnemy->GetComponent<Collider>()->SetOffsetRotation(Quaternion::FromEulerAngles({ 0, 1.57, 0 }));
-	//pEnemy->Transform()->SetParent(pPlayer->Transform()); 
-
-	/*auto* djc = pEnemy->AddComponent<DistanceJointComponent>();
-	djc->SetOtherObject(pPlayer);
-	djc->SetRestLength(3.0f);
-	djc->SetMode(DistanceJointComponent::DistanceJointMode::Rope);
-	djc->RegisterToPhysicsSystem();*/
-
-	/*auto* bjc = pEnemy->AddComponent<BallJointComponent>();
-	bjc->SetOtherObject(pApple0);
-	bjc->SetLocalAnchorA(Vector3(0, 0, 0));
-	bjc->SetLocalAnchorB(Vector3(2, 0, 0));
-	bjc->RegisterToPhysicsSystem();*/
-
-	/*auto* hjc = pEnemy->AddComponent<HingeJointComponent>();
-	hjc->SetOtherObject(pPlayer);
-	hjc->SetLocalAnchorA(Vector3(3, 0, 0));
-	hjc->SetAxis({ 0, 1, 0 });
-	hjc->SetLocalRefA({ 0, 1, 0 });
-	hjc->SetEnableLimit(false);
-	hjc->SetLimitMin(-1.0f);
-	hjc->SetLimitMax(1.0f);
-	hjc->SetEnableMotor(false);
-	hjc->SetMotorSpeed(20.0f);
-	hjc->SetMaxMotorTorque(100.0f);
-	hjc->SetEnableSpring(false);
-	hjc->SetSpringDamping(0.9f);
-	hjc->SetSpringTarget(3);
-	hjc->RegisterToPhysicsSystem();*/
-
-	// 床
-	pEnemy = AddGameObject<Enemy>(1);
-	pEnemy->Init();
-	pEnemy->Transform()->SetPosition({ 0, -10, 0 });
-	pEnemy->Transform()->SetScale({ 10, 5, 10 });
-	pEnemy->Transform()->SetEulerAngles({ 0, 0, 0.1f });
-	pEnemy->GetComponent<Collider>()->SetBox({ 1, 1, 1 });
-	pEnemy->GetComponent<Rigidbody>()->SetBodyType(Rigidbody::BodyType::Static); // 壁
-	//djc = pEnemy->AddComponent<DistanceJointComponent>();
-	//djc->SetOtherObject(pPlayerEx);
-	//djc->SetLocalAnchorA(Vector3(0, 5, 0));
-	//djc->SetRestLength(3.0f);
-	//djc->SetMode(DistanceJointComponent::DistanceJointMode::Rope);
-	//djc->RegisterToPhysicsSystem();
-
-	// 壁４方
-	pEnemy = AddGameObject<Enemy>(1);
-	pEnemy->Init();
-	pEnemy->Transform()->SetPosition({ 10.5f, -4, 0 });
-	pEnemy->Transform()->SetScale({ 1, 5, 10 });
-	pEnemy->GetComponent<Collider>()->SetBox({ 1, 1, 1 });
-	pEnemy->GetComponent<Rigidbody>()->SetBodyType(Rigidbody::BodyType::Static); // 壁
-
-	pEnemy = AddGameObject<Enemy>(1);
-	pEnemy->Init();
-	pEnemy->Transform()->SetPosition({ -10.5f, -4, 0 });
-	pEnemy->Transform()->SetScale({ 1, 1, 10 });
-	pEnemy->GetComponent<Collider>()->SetBox({ 1, 1, 1 });
-	pEnemy->GetComponent<Rigidbody>()->SetBodyType(Rigidbody::BodyType::Static); // 壁
-
-	pEnemy = AddGameObject<Enemy>(1);
-	pEnemy->Init();
-	pEnemy->Transform()->SetPosition({ 0, -4, 10.5f });
-	pEnemy->Transform()->SetScale({ 10, 1, 1 });
-	pEnemy->GetComponent<Collider>()->SetBox({ 1, 1, 1 });
-	pEnemy->GetComponent<Rigidbody>()->SetBodyType(Rigidbody::BodyType::Static); // 壁
-
-	pEnemy = AddGameObject<Enemy>(1);
-	pEnemy->Init();
-	pEnemy->Transform()->SetPosition({ 0, -4, -10.5f });
-	pEnemy->Transform()->SetScale({ 10, 1, 1 });
-	pEnemy->GetComponent<Collider>()->SetBox({ 1, 1, 1 });
-	pEnemy->GetComponent<Rigidbody>()->SetBodyType(Rigidbody::BodyType::Static); // 壁
+	//デコイ
+	CreateDecoies();
 
 	// 柵
 	CreateFences();
@@ -255,7 +137,6 @@ void GameMainScene::Init()
 	light.ambient = Vector4(0.2f, 0.2f, 0.2f, 1.0f);
 	light.direction = Vector4(0.3f, -1.0f, 0.0f, 0.0f).normalized();
 	Renderer::SetLight(light);
-
 
 	// シェーダー関係
 	ToonApp toon = MakeToon(ToonPreset::GravityRush2Like);
@@ -299,6 +180,16 @@ void GameMainScene::Update(float gameDt, float realDt)
 void GameMainScene::Draw()
 {
 	Scene::Draw();
+}
+
+
+void GameMainScene::CreateDecoies()
+{
+
+	// エネミー
+	EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
+	pEnemyObject->SetType(Type::Decoy);
+	pEnemyObject->Init();
 }
 
 void GameMainScene::CreateFences()

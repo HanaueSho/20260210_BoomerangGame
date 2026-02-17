@@ -13,6 +13,7 @@ class AnimatorController;
 
 enum class Type
 {
+	Decoy, // デコイ（動かない攻撃しない、死亡だけする）
 	Melee, // 近接
 	Shot,  // 遠距離
 	ShotAndBarrier, // バリア―

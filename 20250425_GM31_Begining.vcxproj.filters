@@ -172,6 +172,15 @@
     <Filter Include="ソース ファイル\6.ゲームコンポーネント\Health">
       <UniqueIdentifier>{17fbfb4e-cb10-4ad0-9e5c-3b1164c01638}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Manager">
+      <UniqueIdentifier>{b47ebb72-7144-40f0-be52-fa7c4acebc30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\WarpObject">
+      <UniqueIdentifier>{91ac39fd-0422-4ae4-87d0-03cc11e82d29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\6.ゲームコンポーネント\Warp">
+      <UniqueIdentifier>{d336092c-e9a7-42e2-9bdf-c2f0dac962d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioSource.cpp">
@@ -422,6 +431,15 @@
     </ClCompile>
     <ClCompile Include="EnemyAttackObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManagerObject.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeSpriteObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="WarpSceneObject.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -787,6 +805,18 @@
     </ClInclude>
     <ClInclude Include="HealthComponent.h">
       <Filter>ソース ファイル\6.ゲームコンポーネント\Health</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManagerObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeSpriteObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="WarpSceneObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\WarpObject</Filter>
+    </ClInclude>
+    <ClInclude Include="WarpSceneComponent.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\Warp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

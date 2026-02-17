@@ -10,6 +10,7 @@
 class Title : public Scene
 {
 private:
+	bool m_IsFadeChangeScene = false;
 public:
 	void Init() override;
 	void Uninit() override;

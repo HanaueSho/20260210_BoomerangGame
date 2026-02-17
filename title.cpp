@@ -14,6 +14,7 @@
 #include "GameMainScene.h"
 #include "PlayroomScene.h"
 #include "GameStage0Scene.h"
+#include "FadeSpriteObject.h"
 
 
 void Title::Init()
@@ -25,6 +26,9 @@ void Title::Init()
 	Polygon2D* pPolygon = AddGameObject<Polygon2D>(2);
 	pPolygon->Init();
 
+	auto* fade = AddGameObject<FadeSpriteObject>(2);
+	fade->Init();
+	fade->FadeOut();
 }
 
 void Title::Uninit()
@@ -35,12 +39,30 @@ void Title::Uninit()
 void Title::Update(float gameDt, float realDt)
 {
 	Scene::Update(gameDt, realDt);
+
+	// フェード確認
+	auto* fade = GetGameObject<FadeSpriteObject>();
+
+
 	if (Keyboard_IsKeyDownTrigger(KK_ENTER) || Input::Pad(0).IsPressed(PadButton::START))
 	{
-		Manager::SetScene<GameStage0Scene>();
+		fade->FadeIn();
+		m_IsFadeChangeScene = true;
+		//Manager::SetScene<GameStage0Scene>();
 		//Manager::SetScene<GameMainScene>();
 		//Manager::SetScene<Game>();
 		//Manager::SetScene<PlayroomScene>();
+	}
+
+	if (m_IsFadeChangeScene)
+	{
+		if (fade->EndFadeIn())
+		{
+			//Manager::SetScene<GameStage0Scene>();
+			Manager::SetScene<GameMainScene>();
+			//Manager::SetScene<Game>();
+			//Manager::SetScene<PlayroomScene>();
+		}
 	}
 
 }

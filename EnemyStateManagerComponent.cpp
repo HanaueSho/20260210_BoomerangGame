@@ -199,6 +199,8 @@ void EnemyStateManagerComponent::ChaseToPlayer(float dt)
 
 	switch (m_ModelAnimeType)
 	{
+	case Type::Decoy:
+		break;
 	case Type::Melee:
 		// ‹ß‚Ã‚¢‚½‚çUŒ‚€”õ
 		if (vect.length() < 100.0f)
@@ -226,6 +228,8 @@ void EnemyStateManagerComponent::Attack(float dt)
 {
 	switch (m_ModelAnimeType)
 	{
+	case Type::Decoy:
+		break;
 	case Type::Melee:
 		// ’¼üˆÚ“®
 		m_pController->SetMoveInput(m_AttackVect);
