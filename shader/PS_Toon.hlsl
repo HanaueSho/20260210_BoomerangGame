@@ -77,7 +77,13 @@ void main(in VS_OUT IN, out float4 outDiffuse : SV_Target)
     
     // 最終色
     float3 finalRGB = toonAmbient + toonDirect + spec + emis;
+    {
+        // フォグの処理
+        float fog = saturate((IN.SVPos.w - 150.0f) / (500.0f - 150.0f));
+        finalRGB = lerp(finalRGB, float3(1, 1, 1), fog);
+    }
     outDiffuse = float4(finalRGB, alpha);
+    
     //outDiffuse = float4(saturate(bc.bright.xxx), 1);
     //outDiffuse = float4(S.xxx, 1);
 }

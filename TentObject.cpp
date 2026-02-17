@@ -71,12 +71,12 @@ void TentObject::Init()
 		mr->SetBaseMaterial(mr->GetMaterialSlot(0));
 
 	// アウトラインマテリアル追加
-	auto* matOutline = AddComponent<MaterialComponent>();
-	Renderer::CreateVertexShader(&vs, &il, "shader\\VS_Outline.cso", Renderer::VertexLayoutType::Basic);
-	Renderer::CreatePixelShader(&ps, "shader\\PS_Outline.cso");
-	matOutline->SetVSPS(vs, ps, il, /*takeVS*/true, /*takePS*/true, /*takeIL*/true);
-	matOutline->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Opaque);
-	mr->SetOutlineMaterial(matOutline);
+	//auto* matOutline = AddComponent<MaterialComponent>();
+	//Renderer::CreateVertexShader(&vs, &il, "shader\\VS_Outline.cso", Renderer::VertexLayoutType::Basic);
+	//Renderer::CreatePixelShader(&ps, "shader\\PS_Outline.cso");
+	//matOutline->SetVSPS(vs, ps, il, /*takeVS*/true, /*takePS*/true, /*takeIL*/true);
+	//matOutline->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Opaque);
+	//mr->SetOutlineMaterial(matOutline);
 
 	// Collider
 	auto* col = AddComponent<Collider>();

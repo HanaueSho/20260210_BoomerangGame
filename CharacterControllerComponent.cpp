@@ -196,8 +196,9 @@ void CharacterControllerComponent::StepMovement(float fixedDt)
 	Vector3 input = m_MoveInputWorld;
 	input.y = 0.0f;
 	float inputLenSq = input.lengthSq();
-	if (inputLenSq > 1e-8f) input = input.normalized(); // “ü—Í‚ ‚è
-	else					input = Vector3(0, 0, 0);	// “ü—Í‚È‚µ
+	// ‚±‚ê‚ª‚ ‚é‚Æ­‚µ‚Ì“ü—Í‚Å‘–‚èo‚·
+	//if (inputLenSq > 1e-8f) input = input.normalized(); // “ü—Í‚ ‚è
+	//else					input = Vector3(0, 0, 0);	// “ü—Í‚È‚µ
 	const bool hasInput = (inputLenSq > 1e-8f);
 
 	// --------------------------------------------------

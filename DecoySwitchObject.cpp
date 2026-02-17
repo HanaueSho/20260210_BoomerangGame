@@ -1,8 +1,8 @@
 /*
-	WarpSceneObject.h
+	DecoySwitchObject.h
 	20260217  hanaue sho
 */
-#include "WarpSceneObject.h"
+#include "DecoySwitchObject.h"
 
 #include "ColliderComponent.h"
 #include "TransformComponent.h"
@@ -13,9 +13,9 @@
 #include "Renderer.h"
 #include "Texture.h"  // Texture::Load 既存
 
-#include "WarpSceneComponent.h"
+#include "DecoySwitchComponent.h"
 
-void WarpSceneObject::Init()
+void DecoySwitchObject::Init()
 {
 	// 1) Transform（既に GameObject ctor で追加済み）を取得して初期姿勢を入れておく
 	auto* tf = GetComponent<TransformComponent>();
@@ -46,7 +46,7 @@ void WarpSceneObject::Init()
 	// マテリアルセット
 	MaterialApp m{};
 	float col = 0.5f;
-	m.diffuse = Vector4( col, col, col/2, 0.2f);
+	m.diffuse = Vector4(col, col, col / 2, 0.2f);
 	m.ambient = Vector4(1, 1, 1, 1);
 	m.specular = Vector4(0, 0, 0, 1);
 	m.textureEnable = false;
@@ -63,12 +63,12 @@ void WarpSceneObject::Init()
 	coll->SetSphere(1);
 	coll->SetModeTrigger();
 
-	// 
-	auto* warp = AddComponent<WarpSceneComponent>();
-	warp->Init();
+	// switch
+	auto* decoySwitch = AddComponent<DecoySwitchComponent>();
+	decoySwitch->Init();
 }
 
-void WarpSceneObject::Update(float gameDt, float realDt)
+void DecoySwitchObject::Update(float gameDt, float realDt)
 {
 	GameObject::Update(gameDt, realDt);
 

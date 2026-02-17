@@ -46,6 +46,7 @@ public:
 	void Uninit() override;
 	void Update(float gameDt, float realDt) override;
 
+
 	// ----- 外部から呼び出されるアニメ制御 -----
 	void SetIsLocomotion(bool b);
 	void SetBlendParam(float blend);

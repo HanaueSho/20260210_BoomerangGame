@@ -106,7 +106,7 @@ void EnemyModelAnimeObject::Init()
 	//SkinMatrixProviderComponent
 	m_pProvider = AddComponent<SkinMatrixProviderComponent>();
 	m_pProvider->SetUp(&m_Skeleton, animator, m_pBoneManager, Transform());
-	m_pProvider->SetMode(SkinMatrixProviderComponent::Mode::Hybrid);
+	m_pProvider->SetMode(SkinMatrixProviderComponent::Mode::Animation);
 	SetupBones();
 
 	// MeshRenderer
@@ -172,6 +172,8 @@ void EnemyModelAnimeObject::Init()
 
 void EnemyModelAnimeObject::Uninit()
 {
+	if (m_pAttackObject)
+		m_pAttackObject->RequestDestroy();
 	delete m_pBoneManager;
 	m_pBoneManager = nullptr;
 	GameObject::Uninit();

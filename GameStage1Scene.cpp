@@ -1,12 +1,11 @@
 /*
-	GameMainScene.h
-	20260211  hanaue sho
+	GameStage1Scene.cpp
+	20260215  hanaue sho
 */
-#include "GameMainScene.h"
+#include "GameStage1Scene.h"
 #include "manager.h"
 #include "renderer.h"
 #include "keyboard.h"
-#include "Input.h"
 #include "result.h"
 
 // object
@@ -27,10 +26,8 @@
 #include "FenceObject.h"
 #include "TreeObject.h"
 #include "SkydomeObject.h"
+#include "EnemyAttackObject.h"
 #include "FadeSpriteObject.h"
-#include "WarpSceneObject.h"
-#include "SignboardObject.h"
-#include "DecoySwitchObject.h"
 
 // Component
 #include "CameraFollowComponent.h"
@@ -38,20 +35,19 @@
 #include "BoomerangStateManagerComponent.h"
 #include "Camera.h"
 #include "ColliderComponent.h"
-#include "WarpSceneComponent.h"
+#include "EnemyModelAnimeObject.h"
 
 // Audio
 #include "AudioSource.h"
 #include "AudioBank.h"
 #include "Random.h"
-#include "GameStage0Scene.h"
 
 namespace
 {
 	const float myPI = 3.1415926535f;
 }
 
-void GameMainScene::Init()
+void GameStage1Scene::Init()
 {
 	Scene::Init();
 
@@ -80,7 +76,6 @@ void GameMainScene::Init()
 		Polygon2D* pPolygon = AddGameObject<Polygon2D>(2);
 		pPolygon->Init();
 		pPolygon->Transform()->SetPosition({ 0, 0, 0 });
-
 	}
 
 	// プレイヤー -----
@@ -109,37 +104,27 @@ void GameMainScene::Init()
 	SkydomeObject* pSkydome = AddGameObject<SkydomeObject>(1);
 	pSkydome->Init();
 
-	// フェード
-	auto* fade = AddGameObject<FadeSpriteObject>(2);
-	fade->Init();
-	fade->FadeOut();
-
-	auto* warp = AddGameObject<WarpSceneObject>(1);
-	warp->Init();
-	warp->Transform()->SetPosition({180, 0, -50});
-	warp->GetComponent<WarpSceneComponent>()->SetType(WarpSceneComponent::Type::Stage1);
-
-	auto* decoySwitch = AddGameObject<DecoySwitchObject>(1);
-	decoySwitch->Init();
-	decoySwitch->Transform()->SetPosition({ -100, 0, -50 });
-
-	//// ノレン
-	//NorenObject* pNoren = AddGameObject<NorenObject>(1);
-	//pNoren->Init();
-	// 看板
-	CreateSignboards();
-
-	//デコイ
-	CreateDecoies();
-
 	// 柵
 	CreateFences();
 
-	// テント
-	CreateTents();
-
 	// 木
 	CreateTrees();
+
+	// エネミー
+	for (int i = 0; i < 1; i++)
+	{
+		EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
+		pEnemyObject->SetType(Type::Melee);
+		pEnemyObject->Init();
+		pEnemyObject->Transform()->SetPosition({ 30.0f * i, 10, 50.0f });
+	}
+	for (int i = 0; i < 0; i++)
+	{
+		EnemyObject* pEnemyObject = AddGameObject<EnemyObject>(1);
+		pEnemyObject->SetType(Type::Shot);
+		pEnemyObject->Init();
+		pEnemyObject->Transform()->SetPosition({ 30.0f * i, 10, 80.0f });
+	}
 
 	// ライト関係
 	LightApp light = {};
@@ -158,86 +143,30 @@ void GameMainScene::Init()
 	outline.outlineColor = Vector3(0.0f, 0.0f, 0.0f);
 	Renderer::SetOutline(outline);
 
+
 }
 
-void GameMainScene::Uninit()
+void GameStage1Scene::Uninit()
 {
 	Scene::Uninit();
 }
 
-void GameMainScene::Update(float gameDt, float realDt)
+void GameStage1Scene::Update(float gameDt, float realDt)
 {
 	Scene::Update(gameDt, realDt);
 
-	if (Keyboard_IsKeyDownTrigger(KK_ENTER) || Input::Pad(0).IsPressed(PadButton::START))
+	if (Keyboard_IsKeyDownTrigger(KK_ENTER))
 	{
 		Manager::SetScene<Result>();
 	}
 }
 
-void GameMainScene::Draw()
+void GameStage1Scene::Draw()
 {
 	Scene::Draw();
 }
 
-
-void GameMainScene::CreateSignboards()
-{
-	// 案内看板
-	{
-		auto* signboard = AddGameObject<SignboardObject>(1);
-		signboard->Init();
-		signboard->Transform()->SetPosition({ -70, -3, -40 });
-		signboard->Transform()->SetEulerAngles({ 3.141592f / 2 * 3, 3.141592f / 3 * 3.5f , 0 });
-	}
-
-	// 攻撃チュートリアル
-	{
-		auto* signboard = AddGameObject<SignboardObject>(1);
-		signboard->Init();
-		signboard->Transform()->SetPosition({ 0, -3, -120 });
-		signboard->Transform()->SetEulerAngles({ 3.141592f / 2 * 3, 3.141592f , 0 });
-	}
-
-	// ステージ０
-	{
-		auto* signboard = AddGameObject<SignboardObject>(1);
-		signboard->Init();
-		signboard->Transform()->SetPosition({ 190, -3, -50 });
-		signboard->Transform()->SetEulerAngles({ 3.141592f / 2 * 3, 3.141592f / 2 * 3 , 0 });
-	}
-	 
-	// ステージ１
-	{
-		auto* signboard = AddGameObject<SignboardObject>(1);
-		signboard->Init();
-		signboard->Transform()->SetPosition({ 170, -3, -80 });
-		signboard->Transform()->SetEulerAngles({ 3.141592f / 2 * 3, 3.141592f / 2 * 3 , 0 });
-	}
-
-}
-
-void GameMainScene::CreateDecoies()
-{
-	// エネミー（デコイ）
-	for (int i = 0; i < 5; i++)
-	{
-		m_pDecoies[i] = AddGameObject<EnemyObject>(1);
-		m_pDecoies[i]->SetType(Type::Decoy);
-		m_pDecoies[i]->Init();
-		m_pDecoies[i]->Transform()->SetPosition({ -170.0f + 30.0f * i, 0.0f, -30 + 30.0f * i });
-	}
-}
-
-void GameMainScene::DestroyDecoies()
-{
-	for (int i = 0; i < 5; i++)
-	{
-		m_pDecoies[i]->RequestDestroy();
-	}
-}
-
-void GameMainScene::CreateFences()
+void GameStage1Scene::CreateFences()
 {
 	float s = 2;
 	Vector3 scale = { s, s, s };
@@ -260,53 +189,21 @@ void GameMainScene::CreateFences()
 		pFence->Transform()->RotateAxis({ 0, 1, 0 }, -rad + myPI / 2.0f);
 	}
 
-	// 横断
-	for (int i = 0; i < 7; i++)
-	{
-		float rad = -myPI / 4.0f;
-		float x = cosf(rad) * i *  30;
-		float z = sinf(rad) * i * -30;
-		Vector3 position = { x, -5, z };
-
-		FenceObject* pFence = AddGameObject<FenceObject>(1);
-		pFence->Init();
-		pFence->Transform()->SetPosition(position);
-		pFence->Transform()->SetScale(scale);
-		pFence->Transform()->RotateAxis({ 0, 1, 0 }, -myPI / 4.0f);
-		pFence->GetComponent<Collider>()->SetBox({ 6, 0.5f, 5 });
-		pFence->GetComponent<Collider>()->SetOffsetPosition({ 0, 0.0f, 0 });
-	}
-	for (int i = 1; i < 7; i++)
-	{
-		if (i == 4) continue;
-		float rad = -myPI / 4.0f;
-		float x = cosf(rad) * i * -30;
-		float z = sinf(rad) * i * 30;
-		Vector3 position = { x, -5, z };
-
-		FenceObject* pFence = AddGameObject<FenceObject>(1);
-		pFence->Init();
-		pFence->Transform()->SetPosition(position);
-		pFence->Transform()->SetScale(scale);
-		pFence->Transform()->RotateAxis({ 0, 1, 0 }, -myPI / 4.0f);
-		pFence->GetComponent<Collider>()->SetBox({ 6, 0.5f, 5 });
-		pFence->GetComponent<Collider>()->SetOffsetPosition({ 0, 0.0f, 0 });
-	}
-
 }
 
-void GameMainScene::CreateTents()
+void GameStage1Scene::CreateTents()
 {
 	TentObject* pTent = AddGameObject<TentObject>(1);
 	pTent->Init();
 	float s = 7.0f;
-	pTent->Transform()->SetScale({s, s, s});
-	pTent->Transform()->SetPosition({220, -5, 0});
-	pTent->Transform()->RotateAxis({0, 1, 0}, PI / 2 * 3);
+	pTent->Transform()->SetScale({ s, s, s });
+	pTent->Transform()->SetPosition({ 220, -5, 0 });
+	pTent->Transform()->RotateAxis({ 0, 1, 0 }, PI / 2 * 3);
 }
 
-void GameMainScene::CreateTrees()
+void GameStage1Scene::CreateTrees()
 {
+
 	float radiusBase = 280.0f;
 
 	// n 角形を作る

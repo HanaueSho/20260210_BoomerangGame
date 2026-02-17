@@ -96,3 +96,11 @@ void TargetObject::Init()
 	// ƒ^ƒOÝ’è
 	SetTag("Target");
 }
+
+void TargetObject::Uninit()
+{
+	if (m_pTargetSpriteObject) m_pTargetSpriteObject->RequestDestroy();
+	if (m_pMarkSpriteObject) m_pMarkSpriteObject->RequestDestroy();
+
+	GameObject::Uninit();
+}

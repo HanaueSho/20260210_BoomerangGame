@@ -14,9 +14,12 @@ private:
 	EnemyModelAnimeObject* m_pModelAnimeObject = nullptr;
 	Type m_Type = Type::Melee;
 
+	GameObject* m_pTargetObject = nullptr;
+
 public:
 	void Init() override;
 	void Update(float gameDt, float realDt) override;
+	void Uninit() override;
 
 	EnemyModelAnimeObject* GetModelAnime() const { return m_pModelAnimeObject; }
 	void SetType(Type type) { m_Type = type; }

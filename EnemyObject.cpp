@@ -56,14 +56,14 @@ void EnemyObject::Init()
 
 	// ----- ターゲットオブジェクト -----
 	GameObject* bone = m_pModelAnimeObject->GetBoneManager().GetBoneObject(0);
-	GameObject* target = Manager::GetScene()->AddGameObject<TargetObject>(1);
-	target->Init();
-	target->Transform()->SetParent(bone->Transform());
-	target->Transform()->SetPosition({ 0, 10, 0 });
-	auto* stateTarget = target->GetComponent<TargetStateManagerComponent>();
+	m_pTargetObject = Manager::GetScene()->AddGameObject<TargetObject>(1);
+	m_pTargetObject->Init();
+	m_pTargetObject->Transform()->SetParent(bone->Transform());
+	m_pTargetObject->Transform()->SetPosition({ 0, 10, 0 });
+	auto* stateTarget = m_pTargetObject->GetComponent<TargetStateManagerComponent>();
 	stateTarget->SetOwnerObject(this);
 
-	state->SetTargetObject(target);
+	state->SetTargetObject(m_pTargetObject);
 
 	// タグ設定
 	SetTag("Enemy");
@@ -81,5 +81,13 @@ void EnemyObject::Update(float gameDt, float realDt)
 	//	m_pModelAnimeObject->PlayAnimeAttack();
 	//if (Keyboard_IsKeyDownTrigger(KK_D4))
 	//	m_pModelAnimeObject->PlayAnimeDead();
+}
+
+void EnemyObject::Uninit()
+{
+	GameObject::Uninit();
+
+	m_pModelAnimeObject->RequestDestroy();
+	m_pTargetObject->RequestDestroy();
 }
 

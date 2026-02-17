@@ -16,6 +16,7 @@ private:
 	MarkSpriteObject* m_pMarkSpriteObject = nullptr;
 public:
 	void Init() override;
+	void Uninit() override;
 
 	TargetSpriteObject* GetTargetSprite() { return m_pTargetSpriteObject; }
 	MarkSpriteObject*   GetMarkSprite()   { return m_pMarkSpriteObject; }

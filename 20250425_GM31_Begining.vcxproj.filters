@@ -181,6 +181,15 @@
     <Filter Include="ソース ファイル\6.ゲームコンポーネント\Warp">
       <UniqueIdentifier>{d336092c-e9a7-42e2-9bdf-c2f0dac962d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Signboard">
+      <UniqueIdentifier>{ffbd6ca3-b152-4bb4-98d5-870124d47d77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\6.ゲームコンポーネント\Switch">
+      <UniqueIdentifier>{2d1d31b0-8281-4ed8-a172-405a23afda47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Switch">
+      <UniqueIdentifier>{fbb77649-1d7e-4d9f-9ca4-e7915e3ecd85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioSource.cpp">
@@ -432,14 +441,23 @@
     <ClCompile Include="EnemyAttackObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="GameManagerObject.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="FadeSpriteObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Sprite</Filter>
     </ClCompile>
+    <ClCompile Include="SignboardObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Signboard</Filter>
+    </ClCompile>
     <ClCompile Include="WarpSceneObject.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\WarpObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManagerObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStage1Scene.cpp">
+      <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="DecoySwitchObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Switch</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -817,6 +835,18 @@
     </ClInclude>
     <ClInclude Include="WarpSceneComponent.h">
       <Filter>ソース ファイル\6.ゲームコンポーネント\Warp</Filter>
+    </ClInclude>
+    <ClInclude Include="SignboardObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Signboard</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStage1Scene.h">
+      <Filter>ソース ファイル\1.フレームワーク\Manager\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DecoySwitchComponent.h">
+      <Filter>ソース ファイル\6.ゲームコンポーネント\Switch</Filter>
+    </ClInclude>
+    <ClInclude Include="DecoySwitchObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Switch</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

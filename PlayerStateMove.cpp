@@ -23,7 +23,6 @@ void PlayerStateMove::Update(PlayerStateManagerComponent& manager, float dt)
 	Vector3 moveDir = right * input.x + forward * input.z;
 	manager.GetCC()->SetMoveInput(moveDir);
 
-
 	// ----- アニメーション管理 -----
 	float speed = manager.GetCC()->ActualVelocity().length();
 	float maxSpeed = manager.GetCC()->MaxMoveSpeed();

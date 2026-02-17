@@ -1,7 +1,9 @@
 /*
-	FenceObject.cpp
-	20260214  hanaue sho
+	SignboardObject.cpp
+	20260217  hanaue sho
 */
+#include "SignboardObject.h"
+
 #include "FenceObject.h"
 #include "Renderer.h"
 #include "MeshRendererComponent.h"
@@ -9,7 +11,7 @@
 #include "ModelLoader.h"
 #include "Texture.h"
 
-void FenceObject::Init()
+void SignboardObject::Init()
 {
 	auto* tf = GetComponent<TransformComponent>();
 	float s = 1.0f;
@@ -20,7 +22,7 @@ void FenceObject::Init()
 	// Mesh
 	std::vector<ID3D11ShaderResourceView*> srvs;
 	auto* mf = AddComponent<MeshFilterComponent>();
-	ModelLoader::LoadMeshFromFile(mf, "assets\\model\\fence_001.fbx", srvs, true);
+	ModelLoader::LoadMeshFromFile(mf, "assets\\model\\signboard_002.fbx", srvs, true);
 
 	// MeshRenderer
 	auto* mr = AddComponent<MeshRendererComponent>();
@@ -58,8 +60,6 @@ void FenceObject::Init()
 		ID3D11ShaderResourceView* srv = nullptr;
 		if (slot < (int)srvs.size()) srv = srvs[slot];
 
-		//srv = Texture::LoadAndRegisterKey("assets\\texture\\whiteTexture.png"); // デバッグでバグでばっぐ
-
 		mat->SetMainTexture(srv, nullptr);
 
 		mat->SetMaterial(m);
@@ -81,8 +81,8 @@ void FenceObject::Init()
 	// Collider
 	auto* col = AddComponent<Collider>();
 	col->Init();
-	col->SetBox({6, 0.5f, 20});
+	col->SetBox({ 8, 0.5f, 9 });
 	col->SetModeSimulate(); // 最初はトリガー判定
-	col->SetOffsetPosition({ 0, 0, 25 });
+	col->SetOffsetPosition({ 0, 0, 4 });
 
 }

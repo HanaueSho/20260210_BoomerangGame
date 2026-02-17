@@ -8,6 +8,7 @@
 #include "Manager.h"
 #include "GameMainScene.h"
 #include "GameStage0Scene.h"
+#include "GameStage1Scene.h"
 #include "ColliderComponent.h"
 #include "InputSystem.h"
 #include "FadeSpriteObject.h"
@@ -35,16 +36,13 @@ public:
 			{
 				if (m_Type == Type::Stage0)
 					Manager::SetScene<GameStage0Scene>();
-				//if (m_Type == Type::Stage1)
-				//	Manager::SetScene<GameStage1Scene>();
+				if (m_Type == Type::Stage1)
+					Manager::SetScene<GameStage1Scene>();
 			}
 		}
 	}
-
-	void OnTriggerEnter(class Collider* me, class Collider* other) {}
 	void OnTriggerStay(class Collider* me, class Collider* other) override
 	{
-			printf("%s\n", other->Owner()->Tag().c_str());
 		if (other->Owner()->Tag() == "PlayerHeart")
 		{
 			if (InputSystem::IsWarpSceneTrigger())
@@ -55,7 +53,8 @@ public:
 			}
 		}
 	}
-	void OnTriggerExit(class Collider* me, class Collider* other) {}
+
+	void SetType(Type type) { m_Type = type; }
 
 };
 

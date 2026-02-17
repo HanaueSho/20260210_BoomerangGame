@@ -185,6 +185,7 @@
     <ClCompile Include="CubeObject.cpp" />
     <ClCompile Include="DebugCount.cpp" />
     <ClCompile Include="DebugRenderer.cpp" />
+    <ClCompile Include="DecoySwitchObject.cpp" />
     <ClCompile Include="DxDevice.cpp" />
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -199,6 +200,7 @@
     <ClCompile Include="GameMainScene.cpp" />
     <ClCompile Include="GameManagerObject.cpp" />
     <ClCompile Include="GameStage0Scene.cpp" />
+    <ClCompile Include="GameStage1Scene.cpp" />
     <ClCompile Include="Input.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -244,6 +246,7 @@
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="SandbagObject.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SignboardObject.cpp" />
     <ClCompile Include="SkinMatrixProviderComponent.cpp" />
     <ClCompile Include="SkydomeObject.cpp" />
     <ClCompile Include="SphereObject.cpp" />
@@ -301,6 +304,8 @@
     <ClInclude Include="DebugCount.h" />
     <ClInclude Include="DebugRenderer.h" />
     <ClInclude Include="DebugRotateComponent.h" />
+    <ClInclude Include="DecoySwitchComponent.h" />
+    <ClInclude Include="DecoySwitchObject.h" />
     <ClInclude Include="DistanceJointComponent.h" />
     <ClInclude Include="DxDevice.h" />
     <ClInclude Include="EffectObject.h" />
@@ -317,6 +322,7 @@
     <ClInclude Include="GameManagerObject.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameStage0Scene.h" />
+    <ClInclude Include="GameStage1Scene.h" />
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="HingeJointComponent.h" />
     <ClInclude Include="Input.h">
@@ -378,6 +384,7 @@
     <ClInclude Include="SandbagObject.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SelfDestroyComponent.h" />
+    <ClInclude Include="SignboardObject.h" />
     <ClInclude Include="SkinMatrixProviderComponent.h" />
     <ClInclude Include="SkydomeObject.h" />
     <ClInclude Include="SphereObject.h" />
