@@ -81,8 +81,8 @@ void FenceObject::Init()
 	// Collider
 	auto* col = AddComponent<Collider>();
 	col->Init();
-	col->SetBox({6, 0.5f, 20});
+	col->SetBox({6, 0.5f, 40});
 	col->SetModeSimulate(); // Å‰‚ÍƒgƒŠƒK[”»’è
-	col->SetOffsetPosition({ 0, 0, 25 });
+	col->SetOffsetPosition({ 0, 0, 30 });
 
 }

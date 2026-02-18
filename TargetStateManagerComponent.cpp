@@ -6,6 +6,7 @@
 #include "MaterialComponent.h"
 #include "GameObject.h"
 #include "EnemyStateManagerComponent.h"
+#include "LightComponent.h"
 
 void TargetStateManagerComponent::Init()
 {
@@ -66,4 +67,8 @@ void TargetStateManagerComponent::TakeDamage()
 	auto* state = m_pOwnerObject->GetComponent<EnemyStateManagerComponent>();
 	state->ChangeStateDead();
 
+	if (auto* lc = Owner()->GetComponent<LightComponent>())
+	{
+		Owner()->RemoveComponent(lc);
+	}
 }

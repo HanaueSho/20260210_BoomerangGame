@@ -75,6 +75,8 @@ void AppleObject::Init()
 	rigid->SetRestitution(0.0f);
 	rigid->SetMass(3.0f);
 	rigid->ComputeSphereInertia(1);
+	rigid->SetFrictionDynamic(0.2f);
+	rigid->SetFrictionStatic(0.3f);
 
 	// レイヤーセット
 	SetPhysicsLayer(1);

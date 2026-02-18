@@ -27,7 +27,7 @@ void PlayerStateJump::Update(PlayerStateManagerComponent& manager, float dt)
 	manager.GetCC()->SetMoveInput(moveDir);
 
 	// ジャンプ長押し
-	manager.GetCC()->SetJumpHeld(Keyboard_IsKeyDown(KK_SPACE));
+	manager.GetCC()->SetJumpHeld(InputSystem::IsJumpDown());
 	// 空中ジャンプ
 	if (InputSystem::IsJumpDownTrigger())
 	{

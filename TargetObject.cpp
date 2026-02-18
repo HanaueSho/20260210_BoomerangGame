@@ -16,6 +16,7 @@
 #include "TargetStateManagerComponent.h"
 #include "TargetSpriteObject.h"
 #include "MarkSpriteObject.h"
+#include "LightComponent.h"
 
 void TargetObject::Init()
 {
@@ -92,6 +93,13 @@ void TargetObject::Init()
 		float scale = 1.0f / 1.5f;
 		m_pMarkSpriteObject->Transform()->SetScale({ scale, scale, scale });
 	}
+
+	// LightComponent Çí«â¡
+	auto* lc = AddComponent<LightComponent>();
+	lc->SetDiffuse({ 1.0f, 1.0f, 1.0f });
+	lc->SetIntensity(1);
+	lc->SetRange(80);
+	lc->SetDiffuse({ 0.8f, 0.2f, 0.2f });
 
 	// É^ÉOê›íË
 	SetTag("Target");

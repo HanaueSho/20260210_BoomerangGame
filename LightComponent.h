@@ -34,7 +34,7 @@ private:
 	float m_Intensity = 1.0f;
 
 	// --------------------------------------------------
-	// 仕様中
+	// 使用中
 	// --------------------------------------------------
 	bool m_Enable = true;
 	
@@ -73,6 +73,11 @@ public:
 		m_pTransform = Owner()->Transform();
 	}
 	void Uninit() override
+	{
+		// ここで LightManager から削除する
+		Manager::GetScene()->lightManager().Unregister(this);
+	}
+	void OnRemoved() override
 	{
 		// ここで LightManager から削除する
 		Manager::GetScene()->lightManager().Unregister(this);

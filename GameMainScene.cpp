@@ -101,7 +101,7 @@ void GameMainScene::Init()
 
 	// メッシュフィールド
 	Field* pField = AddGameObject<Field>(1);
-	pField->SetHeight(0);
+	pField->SetHeight(2);
 	pField->Init();
 	pField->Transform()->SetPosition({ -500, -5, -500 });
 
@@ -159,12 +159,15 @@ void GameMainScene::Init()
 	// 岩
 	CreateRockes();
 
+	// ライト
+	CreateLights();
+
 	// ライト関係
 	LightApp light = {};
 	light.enable = 1;
-	light.diffuse = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+	light.diffuse = Vector4(0.8f, 0.8f, 0.8f, 1.0f);
 	light.ambient = Vector4(0.2f, 0.2f, 0.2f, 1.0f);
-	light.direction = Vector4(0.3f, -1.0f, 0.0f, 0.0f).normalized();
+	light.direction = Vector4(0.3f, -1.0f, 0.2f, 0.0f).normalized();
 	Renderer::SetLight(light);
 
 	// シェーダー関係
@@ -396,9 +399,9 @@ void GameMainScene::CreateApples()
 		}
 	}
 
-	// スタートから右へ
+	// 奥
 	{
-		Vector3 position = { 100, 5, 0 };
+		Vector3 position = { 130, 10, 80 };
 		for (int i = 0; i < 20; i++)
 		{
 			Vector3 scale = { 2, 2, 2 };
@@ -420,7 +423,7 @@ void GameMainScene::CreateBoxes()
 {
 	// 奥の方
 	{
-		Vector3 position = { 100, 5, 0 };
+		Vector3 position = { 20, 5, -20 };
 		Vector3 vect = { -1, 0, 1 }; vect.normalize();
 		for (int i = 0; i < 10; i++)
 		{
@@ -450,4 +453,80 @@ void GameMainScene::CreateRockes()
 		rock->Transform()->SetPosition(position);
 		rock->Transform()->SetScale(scale);
 	}
+	// 斜め
+	{
+		Vector3 position = { 100, -10, 50 };
+		Vector3 scale = { 70, 20, 60 };
+		auto* rock = AddGameObject<RockObject>(1);
+		rock->Init();
+		rock->Transform()->SetPosition(position);
+		rock->Transform()->SetScale(scale);
+		rock->Transform()->Rotate({0, 3.141592f/2, -0.3f });
+	}
+	{
+		Vector3 position = { 150, -6, 70 };
+		Vector3 scale = { 70, 20, 60 };
+		auto* rock = AddGameObject<RockObject>(1);
+		rock->Init();
+		rock->Transform()->SetPosition(position);
+		rock->Transform()->SetScale(scale);
+		rock->Transform()->Rotate({-0.0f, 0, 0.4f});
+	}
+	{
+		Vector3 position = { 130, 3, 100 };
+		Vector3 scale = { 70, 20, 60 };
+		auto* rock = AddGameObject<RockObject>(1);
+		rock->Init();
+		rock->Transform()->SetPosition(position);
+		rock->Transform()->SetScale(scale);
+		rock->Transform()->Rotate({0.0f, 0.2f, 0.0f});
+	}
+	{
+		Vector3 position = { 90, 3, 100 };
+		Vector3 scale = { 70, 30, 40 };
+		auto* rock = AddGameObject<RockObject>(1);
+		rock->Init();
+		rock->Transform()->SetPosition(position);
+		rock->Transform()->SetScale(scale);
+		rock->Transform()->Rotate({0.0f, 0.0f, -0.6f});
+	}
+	{
+		Vector3 position = { 90, 3, 130 };
+		Vector3 scale = { 70, 30, 40 };
+		auto* rock = AddGameObject<RockObject>(1);
+		rock->Init();
+		rock->Transform()->SetPosition(position);
+		rock->Transform()->SetScale(scale);
+		rock->Transform()->Rotate({0.0f, 0.0f, -0.9f});
+	}
+}
+
+void GameMainScene::CreateLights()
+{
+	{
+		auto* light = AddGameObject<LightObject>(1);
+		light->Init();
+		light->Transform()->SetPosition({ -150.0f, 10, 10 });
+		light->SetColorWhite();
+	}
+	{
+		auto* light = AddGameObject<LightObject>(1);
+		light->Init();
+		light->Transform()->SetPosition({ -120.0f, 10, 40 });
+		light->SetColorRed();
+	}
+	{
+		auto* light = AddGameObject<LightObject>(1);
+		light->Init();
+		light->Transform()->SetPosition({ -90.0f, 10, 70 });
+		light->SetColorBlue();
+	}
+	{
+		auto* light = AddGameObject<LightObject>(1);
+		light->Init();
+		light->Transform()->SetPosition({ -60.0f, 10, 100 });
+		light->SetColorGreen();
+	}
+
+
 }

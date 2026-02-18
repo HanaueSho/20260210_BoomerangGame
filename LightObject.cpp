@@ -19,8 +19,8 @@ void LightObject::Init()
 {
 	// 1) Transform（既に GameObject ctor で追加済み）を取得して初期姿勢を入れておく
 	auto* tf = GetComponent<TransformComponent>();
-	tf->SetPosition({ 2,0,0 });
-	tf->SetScale({ 1.0f, 1.0f, 1.0f });
+	tf->SetPosition({ 0,0,0 });
+	tf->SetScale({ 2.5f, 2.5f, 2.5f });
 	tf->SetEulerAngles({ 0,0,0 });
 
 	// 2) MeshFilter を追加して頂点バッファを作る
@@ -45,13 +45,13 @@ void LightObject::Init()
 
 	// マテリアルセット
 	MaterialApp m{};
-	m.diffuse = Vector4(1, 1, 1, 1);
+	m.diffuse = Vector4(0.8f, 0.8f, 0.8f, 0.5f);
 	m.ambient = Vector4(1, 1, 1, 1);
-	m.textureEnable = true;
+	m.textureEnable = false;
 	mat->SetMaterial(m);
 
 	// 透明テクスチャの可能性が高いのでアルファブレンドに
-	mat->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Opaque);
+	mat->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Alpha);
 
 	// 4) MeshRenderer を追加（描画実行係）
 	auto* mr = AddComponent<MeshRendererComponent>();
@@ -60,21 +60,21 @@ void LightObject::Init()
 	auto* lc = AddComponent<LightComponent>();
 	lc->SetDiffuse({ 1.0f, 1.0f, 1.0f });
 	lc->SetIntensity(1);
-	lc->SetRange(20);
+	lc->SetRange(80);
 
-	auto* col = AddComponent<Collider>();
-	col->SetCapsule(1, 1);
-	//col->SetSphere(1);
-	col->SetModeSimulate();
+	//auto* col = AddComponent<Collider>();
+	//col->SetCapsule(1, 1);
+	////col->SetSphere(1);
+	//col->SetModeSimulate();
 
-	auto* rb = AddComponent<Rigidbody>();
-	rb->AddForce({ 0, 500, 0 });
-	rb->SetMass(1);
-	rb->ComputeSphereInertia(1);
-	rb->SetBodyType(Rigidbody::BodyType::Dynamic);
+	//auto* rb = AddComponent<Rigidbody>();
+	//rb->AddForce({ 0, 500, 0 });
+	//rb->SetMass(1);
+	//rb->ComputeSphereInertia(1);
+	//rb->SetBodyType(Rigidbody::BodyType::Dynamic);
 
 	// レイヤーセット
-	SetPhysicsLayer(2);
+	SetPhysicsLayer(31);
 }
 
 void LightObject::Update(float gameDt, float realDt)
@@ -88,4 +88,56 @@ void LightObject::Update(float gameDt, float realDt)
 	pos.x += 10.0f * dt * sinf(m_Radian);
 	Transform()->SetPosition(pos);
 	*/
+}
+
+void LightObject::SetColorWhite()
+{
+	auto* mat = GetComponent<MaterialComponent>();
+	// マテリアルセット
+	MaterialApp m{};
+	m.diffuse = Vector4(0.8f, 0.8f, 0.8f, 0.5f);
+	m.ambient = Vector4(1, 1, 1, 1);
+	m.textureEnable = false;
+	mat->SetMaterial(m);
+	auto* lc = AddComponent<LightComponent>();
+	lc->SetDiffuse({ 1.0f, 1.0f, 1.0f });
+}
+
+void LightObject::SetColorRed()
+{
+	auto* mat = GetComponent<MaterialComponent>();
+	// マテリアルセット
+	MaterialApp m{};
+	m.diffuse = Vector4(0.8f, 0.2f, 0.2f, 0.5f);
+	m.ambient = Vector4(1, 1, 1, 1);
+	m.textureEnable = false;
+	mat->SetMaterial(m);
+	auto* lc = GetComponent<LightComponent>();
+	lc->SetDiffuse({ 0.8f, 0.2f, 0.2f });
+}
+
+void LightObject::SetColorGreen()
+{
+	auto* mat = GetComponent<MaterialComponent>();
+	// マテリアルセット
+	MaterialApp m{};
+	m.diffuse = Vector4(0.2f, 0.8f, 0.2f, 0.5f);
+	m.ambient = Vector4(1, 1, 1, 1);
+	m.textureEnable = false;
+	mat->SetMaterial(m);
+	auto* lc = GetComponent<LightComponent>();
+	lc->SetDiffuse({ 0.2f, 0.8f, 0.2f });
+}
+
+void LightObject::SetColorBlue()
+{
+	auto* mat = GetComponent<MaterialComponent>();
+	// マテリアルセット
+	MaterialApp m{};
+	m.diffuse = Vector4(0.2f, 0.2f, 0.8f, 0.5f);
+	m.ambient = Vector4(1, 1, 1, 1);
+	m.textureEnable = false;
+	mat->SetMaterial(m);
+	auto* lc = GetComponent<LightComponent>();
+	lc->SetDiffuse({ 0.2f, 0.2f, 0.8f });
 }

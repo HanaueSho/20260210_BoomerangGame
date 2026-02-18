@@ -13,4 +13,10 @@ private:
 public:
 	void Init() override;
 	void Update(float gameDt, float realDt) override;
+
+	void SetColorWhite();
+	void SetColorRed();
+	void SetColorGreen();
+	void SetColorBlue();
+
 };

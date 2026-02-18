@@ -43,7 +43,7 @@ void RockObject::Init()
 
 	// マテリアルセット
 	MaterialApp m{};
-	m.diffuse = Vector4(1, 1, 1, 1);
+	m.diffuse = Vector4(1.0f, 1.0f, 1.0f, 1);
 	m.ambient = Vector4(1, 1, 1, 1);
 	m.specular = Vector4(0, 0, 0, 1);
 	m.textureEnable = TRUE;
@@ -56,12 +56,12 @@ void RockObject::Init()
 	auto* mr = AddComponent<MeshRendererComponent>();
 
 	// アウトラインマテリアル追加
-	auto* matOutline = AddComponent<MaterialComponent>();
-	Renderer::CreateVertexShader(&vs, &il, "shader\\VS_Outline.cso");
-	Renderer::CreatePixelShader(&ps, "shader\\PS_Outline.cso");
-	matOutline->SetVSPS(vs, ps, il, /*takeVS*/true, /*takePS*/true, /*takeIL*/true);
-	matOutline->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Opaque);
-	mr->SetOutlineMaterial(matOutline);
+	//auto* matOutline = AddComponent<MaterialComponent>();
+	//Renderer::CreateVertexShader(&vs, &il, "shader\\VS_Outline.cso");
+	//Renderer::CreatePixelShader(&ps, "shader\\PS_Outline.cso");
+	//matOutline->SetVSPS(vs, ps, il, /*takeVS*/true, /*takePS*/true, /*takeIL*/true);
+	//matOutline->SetBlendMode(/*Alpha*/MaterialComponent::BlendMode::Opaque);
+	//mr->SetOutlineMaterial(matOutline);
 
 	// 物理を働かせたいのでコライダーなどを設定
 	Collider* coll = AddComponent<Collider>();

@@ -14,6 +14,7 @@
 #include "Texture.h"  // Texture::Load Šù‘¶
 
 #include "WarpSceneComponent.h"
+#include "LightComponent.h"
 
 void WarpSceneObject::Init()
 {
@@ -62,6 +63,12 @@ void WarpSceneObject::Init()
 	Collider* coll = AddComponent<Collider>();
 	coll->SetSphere(1);
 	coll->SetModeTrigger();
+
+	// LightComponent ‚ð’Ç‰Á
+	auto* lc = AddComponent<LightComponent>();
+	lc->SetDiffuse({ 0.7f, 0.8f, 0.2f });
+	lc->SetIntensity(5);
+	lc->SetRange(50);
 
 	// 
 	auto* warp = AddComponent<WarpSceneComponent>();

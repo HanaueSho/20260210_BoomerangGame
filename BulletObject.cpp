@@ -13,6 +13,7 @@
 #include "RigidbodyComponent.h"
 #include "Renderer.h"
 #include "Texture.h"  // Texture::Load 既存
+#include "LightComponent.h"
 
 #include "BulletStateManagerComponent.h"
 #include "EnemyAttackObject.h"
@@ -71,6 +72,13 @@ void BulletObject::Init()
 	auto* attack = Manager::GetScene()->AddGameObject<EnemyAttackObject>(1);
 	attack->Init();
 	attack->Transform()->SetParent(Transform());
+
+	// LightComponent を追加
+	auto* lc = AddComponent<LightComponent>();
+	lc->SetDiffuse({ 1.0f, 1.0f, 1.0f });
+	lc->SetIntensity(1);
+	lc->SetRange(80);
+	lc->SetDiffuse({ 0.8f, 0.2f, 0.2f });
 
 	// ターゲットにしちゃう
 	SetTag("Bullet");

@@ -83,4 +83,5 @@ void TentObject::Init()
 	col->Init();
 	col->SetBox({3,4.0f,10});
 	col->SetModeSimulate(); 
+	col->SetOffsetPosition({ 0, 0, 20 });
 }

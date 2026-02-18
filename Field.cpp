@@ -29,7 +29,7 @@ void Field::Init()
 	ID3D11PixelShader* ps = nullptr;
 	ID3D11InputLayout* il = nullptr;
 	Renderer::CreateVertexShader(&vs, &il, "shader\\VS_Lit.cso");
-	Renderer::CreatePixelShader(&ps, "shader\\PS_PixelLit.cso");
+	Renderer::CreatePixelShader(&ps, "shader\\PS_PointLit.cso");
 	mat->SetVSPS(vs, ps, il, /*takeVS*/true, /*takePS*/true, /*takeIL*/true);
 
 	// ‹Œ Polygon2D ‚Æ“¯‚¶ kirby ‚ğg‚¤
@@ -39,7 +39,7 @@ void Field::Init()
 
 	MaterialApp m{};
 	m.diffuse = Vector4(1, 1, 1, 1);
-	m.ambient = Vector4(1, 1, 1, 1);
+	m.ambient = Vector4(0, 0, 0, 1);
 	m.textureEnable = TRUE;
 	mat->SetMaterial(m);
 
