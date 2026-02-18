@@ -104,13 +104,13 @@ void ResultSpriteObject::SetType(Type type)
     {
         srv = Texture::LoadAndRegisterKey("assets\\texture\\gameSuccess.png");
         auto* mf = GetComponent<MeshFilterComponent>();
-        MeshFactory::CreateQuad3D(mf, { 600.0f, 150.0f, true });
+        MeshFactory::CreateQuad2D(mf, { 600.0f, 150.0f, true });
     }
     else if (m_Type == Type::Failed)
     {
         srv = Texture::LoadAndRegisterKey("assets\\texture\\gameFailed.png");
         auto* mf = GetComponent<MeshFilterComponent>();
-        MeshFactory::CreateQuad3D(mf, { 600.0f, 150.0f, true });
+        MeshFactory::CreateQuad2D(mf, { 600.0f, 150.0f, true });
     }
 
     mat->SetMainTexture(srv, /*sampler*/nullptr, /*takeSrv*/false, /*takeSamp*/false);
