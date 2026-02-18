@@ -382,7 +382,10 @@ void PhysicsSystem::BeginStep(float fixedDt)
 // 衝突判定、速度解決を行う
 // ==================================================
 void PhysicsSystem::Step(float fixedDt)
-{
+{	
+	// ----- ステップ -----
+	m_Touched.clear();
+
 	// ----- 衝突判定 -----
 	DetermineCollision();
 
@@ -402,6 +405,11 @@ void PhysicsSystem::Step(float fixedDt)
 		ResolveVelocity(fixedDt); 
 		//printf("---------- resolve : %d\n", i); 
 	}
+
+	// 減衰処理
+	std::sort(m_Touched.begin(), m_Touched.end());
+	m_Touched.erase(std::unique(m_Touched.begin(), m_Touched.end()), m_Touched.end());
+	ApplyRestingStabilization(fixedDt);
 }
 
 // ==================================================
@@ -805,7 +813,11 @@ void PhysicsSystem::DetermineCollision()
 			{
 				m_CurrCollision.insert(MakePairKey(colA->Id(), colB->Id()));
 				if (m.touching && m.count > 0)
+				{
 					m_Contacts.push_back({ colA, colB, m });
+					if (auto* rbA = colA->Owner()->GetComponent<Rigidbody>(); rbA && rbA->IsDynamic()) m_Touched.push_back(rbA);
+					if (auto* rbB = colB->Owner()->GetComponent<Rigidbody>(); rbB && rbB->IsDynamic()) m_Touched.push_back(rbB);
+				}
 			}
 		}
 	}
@@ -2016,6 +2028,64 @@ void PhysicsSystem::SyncCOM()
 				col->ConsumeOffsetDirty(); // フラグを折る
 			}
 		}
+	}
+}
+
+void PhysicsSystem::ApplyRestingStabilization(float dt)
+{
+	// ---- チューニング値（とりあえずの初期値）----
+   // 接触中：止まってほしいので強め
+	const float linSnap_Contact = 0.05f;          // m/s
+	const float angSnap_Contact = 0.25f;          // rad/s  (14.3deg/s)
+	// 非接触：空中で急に止めないよう弱め
+	const float linSnap_Free = 0.01f;          // m/s
+	const float angSnap_Free = 0.05f;          // rad/s  (2.9deg/s)
+
+	// 任意：静止用の追加減衰（強すぎると滑りが不自然になる）
+	const float linDamp_Contact = 2.0f;           // 1/s
+	const float angDamp_Contact = 2.0f;           // 1/s
+
+	// dt依存の係数（指数減衰の簡易）
+	auto Damp = [](float x, float k, float dt)->float
+		{
+			// (1 - k*dt) の形。k*dt>1にならないようにクランプ。
+			float f = 1.0f - k * dt;
+			if (f < 0.0f) f = 0.0f;
+			return x * f;
+		};
+
+	for (Rigidbody* rb : m_Touched)
+	{
+		if (!rb) continue;
+		if (!rb->IsDynamic()) continue;
+
+		const float linSnap = linSnap_Contact;
+		const float angSnap = angSnap_Contact;
+
+		const float linSnap2 = linSnap * linSnap;
+		const float angSnap2 = angSnap * angSnap;
+
+		Vector3 v = rb->Velocity();
+		Vector3 w = rb->AngularVelocity();
+
+		// ---- スナップ（小さいなら0）----
+		if (v.lengthSq() < linSnap2) v = Vector3{};
+		if (w.lengthSq() < angSnap2) w = Vector3{};
+
+		// ---- 追加減衰（接触中だけ）----
+		//if (touching)
+		{
+			v.x = Damp(v.x, linDamp_Contact, dt);
+			v.y = Damp(v.y, linDamp_Contact, dt);
+			v.z = Damp(v.z, linDamp_Contact, dt);
+
+			w.x = Damp(w.x, angDamp_Contact, dt);
+			w.y = Damp(w.y, angDamp_Contact, dt);
+			w.z = Damp(w.z, angDamp_Contact, dt);
+		}
+
+		rb->SetVelocity(v);
+		rb->SetAngularVelocity(w);
 	}
 }
 

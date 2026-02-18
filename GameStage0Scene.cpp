@@ -253,7 +253,7 @@ void GameStage0Scene::ChangeState(State newState)
 	case State::Second:
 	{
 		m_pEnemyShotSecond = AddGameObject<EnemyObject>(1);
-		m_pEnemyShotSecond->SetType(Type::Melee);
+		m_pEnemyShotSecond->SetType(Type::Shot);
 		m_pEnemyShotSecond->Init();
 		m_pEnemyShotSecond->Transform()->SetPosition({ 30.0f, 10, 50.0f });
 	}
