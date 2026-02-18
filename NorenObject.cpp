@@ -24,10 +24,10 @@
 void NorenObject::Init()
 {
 	auto* tf = GetComponent<TransformComponent>();
-	float s = 1.0f;
+	float s = 2.0f;
 	//tf->SetPosition({ -15, 10, 0 });
 	tf->SetScale({ s, s, s });
-	tf->SetEulerAngles({ 3.141592F / 2 * -1, 3.141592F / 2 * 1, 0 });
+	tf->SetEulerAngles({ 3.141592F / 2 * -1, 3.141592F / 2 * 0, 0 });
 
 	// Mesh + Skeleton
 	std::vector<ID3D11ShaderResourceView*> srvs;
@@ -50,7 +50,7 @@ void NorenObject::Init()
 	m_pProvider = AddComponent<SkinMatrixProviderComponent>();
 	m_pProvider->SetUp(&m_Skeleton, animator, m_pBoneManager, Transform());
 	m_pProvider->SetMode(SkinMatrixProviderComponent::Mode::Hybrid);
-	SetupBones();
+	//SetupBones();
 
 
 	// MeshRenderer
@@ -153,6 +153,7 @@ void NorenObject::SetupBones()
 	const int indexBone30 = 13;
 	const int indexBone32 = 15;
 
+	float s = Transform()->LossyScale().x;
 	// 縦のジョイント
 	for (int num = 0; num < 4; num++)// RootBone0 .. 3
 	{
@@ -176,16 +177,16 @@ void NorenObject::SetupBones()
 			{
 				auto* joint = bone->AddComponent<BallJointComponent>();
 				joint->SetOtherObject(m_pBoneManager->GetBoneObject(i + 1));
-				joint->SetLocalAnchorA({ 0, -0.2f, 0 }); // 上向きボーン
-				joint->SetLocalAnchorB({ 0, -0.5f, 0 }); // 下向きボーン
+				joint->SetLocalAnchorA({ 0, -0.2f * s, 0 }); // 上向きボーン
+				joint->SetLocalAnchorB({ 0, -0.5f * s, 0 }); // 下向きボーン
 				joint->RegisterToPhysicsSystem();
 			}
 			else
 			{
 				auto* joint = bone->AddComponent<BallJointComponent>();
 				joint->SetOtherObject(m_pBoneManager->GetBoneObject(i + 1));
-				joint->SetLocalAnchorA({ 0,  0.5f, 0 }); // 下向きボーン
-				joint->SetLocalAnchorB({ 0, -0.5f, 0 }); // 下向きボーン
+				joint->SetLocalAnchorA({ 0,  0.5f * s, 0 }); // 下向きボーン
+				joint->SetLocalAnchorB({ 0, -0.5f * s, 0 }); // 下向きボーン
 				joint->RegisterToPhysicsSystem();
 			}
 		}
@@ -199,9 +200,18 @@ void NorenObject::SetupBones()
 			auto* bone = m_pBoneManager->GetBoneObject(i);
 			auto* joint = bone->AddComponent<BallJointComponent>();
 			joint->SetOtherObject(m_pBoneManager->GetBoneObject(i + 4));
-			joint->SetLocalAnchorA({ 0.0f,  0.0f, 0.5f }); // 下向きボーン
-			joint->SetLocalAnchorB({ 0.0f,  0.0f, -0.5f }); // 下向きボーン
+			joint->SetLocalAnchorA({ 0.0f,  0.0f,  0.5f * s }); // 下向きボーン
+			joint->SetLocalAnchorB({ 0.0f,  0.0f, -0.5f * s }); // 下向きボーン
 			joint->RegisterToPhysicsSystem();
 		}
 	}
+	//ボーンの Rigidbody のレイヤーを設定する
+	for (int i = 0; i < m_pBoneManager->GetBonesSize(); i++)
+	{
+		auto* bone = m_pBoneManager->GetBoneObject(i);
+		bone->SetPhysicsLayer(30);
+		bone->GetComponent<Rigidbody>()->SetMass(2);
+		bone->GetComponent<Rigidbody>()->SetGravityScale(5);
+	}
+
 }

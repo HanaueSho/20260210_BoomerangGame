@@ -37,6 +37,7 @@ private:
 	void CreateRockes();
 	void CreateLights();
 	void CreateChains();
+	void CreateNorens();
 };
 
 #endif

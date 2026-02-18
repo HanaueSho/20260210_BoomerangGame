@@ -166,6 +166,9 @@ void GameMainScene::Init()
 	// ½
 	CreateChains();
 
+	// ƒmƒŒƒ“
+	CreateNorens();
+
 	// ƒ‰ƒCƒgŠÖŒW
 	LightApp light = {};
 	light.enable = 1;
@@ -544,5 +547,17 @@ void GameMainScene::CreateChains()
 		chain->Transform()->SetPosition({ -90 - 5.0f * i, 17, -110 - 5.0f * i });
 		chain->Transform()->SetScale({ 1, 1, 1 });
 		chain->CreateChains(5);
+	}
+}
+
+void GameMainScene::CreateNorens()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		auto* noren = AddGameObject<NorenObject>(1);
+		noren->Init();
+		noren->Transform()->SetPosition({ -95 + 6.0f * i, 10, -95 + 6.0f * i });
+		noren->Transform()->RotateAxis({ 0,1,0 }, 3.1415926535f / 4);
+		noren->SetupBones();
 	}
 }
