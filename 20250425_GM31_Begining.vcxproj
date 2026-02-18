@@ -179,6 +179,7 @@
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="CameraFollowComponent.cpp" />
     <ClCompile Include="CameraMove.cpp" />
+    <ClCompile Include="ChainObject.cpp" />
     <ClCompile Include="CharacterControllerComponent.cpp" />
     <ClCompile Include="Collision.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -300,6 +301,7 @@
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="CameraFollowComponent.h" />
     <ClInclude Include="CameraMove.h" />
+    <ClInclude Include="ChainObject.h" />
     <ClInclude Include="CharacterControllerComponent.h" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="ColliderPose.h" />

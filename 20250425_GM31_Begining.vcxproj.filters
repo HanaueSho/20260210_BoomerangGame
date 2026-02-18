@@ -199,6 +199,9 @@
     <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\LightObject">
       <UniqueIdentifier>{7fe73d28-8178-46df-8f81-963ac4395af8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\5.ゲームオブジェクト\Object\Chain">
+      <UniqueIdentifier>{3eec0f89-bdfd-42f8-ac14-ef797fdfbebd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioSource.cpp">
@@ -485,6 +488,9 @@
     </ClCompile>
     <ClCompile Include="LightObject.cpp">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\LightObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ChainObject.cpp">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Chain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -892,6 +898,9 @@
     </ClInclude>
     <ClInclude Include="LightObject.h">
       <Filter>ソース ファイル\5.ゲームオブジェクト\Object\LightObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ChainObject.h">
+      <Filter>ソース ファイル\5.ゲームオブジェクト\Object\Chain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

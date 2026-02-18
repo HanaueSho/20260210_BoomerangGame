@@ -35,6 +35,7 @@
 #include "DecoySwitchObject.h"
 #include "OperateSpriteObject.h"
 #include "RockObject.h"
+#include "ChainObject.h"
 
 // Component
 #include "CameraFollowComponent.h"
@@ -161,6 +162,9 @@ void GameMainScene::Init()
 
 	// ライト
 	CreateLights();
+
+	// 鎖
+	CreateChains();
 
 	// ライト関係
 	LightApp light = {};
@@ -529,4 +533,16 @@ void GameMainScene::CreateLights()
 	}
 
 
+}
+
+void GameMainScene::CreateChains()
+{
+	for(int i = 0; i < 3; i++)
+	{
+		auto* chain = AddGameObject<ChainObject>(1);
+		chain->Init();
+		chain->Transform()->SetPosition({ -90 - 5.0f * i, 17, -110 - 5.0f * i });
+		chain->Transform()->SetScale({ 1, 1, 1 });
+		chain->CreateChains(5);
+	}
 }
