@@ -31,8 +31,11 @@ void PlayerStateJump::Update(PlayerStateManagerComponent& manager, float dt)
 	// ‹ó’†ƒWƒƒƒ“ƒv
 	if (InputSystem::IsJumpDownTrigger())
 	{
-		manager.GetModelAnime()->PlayAnimeJumpAir();
-		manager.GetCC()->OnJumpPressed();
+		if (manager.GetCC()->AirJumpsUsed() < manager.GetCC()->MaxAirJumps())
+		{
+			manager.GetModelAnime()->PlayAnimeJumpAir();
+			manager.GetCC()->OnJumpPressed();
+		}
 	}
 
 	// ----- ó‘Ô‘JˆÚ -----

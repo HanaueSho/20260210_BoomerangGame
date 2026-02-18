@@ -143,6 +143,8 @@ public:
 	const Vector3& GroundNormal() const { return m_GroundNormal; }
 	const Vector3& ActualVelocity() const { return m_ActualVelocity; }
 	float MaxMoveSpeed() const { return m_Settings.maxSpeed; }
+	int MaxAirJumps() const{ return m_Settings.maxAirJumps; }
+	int AirJumpsUsed() const { return m_AirJumpsUsed; }
 
 	// ==================================================
 	// セッター

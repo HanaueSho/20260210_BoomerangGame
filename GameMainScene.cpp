@@ -362,7 +362,7 @@ void GameMainScene::CreateTrees()
 	float radiusBase = 280.0f;
 
 	// n ŠpŒ`‚ğì‚é
-	const int numVertex = 8 * 6;
+	const int numVertex = 8 * 2;
 	for (int j = 0; j < 5; j++)
 	{
 		float radius = radiusBase + 50 * Random::Random01() + j * 30.0f;
@@ -370,8 +370,8 @@ void GameMainScene::CreateTrees()
 		for (int i = 0; i < numVertex; i++)
 		{
 			float rad = myPI * 2.0f / numVertex * i; rad += j * 2;
-			float x = cosf(rad) * radius + 50.0f * Random::Random01();
-			float z = sinf(rad) * radius + 50.0f * Random::Random01();
+			float x = cosf(rad) * radius + 100.0f * Random::Random01();
+			float z = sinf(rad) * radius + 100.0f * Random::Random01();
 			Vector3 position = { x, -5, z };
 
 			Vector3 scale = { s, s, s };
@@ -391,7 +391,7 @@ void GameMainScene::CreateApples()
 	{
 		Vector3 position = { 0, 3, -150 };
 		Vector3 vect = { -1, 0, 1 }; vect.normalize();
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 8; i++)
 		{
 			Vector3 scale = { 2, 2, 2 };
 			float random = Random::Random01() * 0.5f;
@@ -432,7 +432,7 @@ void GameMainScene::CreateBoxes()
 	{
 		Vector3 position = { 20, 5, -20 };
 		Vector3 vect = { -1, 0, 1 }; vect.normalize();
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 6; i++)
 		{
 			Vector3 scale = { 8, 8, 8 };
 			float random = Random::Random01() * 3.0f;
@@ -540,7 +540,7 @@ void GameMainScene::CreateLights()
 
 void GameMainScene::CreateChains()
 {
-	for(int i = 0; i < 3; i++)
+	for(int i = 0; i < 0; i++)
 	{
 		auto* chain = AddGameObject<ChainObject>(1);
 		chain->Init();
@@ -552,7 +552,7 @@ void GameMainScene::CreateChains()
 
 void GameMainScene::CreateNorens()
 {
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 0; i++)
 	{
 		auto* noren = AddGameObject<NorenObject>(1);
 		noren->Init();
