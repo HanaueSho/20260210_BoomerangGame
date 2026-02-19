@@ -10,11 +10,13 @@
 #include "Camera.h"
 #include "Keyboard.h"
 #include "Input.h"
+#include "InputSystem.h"
 #include "Game.h"
 #include "GameMainScene.h"
 #include "PlayroomScene.h"
 #include "GameStage0Scene.h"
 #include "FadeSpriteObject.h"
+#include "Main.h"
 
 
 void Title::Init()
@@ -23,8 +25,22 @@ void Title::Init()
 
 	Camera* pCamera = AddGameObject<Camera>(0);
 	pCamera->Init();
-	Polygon2D* pPolygon = AddGameObject<Polygon2D>(2);
-	pPolygon->Init();
+	// titleTexture
+	{
+		Polygon2D* pPolygon = AddGameObject<Polygon2D>(2);
+		pPolygon->Init();
+		pPolygon->SetTexture("assets\\texture\\titleTexture.png");
+		pPolygon->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT, false);
+	}
+	{
+		Polygon2D* pPolygon = AddGameObject<Polygon2D>(2);
+		pPolygon->Init();
+		pPolygon->SetTexture("assets\\texture\\pressAnyButton.png");
+		pPolygon->SetSize(500.0f, 200.0f, true);
+		pPolygon->SetBlink(true);
+		pPolygon->Transform()->SetPosition({ SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT /2.0f + 200.0f, 0 });
+	}
+
 
 	auto* fade = AddGameObject<FadeSpriteObject>(2);
 	fade->Init();
@@ -44,7 +60,7 @@ void Title::Update(float gameDt, float realDt)
 	auto* fade = GetGameObject<FadeSpriteObject>();
 
 
-	if (Keyboard_IsKeyDownTrigger(KK_ENTER) || Input::Pad(0).IsPressed(PadButton::START))
+	if (Keyboard_IsKeyDownTrigger(KK_ENTER) || InputSystem::AnyButtonDown())
 	{
 		fade->FadeIn();
 		m_IsFadeChangeScene = true;

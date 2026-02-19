@@ -100,7 +100,7 @@ public:
 		return out;
 	}
 	// AnyKey
-	static bool AnyKeyDown()
+	static bool AnyButtonDown()
 	{
 		return
 			Input::Pad(0).IsDown(PadButton::A) ||

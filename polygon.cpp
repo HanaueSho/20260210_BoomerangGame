@@ -45,16 +45,49 @@ void Polygon2D::Init()
     // 4) MeshRenderer Çí«â¡Åiï`âÊé¿çsåWÅj
     auto* sr = AddComponent<SpriteRendererComponent>();
     sr->SetUI(true);
-    sr->SetOnWorld(true);
-    sr->SetColor({ 1, 1, 1, 1.0f });
+    sr->SetOnWorld(false);
+    sr->SetColor({ 1, 1, 1, m_Alpha });
 
     // SpriteAnimation
-    auto* sa = AddComponent<SpriteAnimationComponent>();
-    m_Clip.columns = 5;
-    m_Clip.rows = 1;
-    m_Clip.frameCount = 5;
-    m_Clip.fps = 10;
-    m_Clip.loopDefault = true;
-    sa->SetClip(&m_Clip);
+    //auto* sa = AddComponent<SpriteAnimationComponent>();
+    //m_Clip.columns = 5;
+    //m_Clip.rows = 1;
+    //m_Clip.frameCount = 5;
+    //m_Clip.fps = 10;
+    //m_Clip.loopDefault = true;
+    //sa->SetClip(&m_Clip);
+}
+
+void Polygon2D::Update(float gameDt, float realDt)
+{
+    GameObject::Update(gameDt, realDt);
+
+    if (m_IsBlink)
+    {
+        m_Radian += gameDt * 3;
+        if (m_Radian > 3.1415926535f)
+        {
+            m_Radian -= 3.1415926535f;
+        }
+
+        m_Alpha = sinf(m_Radian);
+
+        auto* sr = GetComponent<SpriteRendererComponent>();
+        sr->SetColor({ 1, 1, 1, m_Alpha });
+    }
+
+}
+
+void Polygon2D::SetTexture(const char* path)
+{
+    ID3D11ShaderResourceView* srv = Texture::LoadAndRegisterKey(path);
+    auto* mat = GetComponent<MaterialComponent>();
+    mat->SetMainTexture(srv, /*sampler*/nullptr, /*takeSrv*/false, /*takeSamp*/false);
+}
+
+void Polygon2D::SetSize(float width, float height, bool center)
+{
+    auto* mf = GetComponent<MeshFilterComponent>();
+    MeshFactory::CreateQuad2D(mf, { width, height, center });
 }
 
