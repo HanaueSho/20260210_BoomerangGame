@@ -72,10 +72,10 @@ void GameMainScene::Init()
 		pCamera->AddComponent<CameraFollowComponent>();
 
 		auto* as = pCamera->AddComponent<AudioSource>();
-		AudioBank::Pin("assets\\audio\\BGMresult.wav");
-		as->SetClip(AudioBank::Get("assets\\audio\\BGMresult.wav"));
+		AudioBank::Pin("assets\\audio\\BGM_Main.wav");
+		as->SetClip(AudioBank::Get("assets\\audio\\BGM_Main.wav"));
 		as->SetVolume(0.5f);
-		//as->Play();
+		as->Play();
 	}
 	{
 		// 2DƒJƒƒ‰
