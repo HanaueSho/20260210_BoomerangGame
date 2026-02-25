@@ -124,6 +124,8 @@ void ModelAnimeObject::Uninit()
 {
 	delete m_pBoneManager;
 	m_pBoneManager = nullptr;
+	delete m_pController;
+	m_pController = nullptr;
 	GameObject::Uninit();
 }
 

@@ -143,7 +143,13 @@ void Renderer::Uninit()
 	m_CB_Material.Reset();
 	m_CB_Object.Reset();
 	m_CB_Camera.Reset();
-
+	m_CB_PointLights.Reset();
+	m_CB_Toon.Reset();
+	m_CB_CameraLight.Reset();
+	m_CB_Outline.Reset();
+	m_CB_PointLightIndexes.Reset();
+	m_CB_Skin.Reset();
+	m_CB_Sprite.Reset();
 	// ブレンドステート
 	m_BS_Opaque.Reset();
 	m_BS_Alpha.Reset();

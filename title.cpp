@@ -12,6 +12,7 @@
 #include "Input.h"
 #include "InputSystem.h"
 #include "Game.h"
+#include "Result.h"
 #include "GameMainScene.h"
 #include "PlayroomScene.h"
 #include "GameStage0Scene.h"
@@ -78,6 +79,7 @@ void Title::Update(float gameDt, float realDt)
 			Manager::SetScene<GameMainScene>();
 			//Manager::SetScene<Game>();
 			//Manager::SetScene<PlayroomScene>();
+			//Manager::SetScene<Result>();
 		}
 	}
 

@@ -11,8 +11,11 @@ float  Manager::s_TimeScale      = 1.0f;
 float  Manager::s_HitStopRemain  = 0.0f;
 float  Manager::s_HitStopEpsilon = 0.0f;
 
+//_CrtMemState g_S1, g_S2, g_S3;
+
 void Manager::Init()
 {
+	//_CrtMemCheckpoint(&g_S1);
 	//m_pScene = new Game();
 	m_pScene = new Title();
 	//m_pScene = new GameMainScene();
@@ -22,6 +25,11 @@ void Manager::Uninit()
 {
 	m_pScene->Uninit();
 	delete m_pScene;
+	/*_CrtMemCheckpoint(&g_S2);
+	_CrtMemState diff;
+	if (_CrtMemDifference(&diff, &g_S1, &g_S2)) {
+		_CrtMemDumpStatistics(&diff);
+	}*/
 }
 void Manager::Update(float dt)
 {

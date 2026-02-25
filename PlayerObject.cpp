@@ -76,11 +76,11 @@ void PlayerObject::Init()
 
 void PlayerObject::Uninit()
 {
-	for (int i = 0; i < 6; i++)
-	{
-		if (m_pHealthSprite[i])
-			m_pHealthSprite[i]->Uninit();
-	}
+	//for (int i = 0; i < 6; i++)
+	//{
+	//	if (m_pHealthSprite[i])
+	//		m_pHealthSprite[i]->RequestDestroy();
+	//}
 	GameObject::Uninit();
 }
 

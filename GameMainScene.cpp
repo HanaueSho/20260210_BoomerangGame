@@ -161,7 +161,7 @@ void GameMainScene::Init()
 	CreateRockes();
 
 	// ÉâÉCÉg
-	CreateLights();
+	//CreateLights();
 
 	// çΩ
 	CreateChains();
@@ -540,7 +540,7 @@ void GameMainScene::CreateLights()
 
 void GameMainScene::CreateChains()
 {
-	for(int i = 0; i < 0; i++)
+	for(int i = 0; i < 2; i++)
 	{
 		auto* chain = AddGameObject<ChainObject>(1);
 		chain->Init();
@@ -552,7 +552,7 @@ void GameMainScene::CreateChains()
 
 void GameMainScene::CreateNorens()
 {
-	for (int i = 0; i < 0; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		auto* noren = AddGameObject<NorenObject>(1);
 		noren->Init();
