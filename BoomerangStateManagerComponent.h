@@ -7,6 +7,7 @@
 #include <vector>
 #include "Component.h"
 #include "Vector3.h"
+#include "BoomerangObject.h"
 
 class BoomerangStateManagerComponent : public Component
 {

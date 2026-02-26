@@ -35,6 +35,7 @@ void PlayerStateJump::Update(PlayerStateManagerComponent& manager, float dt)
 		{
 			manager.GetModelAnime()->PlayAnimeJumpAir();
 			manager.GetCC()->OnJumpPressed();
+			dynamic_cast<PlayerObject*>(manager.Owner())->GetAudioJumpAir()->Play(false);
 		}
 	}
 
@@ -43,11 +44,11 @@ void PlayerStateJump::Update(PlayerStateManagerComponent& manager, float dt)
 	if (manager.GetCC()->IsGround())
 	{
 		manager.ChangeState(PlayerStateId::Idle);
+		dynamic_cast<PlayerObject*>(manager.Owner())->GetAudioGround()->Play(false);
 	}
 	// ƒGƒCƒ€‘JˆÚ
 	if (InputSystem::IsToAimDown())
 	{
-
 		if (manager.GetBoomerang()->IsStateIdle())
 			manager.ChangeState(PlayerStateId::Aim);
 	}

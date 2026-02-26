@@ -16,6 +16,7 @@
 #include "MarkSpriteObject.h"
 #include "TargetSpriteObject.h"
 #include "DamageComponent.h"
+#include "EnemyObject.h"
 
 void EnemyStateManagerComponent::Init()
 {
@@ -100,12 +101,16 @@ void EnemyStateManagerComponent::ChangeState(State newState)
 	case State::Idle:
 		break;
 	case State::Ready:
+		// SE
+		dynamic_cast<EnemyObject*>(Owner())->GetAudioReady()->Stop();
 		break;
 	case State::Attack:
 		if (m_ModelAnimeType == Type::Melee)
 		{
 			// UŒ‚”»’è–³Œø‰»
 			m_pModelAnime->GetAttackObject()->GetComponent<DamageComponent>()->SetActive(false);
+			// SE
+			dynamic_cast<EnemyObject*>(Owner())->GetAudioAttack()->Stop();
 		}
 		break;
 	case State::Dead:
@@ -128,6 +133,8 @@ void EnemyStateManagerComponent::ChangeState(State newState)
 			m_pModelAnime->PlayAnimeIdle();
 			m_pModelAnime->SetSpeedAnime(1.5f);
 			SetSettings(3);
+			// SE
+			dynamic_cast<EnemyObject*>(Owner())->GetAudioShot()->Play(false);
 		}
 		break;
 	case State::Ready:
@@ -136,6 +143,8 @@ void EnemyStateManagerComponent::ChangeState(State newState)
 			m_pModelAnime->PlayAnimeReady();
 			m_pModelAnime->SetSpeedAnime(0.5f);
 			SetSettings(1);
+			// SE
+			dynamic_cast<EnemyObject*>(Owner())->GetAudioReady()->Play(false);
 		}
 		else if (m_ModelAnimeType == Type::Shot)
 		{
@@ -155,6 +164,8 @@ void EnemyStateManagerComponent::ChangeState(State newState)
 
 			// UŒ‚”»’è—LŒø‰»
 			m_pModelAnime->GetAttackObject()->GetComponent<DamageComponent>()->SetActive(true);
+			// SE
+			dynamic_cast<EnemyObject*>(Owner())->GetAudioAttack()->Play(true);
 		}
 		else if (m_ModelAnimeType == Type::Shot)
 		{

@@ -35,6 +35,7 @@ void PlayerStateIdle::Update(PlayerStateManagerComponent& manager, float dt)
 	{
 		manager.GetCC()->OnJumpPressed();
 		manager.ChangeState(PlayerStateId::Jump);
+		dynamic_cast<PlayerObject*>(manager.Owner())->GetAudioJump()->Play(false);
 	}
 	// —Ž‰º‘JˆÚ
 	if (!manager.GetCC()->IsGround())

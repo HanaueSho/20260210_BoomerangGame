@@ -18,6 +18,7 @@ void PlayerStateKick::Enter(PlayerStateManagerComponent& manager)
 
 	// タイマー初期化
 	m_Timer = 0.0f;
+	
 }
 
 void PlayerStateKick::Update(PlayerStateManagerComponent& manager, float dt)
@@ -26,6 +27,7 @@ void PlayerStateKick::Update(PlayerStateManagerComponent& manager, float dt)
 	if (m_Timer > 0.5f)
 	{
 		manager.ChangeState(PlayerStateId::Idle);
+		dynamic_cast<PlayerObject*>(manager.Owner())->GetAudioKick()->Play(false);
 	}
 }
 

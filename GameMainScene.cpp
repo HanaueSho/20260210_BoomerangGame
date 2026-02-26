@@ -362,7 +362,7 @@ void GameMainScene::CreateTrees()
 	float radiusBase = 280.0f;
 
 	// n ŠpŒ`‚ğì‚é
-	const int numVertex = 8 * 6;
+	const int numVertex = 8 * 2;
 	for (int j = 0; j < 5; j++)
 	{
 		float radius = radiusBase + 50 * Random::Random01() + j * 30.0f;

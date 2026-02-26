@@ -38,7 +38,7 @@ void ModelAnimeObject::Init()
 	auto* animator = AddComponent<AnimatorComponent>();
 	m_ClipIdle = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Idle.fbx", m_Skeleton, 0);
 	m_ClipWalk = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Walk.fbx", m_Skeleton, 0);
-	m_ClipRun  = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Run.fbx", m_Skeleton, 0);
+	m_ClipRun  = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_002_Run.fbx", m_Skeleton, 0);
 	m_ClipJump = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_002_Jump.fbx", m_Skeleton, 0);
 	m_ClipJumpAir = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_JumpAir.fbx", m_Skeleton, 0);
 	m_ClipAim   = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Aim.fbx", m_Skeleton, 0);

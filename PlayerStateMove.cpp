@@ -12,6 +12,8 @@
 
 void PlayerStateMove::Enter(PlayerStateManagerComponent& manager)
 {
+	manager.GetModelAnime()->SetSpeedAnime(1.0f);
+	dynamic_cast<PlayerObject*>(manager.Owner())->GetAudioMove()->Play(true);
 }
 
 void PlayerStateMove::Update(PlayerStateManagerComponent& manager, float dt)
@@ -28,6 +30,7 @@ void PlayerStateMove::Update(PlayerStateManagerComponent& manager, float dt)
 	float maxSpeed = manager.GetCC()->MaxMoveSpeed();
 	manager.GetModelAnime()->SetBlendParam(speed / maxSpeed);
 	manager.GetModelAnime()->SetSpeedAnime(speed / maxSpeed * 2.0f);
+	//printf("[param] %f\n", speed / maxSpeed);
 
 	// ----- ó‘Ô‘JˆÚ -----
 	// ƒWƒƒƒ“ƒv‘JˆÚ
@@ -35,6 +38,7 @@ void PlayerStateMove::Update(PlayerStateManagerComponent& manager, float dt)
 	{
 		manager.GetCC()->OnJumpPressed();
 		manager.ChangeState(PlayerStateId::Jump);
+		dynamic_cast<PlayerObject*>(manager.Owner())->GetAudioJump()->Play(false);
 	}
 	// ‘Ò‹@‘JˆÚ
 	if (!InputSystem::IsMoveDown())
@@ -71,4 +75,5 @@ void PlayerStateMove::FixedUpdate(PlayerStateManagerComponent& manager, float fi
 
 void PlayerStateMove::Exit(PlayerStateManagerComponent& manager)
 {
+	dynamic_cast<PlayerObject*>(manager.Owner())->GetAudioMove()->Stop();
 }

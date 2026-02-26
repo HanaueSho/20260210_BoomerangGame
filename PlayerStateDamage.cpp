@@ -32,6 +32,9 @@ void PlayerStateDamage::Enter(PlayerStateManagerComponent& manager)
 	// ƒu[ƒƒ‰ƒ“‚Ìˆ—
 	if (manager.GetBoomerang()->IsStateAim())
 		manager.GetBoomerang()->ChangeStateIdle();
+
+	// SE
+	dynamic_cast<PlayerObject*>(manager.Owner())->GetAudioDamage()->Play(false);
 }
 
 void PlayerStateDamage::Update(PlayerStateManagerComponent& manager, float dt)

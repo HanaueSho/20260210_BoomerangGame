@@ -97,6 +97,9 @@ void BoomerangStateManagerComponent::OnTriggerEnter(Collider* me, Collider* othe
 			// シェイク
 			auto* camera = Manager::GetScene()->GetGameObject<Camera>();
 			camera->GetComponent<CameraFollowComponent>()->Shake(0.2f, 1.0f);
+
+			// SE
+			dynamic_cast<BoomerangObject*>(Owner())->GetAudioHit()->Play(false);
 		}
 		if (other->Owner()->Tag() == "Bullet")
 		{
@@ -133,6 +136,8 @@ void BoomerangStateManagerComponent::ChangeState(State newState)
 	case State::Throw:
 		// ターゲットクリア
 		ClearTargets();
+		// SE
+		dynamic_cast<BoomerangObject*>(Owner())->GetAudioFlight()->Stop();
 		break;
 	case State::Back:
 		break;
@@ -180,6 +185,9 @@ void BoomerangStateManagerComponent::ChangeState(State newState)
 
 		// サイズアップ
 		Owner()->Transform()->SetScale({2, 2, 2});
+
+		// SE
+		dynamic_cast<BoomerangObject*>(Owner())->GetAudioFlight()->Play(true);
 
 	}
 		break;

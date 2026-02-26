@@ -12,6 +12,7 @@
 #include "ModelLoader.h"
 #include "Keyboard.h"
 #include "Texture.h"
+#include "AudioBank.h"
 
 #include "Manager.h"
 #include "Scene.h"
@@ -102,6 +103,19 @@ void BoomerangObject::Init()
 	auto* state = AddComponent<BoomerangStateManagerComponent>();
 	state->Init();
 
+	// Œø‰Ê‰¹ŠÖŒW
+	{
+		// Move
+		AudioBank::Pin("assets\\audio\\BoomerangFlight.wav");
+		m_pAudioFlight = AddComponent<AudioSource>();
+		m_pAudioFlight->SetClip(AudioBank::Get("assets\\audio\\BoomerangFlight.wav"));
+		m_pAudioFlight->SetVolume(1.0f);
+		// Jump
+		AudioBank::Pin("assets\\audio\\BoomerangHit.wav");
+		m_pAudioHit = AddComponent<AudioSource>();
+		m_pAudioHit->SetClip(AudioBank::Get("assets\\audio\\BoomerangHit.wav"));
+		m_pAudioHit->SetVolume(1.0f);
+	}
 
 }
 

@@ -34,6 +34,9 @@ void PlayerStateAim::Enter(PlayerStateManagerComponent& manager)
 
 	// スローモーション
 	Manager::SetTimeScale(0.2f);
+
+	// SE
+	dynamic_cast<PlayerObject*>(manager.Owner())->GetAudioAim()->Play(false);
 }
 
 void PlayerStateAim::Update(PlayerStateManagerComponent& manager, float dt)
@@ -46,7 +49,6 @@ void PlayerStateAim::Update(PlayerStateManagerComponent& manager, float dt)
 	}
 
 	// 回転処理S
-
 	if (Input::Pad(0).IsConnected()) // コントローラー優先
 	{
 		float yawRadianDelta = Input::Pad(0).RX() * dt * -2.0f;
@@ -60,6 +62,7 @@ void PlayerStateAim::Update(PlayerStateManagerComponent& manager, float dt)
 		if (manager.GetBoomerang()->GetTargetsSize() > 0)
 		{
 			manager.ChangeState(PlayerStateId::Throw);
+			dynamic_cast<PlayerObject*>(manager.Owner())->GetAudioThrow()->Play(false);
 		}
 		else
 		{

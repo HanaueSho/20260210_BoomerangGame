@@ -16,6 +16,8 @@ void PlayerStateDead::Enter(PlayerStateManagerComponent& manager)
 	// ˆÚ“®§Œä
 	manager.GetCC()->SetMoveInput({ 0, 0, 0 });
 
+	// SE
+	dynamic_cast<PlayerObject*>(manager.Owner())->GetAudioDamage()->Play(false);
 }
 
 void PlayerStateDead::Update(PlayerStateManagerComponent& manager, float dt)

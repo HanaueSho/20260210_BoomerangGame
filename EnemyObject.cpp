@@ -17,6 +17,7 @@
 #include "TargetStateManagerComponent.h"
 #include "EnemyStateManagerComponent.h"
 #include "Keyboard.h"
+#include "AudioBank.h"
 
 void EnemyObject::Init()
 {
@@ -67,6 +68,25 @@ void EnemyObject::Init()
 
 	// É^ÉOê›íË
 	SetTag("Enemy");
+
+	// å¯â âπä÷åW
+	{
+		// Attack
+		AudioBank::Pin("assets\\audio\\EnemyAttack.wav");
+		m_pAudioAttack = AddComponent<AudioSource>();
+		m_pAudioAttack->SetClip(AudioBank::Get("assets\\audio\\EnemyAttack.wav"));
+		m_pAudioAttack->SetVolume(1.0f);
+		// Ready
+		AudioBank::Pin("assets\\audio\\EnemyReady.wav");
+		m_pAudioReady = AddComponent<AudioSource>();
+		m_pAudioReady->SetClip(AudioBank::Get("assets\\audio\\EnemyReady.wav"));
+		m_pAudioReady->SetVolume(1.0f);
+		// Shot
+		AudioBank::Pin("assets\\audio\\EnemyShot.wav");
+		m_pAudioShot = AddComponent<AudioSource>();
+		m_pAudioShot->SetClip(AudioBank::Get("assets\\audio\\EnemyShot.wav"));
+		m_pAudioShot->SetVolume(1.0f);
+	}
 }
 
 void EnemyObject::Update(float gameDt, float realDt)
