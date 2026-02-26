@@ -58,6 +58,16 @@ void PlayerStateIdle::Update(PlayerStateManagerComponent& manager, float dt)
 	{
 		manager.ChangeState(PlayerStateId::Push);
 	}
+	// エモート遷移
+	if (InputSystem::IsEmoteTrigger())
+	{
+		manager.ChangeState(PlayerStateId::Emote);
+	}
+	// ダンス遷移
+	if (InputSystem::IsDanceTrigger())
+	{
+		manager.ChangeState(PlayerStateId::Dance);
+	}
 
 }
 

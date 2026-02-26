@@ -25,6 +25,8 @@ private:
 	AnimationClip m_ClipDead;
 	AnimationClip m_ClipPush;
 	AnimationClip m_ClipKick;
+	AnimationClip m_ClipDance0;
+	AnimationClip m_ClipEmote0;
 	Skeleton m_Skeleton;
 	AnimatorController* m_pController = nullptr;
 	BoneManager* m_pBoneManager = nullptr;
@@ -58,6 +60,8 @@ public:
 	void PlayAnimeDead();
 	void PlayAnimePush();
 	void PlayAnimeKick();
+	void PlayAnimeDance0();
+	void PlayAnimeEmote0();
 
 	// êFÇïœÇ¶ÇÈ
 	void SetMaterialColorDefault();

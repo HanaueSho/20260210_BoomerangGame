@@ -21,6 +21,8 @@
 #include "PlayerStateDead.h"
 #include "PlayerStatePush.h"
 #include "PlayerStateKick.h"
+#include "PlayerStateEmote.h"
+#include "PlayerStateDance.h"
 #include "ModelAnimeObject.h"
 #include "CameraFollowComponent.h"
 #include "HealthComponent.h"
@@ -38,6 +40,8 @@ enum class PlayerStateId
 	Dead,  // 死亡
 	Push,  // プッシュ
 	Kick,  // キック
+	Emote,  // エモート
+	Dance,  // ダンス
 };
 
 class PlayerStateManagerComponent : public Component
@@ -56,6 +60,8 @@ private:
 	PlayerStateDead  m_StateDead;
 	PlayerStatePush  m_StatePush;
 	PlayerStateKick  m_StateKick;
+	PlayerStateEmote  m_StateEmote;
+	PlayerStateDance  m_StateDance;
 
 	// カメラ
 	GameObject* m_pCamera = nullptr;
@@ -192,6 +198,10 @@ private:
 			return &m_StatePush;
 		case PlayerStateId::Kick:
 			return &m_StateKick;
+		case PlayerStateId::Emote:
+			return &m_StateEmote;
+		case PlayerStateId::Dance:
+			return &m_StateDance;
 
 		default:
 			assert(false && "Unknown PlayerStateId");
@@ -249,6 +259,12 @@ private:
 			break;
 		case PlayerStateId::Kick:
 			printf("[PlayerState]: Kick\n");
+			break;
+		case PlayerStateId::Emote:
+			printf("[PlayerState]: Emote\n");
+			break;
+		case PlayerStateId::Dance:
+			printf("[PlayerState]: Dance\n");
 			break;
 		default:
 			printf("[PlayerState]: NoState\n");

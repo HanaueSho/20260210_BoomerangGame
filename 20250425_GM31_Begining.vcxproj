@@ -238,7 +238,9 @@
     <ClCompile Include="PlayerObject.cpp" />
     <ClCompile Include="PlayerStateAim.cpp" />
     <ClCompile Include="PlayerStateDamage.cpp" />
+    <ClCompile Include="PlayerStateDance.cpp" />
     <ClCompile Include="PlayerStateDead.cpp" />
+    <ClCompile Include="PlayerStateEmote.cpp" />
     <ClCompile Include="PlayerStateIdle.cpp" />
     <ClCompile Include="PlayerStateJump.cpp" />
     <ClCompile Include="PlayerStateKick.cpp" />
@@ -377,7 +379,9 @@
     <ClInclude Include="PlayerObject.h" />
     <ClInclude Include="PlayerStateAim.h" />
     <ClInclude Include="PlayerStateDamage.h" />
+    <ClInclude Include="PlayerStateDance.h" />
     <ClInclude Include="PlayerStateDead.h" />
+    <ClInclude Include="PlayerStateEmote.h" />
     <ClInclude Include="PlayerStateIdle.h" />
     <ClInclude Include="PlayerStateInterface.h" />
     <ClInclude Include="PlayerStateJump.h" />

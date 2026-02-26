@@ -67,7 +67,17 @@ public:
 	// ワープシーンキー入力
 	static bool IsWarpSceneTrigger()
 	{
-		return Keyboard_IsKeyDownTrigger(KK_E) || Input::Pad(0).IsPressed(PadButton::Y);
+		return Keyboard_IsKeyDownTrigger(KK_F) || Input::Pad(0).IsPressed(PadButton::Y);
+	}
+	// エモートキー入力
+	static bool IsEmoteTrigger()
+	{
+		return Keyboard_IsKeyDownTrigger(KK_R) || Input::Pad(0).IsPressed(PadButton::Down);
+	}
+	// ダンスキー入力
+	static bool IsDanceTrigger()
+	{
+		return Keyboard_IsKeyDownTrigger(KK_T) || Input::Pad(0).IsPressed(PadButton::Right)|| Input::Pad(0).IsPressed(PadButton::Left);
 	}
 
 	// 移動キーの入力値取得

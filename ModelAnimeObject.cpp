@@ -47,6 +47,8 @@ void ModelAnimeObject::Init()
 	m_ClipDead	 = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Dead.fbx", m_Skeleton, 0);
 	m_ClipPush	 = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Push.fbx", m_Skeleton, 0);
 	m_ClipKick	 = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Kick.fbx", m_Skeleton, 0);
+	m_ClipDance0 = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Dance0.fbx", m_Skeleton, 0);
+	m_ClipEmote0 = ModelLoader::BuildAnimationClipFromFile("assets\\model\\player_001_Emote0.fbx", m_Skeleton, 0);
 	assert(m_ClipIdle.duration > 0.0f);
 	assert(!m_ClipIdle.tracks.empty());
 	animator->SetSkeleton(&m_Skeleton);
@@ -215,6 +217,16 @@ void ModelAnimeObject::PlayAnimeKick()
 {
 	auto animator = GetComponent<AnimatorComponent>();
 	animator->CrossFadeFromCurrentPose(&m_ClipKick, 0.1f, false);
+}
+void ModelAnimeObject::PlayAnimeDance0()
+{
+	auto animator = GetComponent<AnimatorComponent>();
+	animator->CrossFadeFromCurrentPose(&m_ClipDance0, 0.1f, true);
+}
+void ModelAnimeObject::PlayAnimeEmote0()
+{
+	auto animator = GetComponent<AnimatorComponent>();
+	animator->CrossFadeFromCurrentPose(&m_ClipEmote0, 0.1f, false);
 }
 // êFïœÇ¶ÇÈèàóù
 void ModelAnimeObject::SetMaterialColorDefault()
