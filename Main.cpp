@@ -92,9 +92,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	Manager::Init();
 
 	// デバッグウィンドウ生成
-	AllocConsole(); // コンソールを作成
-	FILE* a = freopen("CONOUT$", "w", stdout); // stdoutをコンソールにリダイレクト
-	printf("Hello, World!\n"); // コンソールに出力
+	//AllocConsole(); // コンソールを作成
+	//FILE* a = freopen("CONOUT$", "w", stdout); // stdoutをコンソールにリダイレクト
+	//printf("Hello, World!\n"); // コンソールに出力
 
 
 	ShowWindow(g_Window, nCmdShow);

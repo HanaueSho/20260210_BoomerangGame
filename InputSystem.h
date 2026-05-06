@@ -37,22 +37,22 @@ public:
 	// エイム開始キー入力
 	static bool IsToAimDown()
 	{
-		return Mouse_IsClick(MS_CLICK_RIGHT) || Input::Pad(0).RtDown();
+		return Mouse_IsClick(MS_CLICK_RIGHT) || Input::Pad(0).LtDown();
 	}
 	// ターゲットキー入力された瞬間
 	static bool IsTargetDownTrigger()
 	{
-		return Mouse_IsClickTrigger(MS_CLICK_LEFT) || Input::Pad(0).LtPressed();
+		return Mouse_IsClickTrigger(MS_CLICK_LEFT) || Input::Pad(0).RtPressed();
 	}
 	// 投擲キー入力
 	static bool IsThrowDown()
 	{
-		return Mouse_IsClick(MS_CLICK_LEFT) || Input::Pad(0).LtDown();
+		return Mouse_IsClick(MS_CLICK_LEFT) || Input::Pad(0).RtDown();
 	}
 	// 投擲キー入力が終わった瞬間
 	static bool IsThrowUp()
 	{
-		return Mouse_IsClickUp(MS_CLICK_RIGHT) || Input::Pad(0).RtReleased();
+		return Mouse_IsClickUp(MS_CLICK_RIGHT) || Input::Pad(0).LtReleased();
 	}
 	// キックキー入力
 	static bool IsKickTrigger()

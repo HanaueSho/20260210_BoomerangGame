@@ -123,10 +123,10 @@ void GameMainScene::Init()
 		warp->GetComponent<WarpSceneComponent>()->SetType(WarpSceneComponent::Type::Stage0);
 	}
 	{
-		auto* warp = AddGameObject<WarpSceneObject>(1);
+		/*auto* warp = AddGameObject<WarpSceneObject>(1);
 		warp->Init();
 		warp->Transform()->SetPosition({ 160, 0, -80 });
-		warp->GetComponent<WarpSceneComponent>()->SetType(WarpSceneComponent::Type::Stage1);
+		warp->GetComponent<WarpSceneComponent>()->SetType(WarpSceneComponent::Type::Stage1);*/
 	}
 
 	//auto* decoySwitch = AddGameObject<DecoySwitchObject>(1);
@@ -251,20 +251,26 @@ void GameMainScene::CreateSignboards()
 		sprite->SetTypeTexture(OperateSpriteObject::Type::Stage1);
 		sprite->Transform()->SetPosition({ 190, 20, -50 });
 		sprite->Transform()->SetEulerAngles({ 0, 3.141592f / 2 * 1, 0 });
+
+		sprite = AddGameObject<OperateSpriteObject>(1);
+		sprite->Init();
+		sprite->SetTypeTexture(OperateSpriteObject::Type::Ybutton);
+		sprite->Transform()->SetPosition({ 180, 20, -50 });
+		sprite->Transform()->SetEulerAngles({ 0, 3.141592f / 2 * 1, 0 });
 	}
 	 
 	// ステージ１
 	{
-		auto* signboard = AddGameObject<SignboardObject>(1);
-		signboard->Init();
-		signboard->Transform()->SetPosition({ 170, -3, -80 });
-		signboard->Transform()->SetEulerAngles({ 3.141592f / 2 * 3, 3.141592f / 2 * 3 , 0 });
+		//auto* signboard = AddGameObject<SignboardObject>(1);
+		//signboard->Init();
+		//signboard->Transform()->SetPosition({ 170, -3, -80 });
+		//signboard->Transform()->SetEulerAngles({ 3.141592f / 2 * 3, 3.141592f / 2 * 3 , 0 });
 
-		auto* sprite = AddGameObject<OperateSpriteObject>(1);
-		sprite->Init();
-		sprite->SetTypeTexture(OperateSpriteObject::Type::Stage2);
-		sprite->Transform()->SetPosition({ 170, 20, -80 });
-		sprite->Transform()->SetEulerAngles({ 0, 3.141592f / 2 * 1, 0 });
+		//auto* sprite = AddGameObject<OperateSpriteObject>(1);
+		//sprite->Init();
+		//sprite->SetTypeTexture(OperateSpriteObject::Type::Stage2);
+		//sprite->Transform()->SetPosition({ 170, 20, -80 });
+		//sprite->Transform()->SetEulerAngles({ 0, 3.141592f / 2 * 1, 0 });
 	}
 
 }

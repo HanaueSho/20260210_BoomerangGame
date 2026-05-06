@@ -112,7 +112,7 @@ void CameraFollowComponent::Follow(float dt)
 	Vector3 position = Owner()->Transform()->Position();
 	Vector3 diff = targetPosition - position;
 
-	const float k = 6.32f * 2;
+	const float k = 6.32f * 5;
 	float alpha = 1.0f - expf(-k * dt);
 	if (alpha < 0.0f) alpha = 0.0f;
 	if (alpha > 1.0f) alpha = 1.0f;

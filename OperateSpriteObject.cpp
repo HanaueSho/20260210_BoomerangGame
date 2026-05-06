@@ -100,6 +100,12 @@ void OperateSpriteObject::SetTypeTexture(Type type)
         auto* mf = GetComponent<MeshFilterComponent>();
         MeshFactory::CreateQuad3D(mf, { 20.0f, 15.0f, true });
     }
+    else if (m_Type == Type::Ybutton)
+    {
+        srv = Texture::LoadAndRegisterKey("assets\\texture\\Ybutton.png");
+        auto* mf = GetComponent<MeshFilterComponent>();
+        MeshFactory::CreateQuad3D(mf, { 5.0f, 5.0f, true });
+    }
 
     mat->SetMainTexture(srv, /*sampler*/nullptr, /*takeSrv*/false, /*takeSamp*/false);
 }

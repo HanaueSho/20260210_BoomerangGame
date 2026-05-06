@@ -14,7 +14,8 @@ public:
 		Movement,
 		Throw,
 		Stage1,
-		Stage2
+		Stage2,
+		Ybutton
 	};
 private:
 	float m_MaxDistance = 100.0f;
